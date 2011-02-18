@@ -1,0 +1,25 @@
+Hitachi Optimizing Linkage Editor (Ver. 7.1.03.000)18-Feb-2011 22:02:57
+
+*** Options ***
+
+-subcommand=C:\users\thomas\Temp\hmk4d9c.tmp
+noprelink
+sdebug
+rom D=R
+nomessage
+list "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\FXADDINror.map"
+show symbol
+nooptimize
+start P_TOP,P,C,D,C$VTBL,C$INIT/0300200,B_BR_Size,B,R/08100000
+fsymbol P
+nologo
+input "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\Bob.obj" "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\button.obj" "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\Draw.obj" "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\levels.obj" "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\logic.obj"
+input "C:\Program Files\fx-9860G SDK\OS\FX\lib\setup.obj"
+library "C:\Program Files\fx-9860G SDK\OS\FX\lib\fx9860G_library.lib"
+output "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\FXADDINror.abs"
+-nomessage=1100
+end
+
+*** Error information ***
+
+** L2300 (E) Duplicate symbol "_lvl1_Block_0" in "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\levels.obj"
