@@ -458,7 +458,7 @@ int writeH(int levelnum) {
 	
 	for (first = 0; first < 3; first++) {
 		for (row = 0; row < 8; row++) {
-			fprintf(fp, "char lvl%i_", levelnum);
+			fprintf(fp, "extern char lvl%i_", levelnum);
 			switch (first) {
 				case 0:
 					fprintf(fp, "Block_");

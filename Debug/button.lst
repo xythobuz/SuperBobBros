@@ -1,4 +1,4 @@
-SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 18-Feb-2011 21:51:56  PAGE    1
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 02-Mar-2011 20:13:38  PAGE    1
 
 ************ OBJECT LISTING ************
 
@@ -64,7 +64,7 @@ P   00000000              _getButtons:                     ; function: getButton
 
 
 
-SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 18-Feb-2011 21:51:56  PAGE    2
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 02-Mar-2011 20:13:38  PAGE    2
 
 
 SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
@@ -130,7 +130,7 @@ SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
 
 
 
-SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 18-Feb-2011 21:51:56  PAGE    1
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 02-Mar-2011 20:13:38  PAGE    1
 
 
 ******** STATISTICS INFORMATION ********
@@ -199,5 +199,5 @@ NUMBER OF INTERNAL/EXTERNAL SYMBOLS:            10
 *** COMMAND PARAMETER ***
 
 
-  -subcommand=C:\users\thomas\Temp\hmkf735.tmp 
+  -subcommand=C:\users\thomas\Temp\hmk53c3.tmp 
 

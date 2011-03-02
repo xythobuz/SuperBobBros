@@ -1,8 +1,8 @@
-Hitachi Optimizing Linkage Editor (Ver. 7.1.03.000)18-Feb-2011 22:02:57
+Hitachi Optimizing Linkage Editor (Ver. 7.1.03.000)02-Mar-2011 20:13:42
 
 *** Options ***
 
--subcommand=C:\users\thomas\Temp\hmk4d9c.tmp
+-subcommand=C:\users\thomas\Temp\hmk63de.tmp
 noprelink
 sdebug
 rom D=R
@@ -13,7 +13,7 @@ nooptimize
 start P_TOP,P,C,D,C$VTBL,C$INIT/0300200,B_BR_Size,B,R/08100000
 fsymbol P
 nologo
-input "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\Bob.obj" "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\button.obj" "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\Draw.obj" "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\levels.obj" "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\logic.obj"
+input "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\Bob.obj" "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\button.obj" "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\Draw.obj" "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\logic.obj" "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\levels.obj"
 input "C:\Program Files\fx-9860G SDK\OS\FX\lib\setup.obj"
 library "C:\Program Files\fx-9860G SDK\OS\FX\lib\fx9860G_library.lib"
 output "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\FXADDINror.abs"
@@ -22,4 +22,535 @@ end
 
 *** Error information ***
 
-** L2300 (E) Duplicate symbol "_lvl1_Block_0" in "Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\levels.obj"
+*** Mapping List ***
+
+SECTION                            START      END         SIZE   ALIGN
+
+P_TOP
+                                  00300200  0030020b         c   4
+P
+                                  0030020c  0030220b      2000   4
+C
+                                  0030220c  003023bb       1b0   4
+D
+                                  003023bc  00302433        78   4
+B_BR_Size
+                                  08100000  08100003         4   4
+B
+                                  08100004  0810000b         8   4
+R
+                                  0810000c  08100083        78   4
+
+*** Symbol List ***
+
+SECTION=
+FILE=                               START        END    SIZE
+  SYMBOL                            ADDR        SIZE    INFO      COUNTS  OPT
+
+SECTION=P_TOP
+FILE=Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\Bob.obj
+                                  00300200  0030020b         c
+  _InitializeSystem
+                                  00300200         c   func ,g         * 
+
+SECTION=P
+FILE=Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\Bob.obj
+                                  0030020c  0030027f        74
+  _AddIn_main
+                                  0030020c        74   func ,g         * 
+FILE=Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\button.obj
+                                  00300280  00300313        94
+  _getButtons
+                                  00300280        94   func ,g         * 
+FILE=Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\Draw.obj
+                                  00300314  003008ff       5ec
+  _set
+                                  00300314        30   func ,g         * 
+  _unset
+                                  00300344        30   func ,g         * 
+  _translate
+                                  00300374         8   func ,g         * 
+  _DrawBlock
+                                  0030037c        c0   func ,g         * 
+  _DrawBox
+                                  0030043c       11c   func ,g         * 
+  _DrawCoin
+                                  00300558        d8   func ,g         * 
+  _clear
+                                  00300630         6   func ,g         * 
+  _draw
+                                  00300636         e   func ,g         * 
+  _DrawPlayer
+                                  00300644       2bc   func ,g         * 
+FILE=Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\logic.obj
+                                  00300900  0030171f       e20
+  _getBlock1
+                                  00300900        5e   func ,g         * 
+  _getBox1
+                                  0030095e        5e   func ,g         * 
+  _getCoin1
+                                  003009bc        5e   func ,g         * 
+  _setCoin1
+                                  00300a1a        ba   func ,g         * 
+  _setBox1
+                                  00300ad4        5a   func ,g         * 
+  _DrawLevel1
+                                  00300b2e        d4   func ,g         * 
+  _timer_1
+                                  00300c02        82   func ,g         * 
+  _PlayLevel1
+                                  00300c84       20c   func ,g         * 
+  _move
+                                  00300e90        4c   func ,g         * 
+  _drawHUD
+                                  00300edc        40   func ,g         * 
+  _intToString
+                                  00300f1c        a8   func ,g         * 
+  _getPixel
+                                  00300fc4         e   func ,g         * 
+  _isBlock1
+                                  00300fd2        4e   func ,g         * 
+  _isBox1
+                                  00301020        4e   func ,g         * 
+  _isCoin1
+                                  0030106e        4e   func ,g         * 
+  _removeCoin1
+                                  003010bc        4a   func ,g         * 
+  _removeBox1
+                                  00301106        4a   func ,g         * 
+  _colPlayerHori1
+                                  00301150       16a   func ,g         * 
+  _colPlayerVert1
+                                  003012ba       1ba   func ,g         * 
+  _translateBack
+                                  00301474        36   func ,g         * 
+  _gravity1
+                                  003014aa       20e   func ,g         * 
+  _killed
+                                  003016b8        68   func ,g         * 
+FILE=Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\levels.obj
+                                  00301720  003017bf        a0
+  _getsizeBlock1
+                                  00301720        38   func ,g         * 
+  _getsizeBox1
+                                  00301758        34   func ,g         * 
+  _getsizeCoin1
+                                  0030178c        34   func ,g         * 
+FILE=C:\Program Files\fx-9860G SDK\OS\FX\lib\setup.obj
+                                  003017c0  003018db       11c
+  ___LINK_PROTECT
+                                  003017c0         4   func ,g         * 
+  _SetQuitHandler
+                                  003017c4         6   func ,g         * 
+  _OnAppCloseDefault
+                                  003017ca        54   func ,g         * 
+  __INITSCT_ADDIN
+                                  0030181e        48   func ,g         * 
+  _INIT_ADDIN_APPLICATION
+                                  00301866        76   func ,g         * 
+FILE=_Bdel_cychdr
+                                  003018dc  003018eb        10
+  _Bdel_cychdr
+                                  003018dc         0   none ,g         * 
+FILE=_Bdisp_AllClr_DD
+                                  003018ec  003018fb        10
+  _Bdisp_AllClr_DD
+                                  003018ec         0   none ,g         * 
+FILE=_Bdisp_AllClr_DDVRAM
+                                  003018fc  0030190b        10
+  _Bdisp_AllClr_DDVRAM
+                                  003018fc         0   none ,g         * 
+FILE=_Bdisp_AllClr_VRAM
+                                  0030190c  0030191b        10
+  _Bdisp_AllClr_VRAM
+                                  0030190c         0   none ,g         * 
+FILE=_Bdisp_GetPoint_VRAM
+                                  0030191c  0030192b        10
+  _Bdisp_GetPoint_VRAM
+                                  0030191c         0   none ,g         * 
+FILE=_Bdisp_PutDisp_DD
+                                  0030192c  0030193b        10
+  _Bdisp_PutDisp_DD
+                                  0030192c         0   none ,g         * 
+FILE=_Bdisp_SetPoint_VRAM
+                                  0030193c  0030194b        10
+  _Bdisp_SetPoint_VRAM
+                                  0030193c         0   none ,g         * 
+FILE=_BfileFLS_CloseFile
+                                  0030194c  0030195b        10
+  _BfileFLS_CloseFile
+                                  0030194c         0   none ,g         * 
+FILE=_Bkey_Set_RepeatTime_Default
+                                  0030195c  0030196b        10
+  _Bkey_Set_RepeatTime_Default
+                                  0030195c         0   none ,g         * 
+FILE=_CallbackAtQuitMainFunction
+                                  0030196c  0030197b        10
+  _CallbackAtQuitMainFunction
+                                  0030196c         0   none ,g         * 
+FILE=_flsFindClose
+                                  0030197c  0030198b        10
+  _flsFindClose
+                                  0030197c         0   none ,g         * 
+FILE=_getkey
+                                  0030198c  0030199b        10
+  _GetKey
+                                  0030198c         0   none ,g         * 
+FILE=_GLibAddinAplExecutionCheck
+                                  0030199c  003019ab        10
+  _GLibAddinAplExecutionCheck
+                                  0030199c         0   none ,g         * 
+FILE=_Hmem_SetMMU
+                                  003019ac  003019bb        10
+  _Hmem_SetMMU
+                                  003019ac         0   none ,g         * 
+FILE=_Print
+                                  003019bc  003019cb        10
+  _Print
+                                  003019bc         0   none ,g         * 
+FILE=dispbios
+                                  003019cc  00301b41       176
+  _PrintMini
+                                  003019cc        1c   func ,g         * 
+  _locate
+                                  003019e8        28   func ,g         * 
+  _Bdisp_ReadArea_DD
+                                  00301a10       132   func ,g         * 
+FILE=keybios
+                                  00301b44  00301e87       344
+  _GetKeyWait
+                                  00301b44        40   func ,g         * 
+  _Bkey_GetKeyTableInfo
+                                  00301b84        5c   func ,g         * 
+  _KeyCodeConvert
+                                  00301be0        78   func ,g         * 
+  _END$270
+                                  00301c1e         0   none ,l         * 
+  __Delay
+                                  00301c58        88   func ,g         * 
+  _Hkey_Check_Key_SDK
+                                  00301ce0       12c   func ,g         * 
+  _IsKeyDown
+                                  00301e0c        30   func ,g         * 
+  _IsKeyUp
+                                  00301e3c        4c   func ,g         * 
+FILE=timer
+                                  00301e88  00301f87       100
+  _GetSDKLibraryVersion
+                                  00301e88         6   func ,g         * 
+  _SetTimer
+                                  00301e8e        54   func ,g         * 
+  _KillTimer
+                                  00301ee2        44   func ,g         * 
+  _Sleep
+                                  00301f26        62   func ,g         * 
+FILE=__divls
+                                  00301f88  0030203b        b4
+  __divls
+                                  00301f88         0   none ,g         * 
+  divls_zero
+                                  00302026         0   none ,l         * 
+  A_errno
+                                  00302034         0   none ,l         * 
+  n_zerono
+                                  00302038         0   none ,l         * 
+FILE=__modls
+                                  0030203c  00302103        c8
+  __modls
+                                  0030203c         0   none ,g         * 
+  modls_L
+                                  003020e2         0   none ,l         * 
+  modls_zero
+                                  003020ee         0   none ,l         * 
+  A_errno
+                                  003020fc         0   none ,l         * 
+  n_zerono
+                                  00302100         0   none ,l         * 
+FILE=__s_mvn
+                                  00302104  0030213b        38
+  __slow_mvn
+                                  00302104         0   none ,g         * 
+  SMVN_B
+                                  00302112         0   none ,l         * 
+  SMVN_END
+                                  00302134         0   none ,l         * 
+FILE=_Bcre_cychdr
+                                  0030213c  0030214b        10
+  _Bcre_cychdr
+                                  0030213c         0   none ,g         * 
+FILE=_Bkey_GetKeyTableInfoJumpFunc
+                                  0030214c  0030215b        10
+  _Bkey_GetKeyTableInfoJumpFunc
+                                  0030214c         0   none ,g         * 
+FILE=_Bkey_GetKeyWait
+                                  0030215c  0030216b        10
+  _Bkey_GetKeyWait
+                                  0030215c         0   none ,g         * 
+FILE=_BSrl_DummyWAIT
+                                  0030216c  0030217b        10
+  _BSrl_DummyWAIT
+                                  0030216c         0   none ,g         * 
+FILE=_Bsta_cychdr
+                                  0030217c  0030218b        10
+  _Bsta_cychdr
+                                  0030217c         0   none ,g         * 
+FILE=_Bstp_cychdr
+                                  0030218c  0030219b        10
+  _Bstp_cychdr
+                                  0030218c         0   none ,g         * 
+FILE=_Chattering
+                                  0030219c  003021ab        10
+  _Chattering
+                                  0030219c         0   none ,g         * 
+FILE=_DD_GET
+                                  003021ac  003021bb        10
+  _DD_GET
+                                  003021ac         0   none ,g         * 
+FILE=_GLibGetAddinLibInfo
+                                  003021bc  003021cb        10
+  _GLibGetAddinLibInfo
+                                  003021bc         0   none ,g         * 
+FILE=_GLibGetOSVersionInfo
+                                  003021cc  003021db        10
+  _GLibGetOSVersionInfo
+                                  003021cc         0   none ,g         * 
+FILE=_locate
+                                  003021dc  003021eb        10
+  _locate_OS
+                                  003021dc         0   none ,g         * 
+FILE=_PrintMiniSd
+                                  003021ec  003021fb        10
+  _PrintMiniSd
+                                  003021ec         0   none ,g         * 
+FILE=_SetIntFlagPaturn
+                                  003021fc  0030220b        10
+  _SetIntFlagPaturn
+                                  003021fc         0   none ,g         * 
+
+SECTION=C
+FILE=addin_sct
+                                  00302240  00302253        14
+  _B_BGN
+                                  00302240         0   none ,g         * 
+  _B_END
+                                  00302244         0   none ,g         * 
+  _R_BGN
+                                  00302248         0   none ,g         * 
+  _R_END
+                                  0030224c         0   none ,g         * 
+  _D_ROM
+                                  00302250         0   none ,g         * 
+FILE=keybios
+                                  00302254  003023bb       168
+  _gb_KeyCodeTable
+                                  00302254       150   data ,l         * 
+  _gb_usKoState
+                                  003023a4        18   data ,l         * 
+
+SECTION=B_BR_Size
+FILE=Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\Bob.obj
+                                  08100000  08100003         4
+  _BR_Size
+                                  08100000         4   data ,g         * 
+
+SECTION=B
+FILE=Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\logic.obj
+                                  08100004  08100007         4
+  _HUDstring
+                                  08100004         4   data ,g         * 
+FILE=_errno
+                                  08100008  0810000b         4
+  __errno
+                                  08100008         4   data ,g         * 
+
+SECTION=R
+FILE=Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\Draw.obj
+                                  0810000c  0810000f         4
+  _lastWalkingState
+                                  0810000c         4   data ,g         * 
+FILE=Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\logic.obj
+                                  08100010  0810002b        1c
+  _hp
+                                  08100010         4   data ,g         * 
+  _score
+                                  08100014         4   data ,g         * 
+  _xPlayer
+                                  08100018         1   data ,g         * 
+  _yPlayer
+                                  08100019         1   data ,g         * 
+  _dirPlayer
+                                  0810001a         1   data ,g         * 
+  _viewOffset
+                                  0810001c         4   data ,g         * 
+  _isJumping
+                                  08100020         4   data ,g         * 
+  _timer1
+                                  08100024         4   data ,g         * 
+  _timer1Flag
+                                  08100028         4   data ,g         * 
+FILE=Z:\Users\thomas\Projekte\fxSDK\Bob\Debug\levels.obj
+                                  0810002c  0810007b        50
+  _lvl1_Block_0
+                                  0810002c         3   data ,g         * 
+  _lvl1_Block_1
+                                  0810002f         3   data ,g         * 
+  _lvl1_Block_2
+                                  08100032         3   data ,g         * 
+  _lvl1_Block_3
+                                  08100035         3   data ,g         * 
+  _lvl1_Block_4
+                                  08100038         3   data ,g         * 
+  _lvl1_Block_5
+                                  0810003b         4   data ,g         * 
+  _lvl1_Block_6
+                                  0810003f         4   data ,g         * 
+  _lvl1_Block_7
+                                  08100043        24   data ,g         * 
+  _lvl1_Box_0
+                                  08100067         1   data ,g         * 
+  _lvl1_Box_1
+                                  08100068         1   data ,g         * 
+  _lvl1_Box_2
+                                  08100069         1   data ,g         * 
+  _lvl1_Box_3
+                                  0810006a         1   data ,g         * 
+  _lvl1_Box_4
+                                  0810006b         1   data ,g         * 
+  _lvl1_Box_5
+                                  0810006c         4   data ,g         * 
+  _lvl1_Box_6
+                                  08100070         1   data ,g         * 
+  _lvl1_Box_7
+                                  08100071         1   data ,g         * 
+  _lvl1_Coin_0
+                                  08100072         1   data ,g         * 
+  _lvl1_Coin_1
+                                  08100073         1   data ,g         * 
+  _lvl1_Coin_2
+                                  08100074         1   data ,g         * 
+  _lvl1_Coin_3
+                                  08100075         1   data ,g         * 
+  _lvl1_Coin_4
+                                  08100076         3   data ,g         * 
+  _lvl1_Coin_5
+                                  08100079         1   data ,g         * 
+  _lvl1_Coin_6
+                                  0810007a         1   data ,g         * 
+  _lvl1_Coin_7
+                                  0810007b         1   data ,g         * 
+FILE=C:\Program Files\fx-9860G SDK\OS\FX\lib\setup.obj
+                                  0810007c  0810007f         4
+  _gb_OnAppClose
+                                  0810007c         4   data ,g         * 
+FILE=keybios
+                                  08100080  08100083         4
+  _gb_pKeyMatrix
+                                  08100080         4   data ,g         * 
+
+Absolute value symbols
+FILE=_Bdel_cychdr
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_Bdisp_AllClr_DD
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_Bdisp_AllClr_DDVRAM
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_Bdisp_AllClr_VRAM
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_Bdisp_GetPoint_VRAM
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_Bdisp_PutDisp_DD
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_Bdisp_SetPoint_VRAM
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_BfileFLS_CloseFile
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_Bkey_Set_RepeatTime_Default
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_CallbackAtQuitMainFunction
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_flsFindClose
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_getkey
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_GLibAddinAplExecutionCheck
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_Hmem_SetMMU
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_Print
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=__divls
+  zerodiv
+                                  0000044e         0   none ,l         * 
+FILE=__modls
+  zerodiv
+                                  0000044e         0   none ,l         * 
+FILE=_Bcre_cychdr
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_Bkey_GetKeyTableInfoJumpFunc
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_Bkey_GetKeyWait
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_BSrl_DummyWAIT
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_Bsta_cychdr
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_Bstp_cychdr
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_Chattering
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_DD_GET
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_GLibGetAddinLibInfo
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_GLibGetOSVersionInfo
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_locate
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_PrintMiniSd
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_SetIntFlagPaturn
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+
+*** Delete Symbols ***
+
+SYMBOL                                SIZE    INFO
+
+*** Variable Accessible with Abs8 ***
+
+SYMBOL                                SIZE    COUNTS  OPTIMIZE
+
+*** Variable Accessible with Abs16 ***
+
+SYMBOL                                SIZE    COUNTS  OPTIMIZE
+
+*** Function Call ***
+
+SYMBOL                              COUNTS  OPTIMIZE

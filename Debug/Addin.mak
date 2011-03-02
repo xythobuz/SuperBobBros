@@ -14,7 +14,7 @@ SH_EXEDIR=$(TCDIR)\bin
 
 # Hitachi SH C/C++ Compiler02 phase
 SHCC02_EXE=shc.exe
-SHCC02_DEP="$(OSDIR)\FX\include\fxlib.h" "button.h" "Draw.h" "levels.h" "logic.h"
+SHCC02_DEP="$(OSDIR)\FX\include\fxlib.h" "button.h" "Draw.h" "logic.h" "levels.h"
 
 # Hitachi SH Assembler03 phase
 SHASM03_EXE=asmsh.exe
@@ -35,10 +35,10 @@ FILEOBJ1="$(OUTDIR)\$(FILE1).obj"
 FILE2=Draw
 FILESRC2="$(APPDIR)\$(FILE2).c"
 FILEOBJ2="$(OUTDIR)\$(FILE2).obj"
-FILE3=levels
+FILE3=logic
 FILESRC3="$(APPDIR)\$(FILE3).c"
 FILEOBJ3="$(OUTDIR)\$(FILE3).obj"
-FILE4=logic
+FILE4=levels
 FILESRC4="$(APPDIR)\$(FILE4).c"
 FILEOBJ4="$(OUTDIR)\$(FILE4).obj"
 RFILE=FXADDINror
