@@ -39,6 +39,13 @@ void unset(char x, char y) {
 	}
 }
 
+char translate(char x) {
+	// Translates a Block Coordinate to a Pixle Coordinate!
+	// Takes 0 <= x <= 16
+	// Gives 0 <= x <= 127
+	return (x * 8);
+}
+
 int getPlayerPixel(char player, char anim, char mirror, char x, char y) {
 	// 0 <= x <= 6
 	// 0 <= y <= 7
@@ -158,6 +165,8 @@ int drawPlayer(char player, char direction, char x, char y) {
 int drawBlock(char x, char y) {
 	int i;
 	int j;
+	x = translate(x);
+	y = translate(y);
 	for (i = 0; i < 8; i++) {
 		for (j = 0; j < 8; j++) {
 			if (getBCPixel(i, j, BLOCK) == 1) {
@@ -170,6 +179,8 @@ int drawBlock(char x, char y) {
 int drawCoin(char x, char y) {
 	int i;
 	int j;
+	x = translate(x);
+	y = translate(y);
 	for (i = 0; i < 8; i++) {
 		for (j = 0; j < 8; j++) {
 			if (getBCPixel(i, j, COIN) == 1) {
@@ -182,6 +193,8 @@ int drawCoin(char x, char y) {
 int drawBox(char x, char y) {
 	int i;
 	int j;
+	x = translate(x);
+	y = translate(y);
 	for (i = 0; i < 7; i++) {
 		for (j = 0; j < 7; j++) {
 			if (getBoxPixel(i, j) == 1) {

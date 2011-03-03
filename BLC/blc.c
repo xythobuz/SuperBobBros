@@ -376,9 +376,9 @@ int writeC(int levelnum) {
 		fprintf(fp, "\n");
 	}
 	fprintf(fp, "\n");
-
+	
 	for (first = 0; first < 3; first++) {
-		fprintf(fp, "int getsize");
+		fprintf(fp, "char lvl%i_", levelnum);
 		switch (first) {
 			case 0:
 				fprintf(fp, "Block");
@@ -390,36 +390,29 @@ int writeC(int levelnum) {
 				fprintf(fp, "Coin");
 				break;
 		}
-		fprintf(fp, "%i(char y) {\n	switch(y) {\n", levelnum);
+		fprintf(fp, "[8] = { ");
 		for (row = 0; row < 8; row++) {
-			fprintf(fp, "		case %i:\n			return sizeof(lvl%i_", row, levelnum);
+			fprintf(fp, "lvl1_");
 			switch (first) {
 				case 0:
-					fprintf(fp, "Block_");
+					fprintf(fp, "Block");
 					break;
 				case 1:
-					fprintf(fp, "Box_");
+					fprintf(fp, "Box");
 					break;
 				case 2:
-					fprintf(fp, "Coin_");
+					fprintf(fp, "Coin");
 					break;
 			}
-			fprintf(fp, "%i) / sizeof(lvl%i_", row, levelnum);
-			switch (first) {
-				case 0:
-					fprintf(fp, "Block_");
-					break;
-				case 1:
-					fprintf(fp, "Box_");
-					break;
-				case 2:
-					fprintf(fp, "Coin_");
-					break;
+			fprintf(fp, "_%i", row);
+			if (row < 7) {
+				fprintf(fp, ", ");
+			} else {
+				fprintf(fp, " };\n");
 			}
-			fprintf(fp, "%i[0]);\n", row);
 		}
-		fprintf(fp, "\n		default:\n			return -1;\n	}\n}\n\n");
 	}
+	fprintf(fp, "\n");
 
 	fclose(fp);
 	return 0;
@@ -455,48 +448,7 @@ int writeH(int levelnum) {
 	}
 
 	fprintf(fp, "/*\n * level %i\n * generated with xythobuz' BobLevelCreator\n */\n\n", levelnum);
-	
-	for (first = 0; first < 3; first++) {
-		for (row = 0; row < 8; row++) {
-			fprintf(fp, "extern char lvl%i_", levelnum);
-			switch (first) {
-				case 0:
-					fprintf(fp, "Block_");
-					size = countChar(row, 'x');
-					break;
-				case 1:
-					fprintf(fp, "Box_");
-					size = countChar(row, 'b');
-					break;
-				case 2:
-					fprintf(fp, "Coin_");
-					size = countChar(row, 'c');
-					break;
-			}
-			if (size == -1) {
-				return -1;
-			}
-			fprintf(fp, "%i[%i];\n", row, size);
-		}
-		fprintf(fp, "\n");
-	}
-	fprintf(fp, "\n");
-
-	for (first = 0; first < 3; first++) {
-		fprintf(fp, "int getsize");
-		switch (first) {
-			case 0:
-				fprintf(fp, "Block");
-				break;
-			case 1:
-				fprintf(fp, "Box");
-				break;
-			case 2:
-				fprintf(fp, "Coin");
-				break;
-		}
-		fprintf(fp, "%i(char y);\n", levelnum);
-	}
+	fprintf(fp, "extern char **level%i[3];\n", levelnum);
 
 	fclose(fp);
 	return 0;

@@ -1,106 +1,94 @@
 /*
- * level 1
- * generated with xythobuz' BobLevelCreator
+ * levels.c
+ * By: Thomas Buck <taucher.bodensee@googlemail.com>
+ * Visit: www.xythobuz.org
  */
 #include "levels.h"
+#define BLOCK 0
+#define BOX 1
+#define COIN 2
 
-char lvl1_Block_0[3] = { 0, 20, 35 };
-char lvl1_Block_1[3] = { 0, 20, 35 };
-char lvl1_Block_2[3] = { 0, 20, 35 };
-char lvl1_Block_3[3] = { 0, 20, 35 };
-char lvl1_Block_4[3] = { 0, 20, 35 };
-char lvl1_Block_5[4] = { 0, 11, 20, 35 };
-char lvl1_Block_6[4] = { 0, 10, 11, 35 };
-char lvl1_Block_7[36] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35 };
+// levels[lvl.num.][type][y][index]
+char ***levels[1] = { level1 };
 
-char lvl1_Box_0[1] = { -1 };
-char lvl1_Box_1[1] = { -1 };
-char lvl1_Box_2[1] = { -1 };
-char lvl1_Box_3[1] = { -1 };
-char lvl1_Box_4[1] = { -1 };
-char lvl1_Box_5[4] = { 23, 24, 25, 28 };
-char lvl1_Box_6[1] = { -1 };
-char lvl1_Box_7[1] = { -1 };
-
-char lvl1_Coin_0[1] = { -1 };
-char lvl1_Coin_1[1] = { -1 };
-char lvl1_Coin_2[1] = { -1 };
-char lvl1_Coin_3[1] = { -1 };
-char lvl1_Coin_4[3] = { 4, 5, 6 };
-char lvl1_Coin_5[1] = { -1 };
-char lvl1_Coin_6[1] = { 7 };
-char lvl1_Coin_7[1] = { -1 };
-
-
-int getsizeBlock1(char y) {
-	switch(y) {
-		case 0:
-			return sizeof(lvl1_Block_0) / sizeof(lvl1_Block_0[0]);
-		case 1:
-			return sizeof(lvl1_Block_1) / sizeof(lvl1_Block_1[0]);
-		case 2:
-			return sizeof(lvl1_Block_2) / sizeof(lvl1_Block_2[0]);
-		case 3:
-			return sizeof(lvl1_Block_3) / sizeof(lvl1_Block_3[0]);
-		case 4:
-			return sizeof(lvl1_Block_4) / sizeof(lvl1_Block_4[0]);
-		case 5:
-			return sizeof(lvl1_Block_5) / sizeof(lvl1_Block_5[0]);
-		case 6:
-			return sizeof(lvl1_Block_6) / sizeof(lvl1_Block_6[0]);
-		case 7:
-			return sizeof(lvl1_Block_7) / sizeof(lvl1_Block_7[0]);
-
-		default:
-			return -1;
+int getSize(int level, int what, char y) {
+	int size = (sizeof(levels[level][what][y]) / sizeof(levels[level][what][y][0]));
+	if ((size == 1) && (levels[level][what][y][0] == -1)) {
+		return 0;
+	} else {
+		return size;
 	}
 }
 
-int getsizeBox1(char y) {
-	switch(y) {
-		case 0:
-			return sizeof(lvl1_Box_0) / sizeof(lvl1_Box_0[0]);
-		case 1:
-			return sizeof(lvl1_Box_1) / sizeof(lvl1_Box_1[0]);
-		case 2:
-			return sizeof(lvl1_Box_2) / sizeof(lvl1_Box_2[0]);
-		case 3:
-			return sizeof(lvl1_Box_3) / sizeof(lvl1_Box_3[0]);
-		case 4:
-			return sizeof(lvl1_Box_4) / sizeof(lvl1_Box_4[0]);
-		case 5:
-			return sizeof(lvl1_Box_5) / sizeof(lvl1_Box_5[0]);
-		case 6:
-			return sizeof(lvl1_Box_6) / sizeof(lvl1_Box_6[0]);
-		case 7:
-			return sizeof(lvl1_Box_7) / sizeof(lvl1_Box_7[0]);
+int getsizeBlocks(int level, char y) {
+	return getSize(level, BLOCK, y);
+}
 
-		default:
-			return -1;
+int getsizeBox(int level, char y) {
+	return getSize(level, BOX, y);
+}
+
+int getsizeCoin(int level, char y) {
+	return getSize(level, COIN, y);
+}
+
+int removeBox(int level, char x, char y) {
+	int size;
+	int i;
+	if ((x >= 0) && (y >= 0) && (x <= 15) && (y <= 7)) {
+		size = getsizeBox(level, y);
+		for (i = 0; i < size; i++) {
+			if (levels[level][BOX][y][i] == x) {
+				levels[level][BOX][y][i] = -1;
+			}
+		}
+	} else {
+		return -1;
 	}
 }
 
-int getsizeCoin1(char y) {
-	switch(y) {
-		case 0:
-			return sizeof(lvl1_Coin_0) / sizeof(lvl1_Coin_0[0]);
-		case 1:
-			return sizeof(lvl1_Coin_1) / sizeof(lvl1_Coin_1[0]);
-		case 2:
-			return sizeof(lvl1_Coin_2) / sizeof(lvl1_Coin_2[0]);
-		case 3:
-			return sizeof(lvl1_Coin_3) / sizeof(lvl1_Coin_3[0]);
-		case 4:
-			return sizeof(lvl1_Coin_4) / sizeof(lvl1_Coin_4[0]);
-		case 5:
-			return sizeof(lvl1_Coin_5) / sizeof(lvl1_Coin_5[0]);
-		case 6:
-			return sizeof(lvl1_Coin_6) / sizeof(lvl1_Coin_6[0]);
-		case 7:
-			return sizeof(lvl1_Coin_7) / sizeof(lvl1_Coin_7[0]);
-
-		default:
-			return -1;
+int removeCoin(int level, char x, char y) {
+	int size;
+	int i;
+	if ((x >= 0) && (y >= 0) && (x <= 15) && (y <= 7)) {
+		size = getsizeCoin(level, y);
+		for (i = 0; i < size; i++) {
+			if (levels[level][COIN][y][i] == x) {
+				levels[level][COIN][y][i] = -1;
+			}
+		}
+	} else {
+		return -1;
 	}
 }
+
+int isThere(int level, int what, char x, char y) {
+	int i;
+	int size;
+	int flag = 0;
+	if ((x >= 0) && (y >= 0) && (x <= 15) && (y <= 7)) {
+		size = getSize(level, what, y);
+		for (i = 0; i < size; i++) {
+			if (levels[level][what][y][i] == x) {
+				flag++;
+			}
+		}
+		return flag;
+	} else {
+		return -1;
+	}
+}
+
+int isBox(int level, char x, char y) {
+	return isThere(level, BOX, x, y);
+}
+
+int isBlock(int level, char x, char y) {
+	return isThere(level, BLOCK, x, y);
+}
+
+int isCoin(int level, char x, char y) {
+	return isThere(level, COIN, x, y);
+}
+
 
