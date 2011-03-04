@@ -12,7 +12,9 @@
 #define MAXBLOCKPROW 256
 #define MAXCOINBOXPR 50
 
+/*
 #define DEBUG
+*/
 
 int rawLevelData[MAXRAWLENGTH];
 int block0[MAXBLOCKPROW];
@@ -260,7 +262,9 @@ int formatData(int character) {
 		if (amount == -1) {
 			return -1;
 		}
+#ifdef DEBUG
 		printf("%i times %c in row %i...\n", amount, character, row);
+#endif
 		begin = findRow(row);
 		end = findEnd(row);
 		if ((begin == -1) || (end == -1)) {
@@ -320,6 +324,8 @@ int writeC(int levelnum) {
 	int first;
 	int i;
 	int size;
+	int sizehack;
+
 	path[0] = 'l';
 	path[1] = 'e';
 	path[2] = 'v';
@@ -364,14 +370,23 @@ int writeC(int levelnum) {
 			if (size == -1) {
 				return -1;
 			}
-			fprintf(fp, "%i[%i] = { ", row, (size + 1));
+			if ((size == 1) && (all[first][row][0] == -1)) {
+				sizehack = size;
+			} else {
+				sizehack = (size + 1);
+			}
+			fprintf(fp, "%i[%i] = { ", row, sizehack);
 			for (i = 0; i < size; i++) {
 				fprintf(fp, "%i", (int)all[first][row][i]);
 				if (i < (size - 1)) {
 					fprintf(fp, ", ");
 				}
 			}
-			fprintf(fp, " , -1 };\n");
+			if (sizehack != size) {
+				fprintf(fp, " , -1 };\n");
+			} else {
+				fprintf(fp, " };\n");
+			}
 		}
 		fprintf(fp, "\n");
 	}

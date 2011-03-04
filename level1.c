@@ -13,23 +13,23 @@ char lvl1_Block_5[3] = { 0, 23 , -1 };
 char lvl1_Block_6[3] = { 0, 23 , -1 };
 char lvl1_Block_7[25] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 , -1 };
 
-char lvl1_Box_0[2] = { -1 , -1 };
-char lvl1_Box_1[2] = { -1 , -1 };
-char lvl1_Box_2[2] = { -1 , -1 };
-char lvl1_Box_3[2] = { -1 , -1 };
-char lvl1_Box_4[2] = { -1 , -1 };
-char lvl1_Box_5[2] = { -1 , -1 };
-char lvl1_Box_6[2] = { -1 , -1 };
-char lvl1_Box_7[2] = { -1 , -1 };
+char lvl1_Box_0[1] = { -1 };
+char lvl1_Box_1[1] = { -1 };
+char lvl1_Box_2[1] = { -1 };
+char lvl1_Box_3[1] = { -1 };
+char lvl1_Box_4[1] = { -1 };
+char lvl1_Box_5[1] = { -1 };
+char lvl1_Box_6[1] = { -1 };
+char lvl1_Box_7[1] = { -1 };
 
-char lvl1_Coin_0[2] = { -1 , -1 };
-char lvl1_Coin_1[2] = { -1 , -1 };
-char lvl1_Coin_2[2] = { -1 , -1 };
-char lvl1_Coin_3[2] = { -1 , -1 };
-char lvl1_Coin_4[2] = { -1 , -1 };
-char lvl1_Coin_5[2] = { -1 , -1 };
-char lvl1_Coin_6[2] = { -1 , -1 };
-char lvl1_Coin_7[2] = { -1 , -1 };
+char lvl1_Coin_0[1] = { -1 };
+char lvl1_Coin_1[1] = { -1 };
+char lvl1_Coin_2[1] = { -1 };
+char lvl1_Coin_3[1] = { -1 };
+char lvl1_Coin_4[1] = { -1 };
+char lvl1_Coin_5[1] = { -1 };
+char lvl1_Coin_6[1] = { -1 };
+char lvl1_Coin_7[1] = { -1 };
 
 
 char *lvl1_Block[8] = { lvl1_Block_0, lvl1_Block_1, lvl1_Block_2, lvl1_Block_3, lvl1_Block_4, lvl1_Block_5, lvl1_Block_6, lvl1_Block_7 };
