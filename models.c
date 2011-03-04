@@ -31,7 +31,7 @@ const char bobWalkingB[8] = { 56, 116, 118, 78, 56, 16, 120, 12 };
 const char bobJumpStand[8] = { 56, 84, 68, 68, 56, 16, 124, 0 };
 const char bobJumpSide[8] = { 56, 116, 118, 78, 56, 16, 24, 0 };
 const char *bob[5] = { bobStanding, bobWalkingA, bobWalkingB, bobJumpStand, bobJumpSide };
-const char **player[1] = { bob };
+const char **playerData[1] = { bob };
 
 const char coin[8] = { 0, 60, 66, 90, 90, 66, 60, 0 };
 const char box[7] = { 198, 184, 250, 198, 238, 0, 238 };

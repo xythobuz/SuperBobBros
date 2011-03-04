@@ -7,6 +7,7 @@
  */
 #include "fxlib.h"
 #include "Draw.h"
+#include "models.h"
 
 #define WalkingA 1
 #define WalkingB 2
@@ -39,12 +40,21 @@ void unset(char x, char y) {
 	}
 }
 
+void clear() {
+	Bdisp_AllClr_VRAM();
+}
+
+void draw() {
+	Bdisp_AllClr_DD();
+	Bdisp_PutDisp_DD();
+}
+
 int getPlayerPixel(char player, char anim, char mirror, char x, char y) {
 	// 0 <= x <= 6
 	// 0 <= y <= 7
 	char value = 0;
 	if ((y < 8) && (y >= 0) && (x >= 0) && (x < 7)) {
-		value = player[player][anim][y];
+		value = playerData[player][anim][y];
 		if (mirror != 0) {
 			x = 6 - x;
 		}
@@ -97,12 +107,15 @@ int getBoxPixel(char x, char y) {
 }
 
 int drawPlayer(char player, char direction, char x, char y) {
-	// 0 <= x <= 15
-	// 0 <= y <= 7
+	// 0 <= x <= 127
+	// 0 <= y <= 63
 	int i;
 	int j;
 	char anim = 0;
 	char mirror = 0;
+	if ((x < 0) || (y < 0) || (x > 127) || (y > 63)) {
+		return -1;
+	}
 	switch (direction) {
 		case 0:
 			anim = 0;
@@ -141,16 +154,12 @@ int drawPlayer(char player, char direction, char x, char y) {
 			mirror = 0;
 			break;
 	}
-	if ((x >= 0) && (y >= 0) && (x <= 15) && (y <= 7)) {
-		for (i = 0; i < 7; i++) {
-			for (j = 0; j < 8; j++) {
-				if (getPlayerPixel(player, anim, mirror, i, j) == 1) {
-					set((x + i), (y + j));
-				}
+	for (i = 0; i < 7; i++) {
+		for (j = 0; j < 8; j++) {
+			if (getPlayerPixel(player, anim, mirror, i, j) == 1) {
+				set((x + i), (y + j));
 			}
 		}
-	} else {
-		return -1;
 	}
 	return 0;
 }
@@ -158,6 +167,9 @@ int drawPlayer(char player, char direction, char x, char y) {
 int drawBlock(char x, char y) {
 	int i;
 	int j;
+	if ((x < 0) || (y < 0) || (x > 127) || (y > 63)) {
+		return -1;
+	}
 	for (i = 0; i < 8; i++) {
 		for (j = 0; j < 8; j++) {
 			if (getBCPixel(i, j, BLOCK) == 1) {
@@ -165,11 +177,15 @@ int drawBlock(char x, char y) {
 			}
 		}
 	}
+	return 0;
 }
 
 int drawCoin(char x, char y) {
 	int i;
 	int j;
+	if ((x < 0) || (y < 0) || (x > 127) || (y > 63)) {
+		return -1;
+	}
 	for (i = 0; i < 8; i++) {
 		for (j = 0; j < 8; j++) {
 			if (getBCPixel(i, j, COIN) == 1) {
@@ -177,11 +193,15 @@ int drawCoin(char x, char y) {
 			}
 		}
 	}
+	return 0;
 }
 
 int drawBox(char x, char y) {
 	int i;
 	int j;
+	if ((x < 0) || (y < 0) || (x > 127) || (y > 63)) {
+		return -1;
+	}
 	for (i = 0; i < 7; i++) {
 		for (j = 0; j < 7; j++) {
 			if (getBoxPixel(i, j) == 1) {
@@ -189,4 +209,5 @@ int drawBox(char x, char y) {
 			}
 		}
 	}
+	return 0;
 }

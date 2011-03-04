@@ -6,6 +6,7 @@
 #include "fxlib.h"
 #include "timer.h"
 #include "keybios.h"
+#include "mechanics.h"
 
 /*
  * AddIn_main()
@@ -24,12 +25,12 @@ int AddIn_main(int isAppli, unsigned short OptionNum) {
 		Print((unsigned char*)"Clone");
 		locate(6, 6);
 		Print((unsigned char*)"by xythobuz");
-		// locate(1, 8);
-		// Print((unsigned char*)"F1:New Game F2:Passw.");
+		locate(1, 8);
+		Print((unsigned char*)"F1:New Game");
 		Bdisp_PutDisp_DD();
 		GetKey(&key);
 		if (key == KEY_CTRL_F1) {
-			PlayLevel1();
+			playLevel(1, 0);
 		}
 	}
 	return 1;

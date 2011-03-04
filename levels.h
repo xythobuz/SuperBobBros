@@ -4,6 +4,7 @@
  * Visit: www.xythobuz.org
  */
 
+// levels[lvl.num.][type][y][index]
 extern char ***levels[1];
 
 int getsizeBlocks(int level, char y);

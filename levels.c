@@ -4,20 +4,41 @@
  * Visit: www.xythobuz.org
  */
 #include "levels.h"
+#include "level1.h"
+
 #define BLOCK 0
 #define BOX 1
 #define COIN 2
+
+#define HOWMANYLEVELS 1
 
 // levels[lvl.num.][type][y][index]
 char ***levels[1] = { level1 };
 
 int getSize(int level, int what, char y) {
+	// Unfortunately, we can not use sizeof(), because it works only in the same context the array was declared...
+	// So now every level array has to end with -1. This works like \0 in a String...!
+	
+	/*
 	int size = (sizeof(levels[level][what][y]) / sizeof(levels[level][what][y][0]));
 	if ((size == 1) && (levels[level][what][y][0] == -1)) {
 		return 0;
 	} else {
 		return size;
 	}
+	*/
+
+	int i = 0;
+	if ((what < 0) || (what > 2) || (y < 0) || (y > 7)) {
+		return -1;
+	}
+	if ((level < 0) || (level >= HOWMANYLEVELS)) {
+		return -1;
+	}
+	while (levels[level][what][y][i] != -1) {
+		i++;
+	}
+	return i;
 }
 
 int getsizeBlocks(int level, char y) {

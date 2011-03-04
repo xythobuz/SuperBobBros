@@ -364,21 +364,21 @@ int writeC(int levelnum) {
 			if (size == -1) {
 				return -1;
 			}
-			fprintf(fp, "%i[%i] = { ", row, size);
+			fprintf(fp, "%i[%i] = { ", row, (size + 1));
 			for (i = 0; i < size; i++) {
 				fprintf(fp, "%i", (int)all[first][row][i]);
 				if (i < (size - 1)) {
 					fprintf(fp, ", ");
 				}
 			}
-			fprintf(fp, " };\n");
+			fprintf(fp, " , -1 };\n");
 		}
 		fprintf(fp, "\n");
 	}
 	fprintf(fp, "\n");
 	
 	for (first = 0; first < 3; first++) {
-		fprintf(fp, "char lvl%i_", levelnum);
+		fprintf(fp, "char *lvl%i_", levelnum);
 		switch (first) {
 			case 0:
 				fprintf(fp, "Block");
@@ -413,6 +413,8 @@ int writeC(int levelnum) {
 		}
 	}
 	fprintf(fp, "\n");
+	
+	fprintf(fp, "char **level%i[3] = { lvl%i_Block, lvl%i_Box, lvl%i_Coin };\n", levelnum, levelnum, levelnum, levelnum);
 
 	fclose(fp);
 	return 0;

@@ -17,6 +17,6 @@ int drawCoin(char x, char y);
 // 3 = jumping right
 // 4 = jumping left
 // 5 = jumping
-void drawPlayer(char player, char direction, char x, char y);
-
-
+int drawPlayer(char player, char direction, char x, char y);
+void clear();
+void draw();
