@@ -18,4 +18,4 @@
 // (0|0) <= (x|y) < (Endless?)
 // Directions: 1 = Left; 2 = Right; 3 = Up; 4 = Down;
 
-int checkColPlayer(char x, char y, char direction, int level, int Pixeloffset);
+int checkColPlayer(int x, int y, char direction, int level, int Pixeloffset);

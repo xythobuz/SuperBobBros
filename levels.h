@@ -3,9 +3,10 @@
  * By: Thomas Buck <taucher.bodensee@googlemail.com>
  * Visit: www.xythobuz.org
  */
+#define HOWMANYLEVELS 2
 
 // levels[lvl.num.][type][y][index]
-extern char ***levels[1];
+extern char ***levels[HOWMANYLEVELS];
 
 int getsizeBlocks(int level, char y);
 int getsizeBox(int level, char y);

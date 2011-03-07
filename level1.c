@@ -32,8 +32,11 @@ char lvl1_Coin_6[1] = { -1 };
 char lvl1_Coin_7[1] = { -1 };
 
 
+char lvl1_Exits[2] = { 21, 6 };
+char *lvl1_Exit[1] = { lvl1_Exits };
+
 char *lvl1_Block[8] = { lvl1_Block_0, lvl1_Block_1, lvl1_Block_2, lvl1_Block_3, lvl1_Block_4, lvl1_Block_5, lvl1_Block_6, lvl1_Block_7 };
 char *lvl1_Box[8] = { lvl1_Box_0, lvl1_Box_1, lvl1_Box_2, lvl1_Box_3, lvl1_Box_4, lvl1_Box_5, lvl1_Box_6, lvl1_Box_7 };
 char *lvl1_Coin[8] = { lvl1_Coin_0, lvl1_Coin_1, lvl1_Coin_2, lvl1_Coin_3, lvl1_Coin_4, lvl1_Coin_5, lvl1_Coin_6, lvl1_Coin_7 };
 
-char **level1[3] = { lvl1_Block, lvl1_Box, lvl1_Coin };
+char **level1[4] = { lvl1_Block, lvl1_Box, lvl1_Coin, lvl1_Exit };

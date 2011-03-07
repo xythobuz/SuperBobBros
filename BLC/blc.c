@@ -67,7 +67,7 @@ int findEnd(int row);
 int countCharRaw(int row, char character);
 int formatData(int character);
 int countChar(int row, char character);
-int writeC(int levelnum);
+int writeC(int levelnum, int xEnd, int yEnd);
 int writeH(int levelnum);
 
 void clearMemory() {
@@ -90,6 +90,8 @@ void clearMemory() {
 int main(int argc, char **argv) {
 	int length;
 	int levelnum;
+	int xEnd;
+	int yEnd;
 	int i;
 	int j;
 	
@@ -118,6 +120,15 @@ int main(int argc, char **argv) {
 	removeStuff(length);
 	printf("Enter Levelnumber: ");
 	scanf("%i", &levelnum);
+	printf("Enter levels Exit as x and y (0 <= y <  8)\nx: ");
+	scanf("%i", &xEnd);
+	printf("y: ");
+	scanf("%i", &yEnd);
+
+	if ((xEnd < 0) || (yEnd < 0) || (yEnd > 7)) {
+		printf("Levels Exit out of range!\n");
+		return 1;
+	}
 	
 	if (formatData('x') == -1) {
 		printf("Error while formating data!\n");
@@ -132,8 +143,14 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-	writeC(levelnum);
-	writeH(levelnum);
+	if (writeC(levelnum, xEnd, yEnd) == -1) {
+		printf("Error while writing c file!\n");
+		return 1;
+	}
+	if (writeH(levelnum) == -1) {
+		printf("Error while writing h file!\n");
+		return 1;
+	}
 
 	return 0;
 }
@@ -317,7 +334,7 @@ int countChar(int row, char character) {
 	}
 }
 
-int writeC(int levelnum) {
+int writeC(int levelnum, int xEnd, int yEnd) {
 	char path[10];
 	FILE *fp;
 	int row;
@@ -368,6 +385,7 @@ int writeC(int levelnum) {
 					break;
 			}
 			if (size == -1) {
+				fclose(fp);
 				return -1;
 			}
 			if ((size == 1) && (all[first][row][0] == -1)) {
@@ -392,6 +410,10 @@ int writeC(int levelnum) {
 	}
 	fprintf(fp, "\n");
 	
+	// Exit Informations:
+	fprintf(fp, "char lvl%i_Exits[2] = { %i, %i };\n", levelnum, xEnd, yEnd);
+	fprintf(fp, "char *lvl%i_Exit[1] = { lvl%i_Exits };\n\n", levelnum, levelnum); 
+
 	for (first = 0; first < 3; first++) {
 		fprintf(fp, "char *lvl%i_", levelnum);
 		switch (first) {
@@ -407,7 +429,7 @@ int writeC(int levelnum) {
 		}
 		fprintf(fp, "[8] = { ");
 		for (row = 0; row < 8; row++) {
-			fprintf(fp, "lvl1_");
+			fprintf(fp, "lvl%i_", levelnum);
 			switch (first) {
 				case 0:
 					fprintf(fp, "Block");
@@ -429,7 +451,7 @@ int writeC(int levelnum) {
 	}
 	fprintf(fp, "\n");
 	
-	fprintf(fp, "char **level%i[3] = { lvl%i_Block, lvl%i_Box, lvl%i_Coin };\n", levelnum, levelnum, levelnum, levelnum);
+	fprintf(fp, "char **level%i[4] = { lvl%i_Block, lvl%i_Box, lvl%i_Coin, lvl%i_Exit };\n", levelnum, levelnum, levelnum, levelnum, levelnum);
 
 	fclose(fp);
 	return 0;
@@ -465,7 +487,7 @@ int writeH(int levelnum) {
 	}
 
 	fprintf(fp, "/*\n * level %i\n * generated with xythobuz' BobLevelCreator\n */\n\n", levelnum);
-	fprintf(fp, "extern char **level%i[3];\n", levelnum);
+	fprintf(fp, "extern char **level%i[4];\n", levelnum);
 
 	fclose(fp);
 	return 0;

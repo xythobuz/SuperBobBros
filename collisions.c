@@ -61,7 +61,7 @@ int translatepixelval(int x, int *off) {
 	return (x / 8);
 }
 
-int checkColPlayer(char x, char y, char direction, int level, int Pixeloffset) {
+int checkColPlayer(int x, int y, char direction, int level, int Pixeloffset) {
 	// Player has 7x8px
 	int check = 0;
 	int i = 0;
@@ -70,8 +70,8 @@ int checkColPlayer(char x, char y, char direction, int level, int Pixeloffset) {
 	char is = 0;
 	char counter = 0;
 	int offset = 0;
-	char atx = 0;
-	char aty = 0;
+	int atx = 0;
+	int aty = 0;
 	int isblocknext = -1;
 	int iscoinnext = -1;
 	int isboxnext = -1;
@@ -81,31 +81,31 @@ int checkColPlayer(char x, char y, char direction, int level, int Pixeloffset) {
 
 	switch (direction) {
 		case 1:
+			// Left
 			check = x - 1;
-			check -= Pixeloffset;
 			i = y;
 			lt = y + 8;
 			which = 0;
 			break;
 		case 2:
+			// Right
 			check = x + 7;
-			check -= Pixeloffset;
 			i = y;
 			lt = y + 8;
 			which = 0;
 			break;
 		case 3:
+			// Up
 			check = y - 1;
-			i = x - Pixeloffset;
+			i = x;
 			lt = x + 7;
-			lt -= Pixeloffset;
 			which = 1;
 			break;
 		case 4:
+			// Down
 			check = y + 8;
-			i = x - Pixeloffset;
+			i = x;
 			lt = x + 7;
-			lt -= Pixeloffset;
 			which = 1;
 			break;
 	}
@@ -155,9 +155,9 @@ int checkColPlayer(char x, char y, char direction, int level, int Pixeloffset) {
 				atx = (x + 1);
 				break;
 		}
-		isblocknext = isBlock(level, atx, aty);
-		isboxnext = isBox(level, atx, aty);
-		iscoinnext = isCoin(level, atx, aty);
+		isblocknext = isBlock(level, (atx + (Pixeloffset / 8)), aty);
+		isboxnext = isBox(level, (atx + (Pixeloffset / 8)), aty);
+		iscoinnext = isCoin(level, (atx + (Pixeloffset / 8)), aty);
 	}
 	switch (direction) {
 		case 1:
@@ -177,9 +177,9 @@ int checkColPlayer(char x, char y, char direction, int level, int Pixeloffset) {
 			aty = (y + 1);
 			break;
 	}
-	isblock = isBlock(level, atx, aty);
-	isbox = isBox(level, atx, aty);
-	iscoin = isCoin(level, atx, aty);
+	isblock = isBlock(level, (atx + (Pixeloffset / 8)), aty);
+	isbox = isBox(level, (atx + (Pixeloffset / 8)), aty);
+	iscoin = isCoin(level, (atx + (Pixeloffset / 8)), aty);
 
 	// Priority: Block > Box > Coin > Nothing
 	if (isblock != 0) {
