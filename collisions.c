@@ -65,7 +65,7 @@ int checkColPlayer(int x, int y, char direction, int level, int Pixeloffset) {
 	// Player has 7x8px
 	int check = 0;
 	int i = 0;
-	int lt = 0;
+	int lt = 0; //less than
 	char which = 0;
 	char is = 0;
 	char counter = 0;

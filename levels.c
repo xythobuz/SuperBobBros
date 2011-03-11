@@ -6,6 +6,7 @@
 #include "levels.h"
 #include "level1.h"
 #include "level2.h"
+#include "level3.h"
 
 #define BLOCK 0
 #define BOX 1
@@ -13,7 +14,7 @@
 
 
 // levels[lvl.num.][type][y][index]
-char ***levels[HOWMANYLEVELS] = { level1, level2 };
+char ***levels[HOWMANYLEVELS] = { level1, level2, level3 };
 
 int getSize(int level, int what, char y) {
 	// Unfortunately, we can not use sizeof(), because it works only in the same context the array was declared...
@@ -29,7 +30,7 @@ int getSize(int level, int what, char y) {
 	*/
 
 	int i = 0;
-	if ((what < 0) || (what > 2) || (y < 0) || (y > 7)) {
+	if ((what < 0) || (what > 2) || (y < 0) || (y > 7)) { // Kann sein das ich mich verzählt hab, und das ende deshalb nicht funktioniert... und nun? schauen, obs in level2.txt richtig is...
 		return -1;
 	}
 	if ((level < 0) || (level >= HOWMANYLEVELS)) {

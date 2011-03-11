@@ -114,7 +114,7 @@ int drawGUI() {
 int numToString(int number) {
 	int counter = 0;
 	if (number < 10) {
-		stri[0] = number;
+		stri[0] = number + '0';
 		stri[1] = '\0';
 		return 0;
 	} else if (number < 100) {
@@ -123,8 +123,8 @@ int numToString(int number) {
 			counter++;
 		}
 		number /= 10;
-		stri[0] = number;
-		stri[1] = counter;
+		stri[0] = number + '0';
+		stri[1] = counter + '0';
 		stri[2] = '\0';
 		return 0;
 	} else if (number < 1000) {
@@ -132,15 +132,15 @@ int numToString(int number) {
 			number--;
 			counter++;
 		}
-		stri[2] = counter;
+		stri[2] = counter + '0';
 		counter = 0;
 		number /= 10;
 		while ((number % 10) != 0) {
 			number--;
 			counter++;
 		}
-		stri[1] = counter;
-		stri[0] = (number / 10);
+		stri[1] = counter + '0';
+		stri[0] = (number / 10) + '0';
 		stri[3] = '\0';
 		return 0;
 	} else {
