@@ -1,6 +1,6 @@
 /*
- * level 2
+ * level 3
  * generated with xythobuz' BobLevelCreator
  */
 
-extern char **level2[4];
+extern char **level3[4];

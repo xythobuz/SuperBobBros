@@ -3,7 +3,7 @@
  * By: Thomas Buck <taucher.bodensee@googlemail.com>
  * Visit: www.xythobuz.org
  */
-#define HOWMANYLEVELS 2
+#define HOWMANYLEVELS 3 // Jetzt noch speichern, level3 reinkopieren, und fertig
 
 // levels[lvl.num.][type][y][index]
 extern char ***levels[HOWMANYLEVELS];
