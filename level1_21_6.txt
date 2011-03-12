@@ -3,7 +3,7 @@ level
 1|x              x       x
 2|x              x       x
 3|x              x       x
-4|x   ccc        x  cc   x
-5|x   bbbbb         bbb  x
+4|x     ccc      x       x
+5|x   bbbbb              x
 6|x                      x
 7|xxxxxxxxxxxxxxxxxxxxxxxx

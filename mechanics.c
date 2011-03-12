@@ -40,6 +40,13 @@ int playLevel(int level, char playermodel) {
 		temp = getButtons();
 		if (temp != 0) {
 			button = temp;
+			
+			/*
+			 * 1 = up
+			 * 2 = right
+			 * 3 =left
+			 * 4 = down
+			 */
 		}
 
 		if (timer1 != 0) {
@@ -217,7 +224,7 @@ int movePlayer(char button, int *x, int *y, char *direction, int offset, int lev
      * 5 = springen gerade
 	 */
 	int result;
-	int xval = *x;
+	int xval = *x; //block-values
 	switch (button) {
 		case 0:
 			if (*jump == 0) {
@@ -244,11 +251,11 @@ int movePlayer(char button, int *x, int *y, char *direction, int offset, int lev
 				xval += 1;
 			} else if (result == 3) {
 				xval += 1;
-				removeCoin(level, ((*x / 8) + 1), (*y / 8));
+				removeCoin(level, (((*x+1) / 8) + 0), (*y / 8));
 				points++;
 			} else if (result == 6) {
 				xval += 1;
-				removeCoin(level, ((*x / 8) + 1), ((*y / 8) + 1));
+				removeCoin(level, (((*x+1) / 8) + 0), ((*y / 8) + 1));
 				points++;
 			}
 			break;
@@ -263,11 +270,11 @@ int movePlayer(char button, int *x, int *y, char *direction, int offset, int lev
 				xval -= 1;
 			} else if (result == 3) {
 				xval -= 1;
-				removeCoin(level, ((*x / 8) - 1), (*y / 8));
+				removeCoin(level, (((*x-1) / 8) - 0), (*y / 8));
 				points++;
 			} else if (result == 6) {
 				xval -= 1;
-				removeCoin(level, ((*x / 8) - 1), ((*y / 8) + 1));
+				removeCoin(level, (((*x-1) / 8) - 0), ((*y / 8) + 1));
 				points++;
 			}
 			break;

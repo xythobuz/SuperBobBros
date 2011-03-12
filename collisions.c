@@ -131,7 +131,7 @@ int checkColPlayer(int x, int y, char direction, int level, int Pixeloffset) {
 		y = translatepixelval(y, &offset);
 		x = translatepixelval(x, &offset);
 	}
-	if (offset > 1) { // Player is only 7px wide, block has 8px... We ignore this...
+	if (offset > 1) { // Player is only 7px wide, block has 8px... We ignore this... <--Not anymore....
 		// Check next position also
 		switch (direction) {
 			case 1:
