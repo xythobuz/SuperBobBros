@@ -2,19 +2,19 @@
 
 [_1]
 Type=5
-Order=0
+Order=1
 Top=1125
 Left=2295
 Height=12300
 Width=14985
 State=0
 Flags=00000020
-Setting=20:1:mechanics.c
+Setting=29:16:mechanics.c
 OptionA=0
 
 [_2]
 Type=1
-Order=1
+Order=0
 Top=60
 Left=22875
 Height=4740
