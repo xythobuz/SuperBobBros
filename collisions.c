@@ -137,7 +137,7 @@ int checkColPlayer(int x, int y, char direction, int level, int Pixeloffset) {
 			case 1:
 				// Left
 				atx = (x - 1);
-				aty = (y + 1);
+				aty = /*(y + 1);*/ y;
 				break;
 			case 2:
 				// Right

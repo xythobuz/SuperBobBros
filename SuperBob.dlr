@@ -244,3 +244,8 @@ Sublevel=2
 File=Z:\Users\Max\SuperBobBros\levels.c
 Line=72
 Flags=00001012
+
+[Breakpoint]
+File=Z:\Users\Max\SuperBobBros\collisions.c
+Line=159
+Flags=00001012

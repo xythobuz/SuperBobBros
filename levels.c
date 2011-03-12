@@ -90,7 +90,7 @@ int isThere(int level, int what, char x, char y) {
 	int size;
 	int flag = 0;
     
-	//if ((x >= 0) && (y >= 0) && (x <= 15) && (y <= 7)) {
+	if ((x >= 0) && (y >= 0) && (x <= 15) && (y <= 7)) {
 		size = getSize(level, what, y);
 		for (i = 0; i < size; i++) {
 			if (levels[level][what][y][i] == x) {
@@ -98,9 +98,9 @@ int isThere(int level, int what, char x, char y) {
 			}
 		}
 		return flag;
-	//} else {
-	//	return -1;
-	//}
+	} else {
+		return -1;
+	}
 }
 
 int isBox(int level, char x, char y) {

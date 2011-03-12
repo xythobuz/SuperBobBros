@@ -56,7 +56,7 @@ int playLevel(int level, char playermodel) {
 				offset++;
 				xPlayer--; // movePlayer() already moved it right, we move to its old pos...
 			}
-			if (xPlayer < 0) {
+			if (xPlayer < 9) {
 				xPlayer++;
 				if (offset > 0) {
 					offset--;
