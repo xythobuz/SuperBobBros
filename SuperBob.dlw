@@ -9,7 +9,7 @@ Height=10035
 Width=5565
 State=0
 Flags=00000020
-Setting=4:1:mechanics.c
+Setting=20:1:mechanics.c
 OptionA=0
 
 [_2]
@@ -81,7 +81,7 @@ OptionA=0
 
 [_8]
 Type=17
-Order=4
+Order=5
 Top=15
 Left=-15
 Height=11115
@@ -92,7 +92,7 @@ OptionA=0
 
 [_9]
 Type=15
-Order=5
+Order=3
 Top=945
 Left=4365
 Height=8085
@@ -103,7 +103,7 @@ OptionA=0
 
 [_32]
 Type=16
-Order=3
+Order=4
 Top=180
 Left=2265
 Height=7770
