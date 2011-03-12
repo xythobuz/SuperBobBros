@@ -2,8 +2,8 @@ level
 0|x                   x              x
 1|x                   x              x
 2|x                   x              x
-3|x          c        x              x
+3|x                   x              x
 4|x                   x              x
-5|x   b      x        x  ccc         x
-6|x         xx  c              cc    x
+5|x          x        x              x
+6|x         xx                       x
 7|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

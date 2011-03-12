@@ -15,7 +15,7 @@ char lvl3_Block_7[35] = { 0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 16, 22, 23, 24,
 
 char lvl3_Box_0[1] = { -1 };
 char lvl3_Box_1[1] = { -1 };
-char lvl3_Box_2[2] = { 32 , -1 };
+char lvl3_Box_2[1] = { -1 };
 char lvl3_Box_3[1] = { -1 };
 char lvl3_Box_4[1] = { -1 };
 char lvl3_Box_5[1] = { -1 };
@@ -25,7 +25,7 @@ char lvl3_Box_7[1] = { -1 };
 char lvl3_Coin_0[1] = { -1 };
 char lvl3_Coin_1[1] = { -1 };
 char lvl3_Coin_2[1] = { -1 };
-char lvl3_Coin_3[4] = { 17, 18, 19 , -1 };
+char lvl3_Coin_3[1] = { -1 };
 char lvl3_Coin_4[1] = { -1 };
 char lvl3_Coin_5[1] = { -1 };
 char lvl3_Coin_6[1] = { -1 };

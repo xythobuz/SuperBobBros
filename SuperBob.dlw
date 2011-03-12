@@ -14,7 +14,7 @@ OptionA=0
 
 [_2]
 Type=1
-Order=5
+Order=3
 Top=60
 Left=22875
 Height=4740
@@ -27,7 +27,7 @@ OptionB=15
 [_3]
 Type=6
 Order=2
-Top=4740
+Top=4665
 Left=22875
 Height=6390
 Width=5535
@@ -37,7 +37,7 @@ OptionA=0
 
 [_4]
 Type=7
-Order=10
+Order=6
 Top=210
 Left=17415
 Height=2955
@@ -48,7 +48,7 @@ OptionA=0
 
 [_5]
 Type=8
-Order=8
+Order=5
 Top=3135
 Left=17415
 Height=7185
@@ -139,48 +139,48 @@ OptionA=0
 
 [_35]
 Type=16
-Order=7
+Order=9
 Top=2310
 Left=2310
 Height=9375
 Width=15165
-State=0
+State=16
 Flags=00000020
 Setting=1:1:collisions.c
 OptionA=0
 
 [_36]
 Type=16
-Order=6
+Order=7
 Top=1455
 Left=420
 Height=9375
 Width=16440
-State=0
+State=16
 Flags=00000020
-Setting=1:3:levels.c
+Setting=186:2:Draw.c
 OptionA=0
 
 [_37]
 Type=16
-Order=9
-Top=2970
-Left=2970
+Order=8
+Top=30
+Left=2085
 Height=9375
 Width=14130
-State=0
+State=16
 Flags=00000020
-Setting=23:1:mechanics.c
+Setting=2:11:level1.c
 OptionA=0
 
 [_38]
 Type=16
-Order=3
+Order=10
 Top=45
 Left=2085
 Height=13110
 Width=15000
-State=0
+State=16
 Flags=00000020
 Setting=1:1:level2.c
 OptionA=0

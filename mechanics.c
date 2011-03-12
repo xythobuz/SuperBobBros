@@ -208,6 +208,14 @@ int gravityPlayer(int *x, int *y, int offset, int level, char *jump) {
 }
 
 int movePlayer(char button, int *x, int *y, char *direction, int offset, int level, char *jump) {
+	/*
+	 * 0 = stehen
+     * 1 = gehen rechts
+     * 2 = gehen links
+     * 3 = springen rechts
+     * 4 = springen links
+     * 5 = springen gerade
+	 */
 	int result;
 	int xval = *x;
 	switch (button) {
@@ -227,9 +235,9 @@ int movePlayer(char button, int *x, int *y, char *direction, int offset, int lev
 			break;
 		case 2: // Right
 			if (*jump == 0) {
-				*direction = 1;
+				*direction = 1; //walk right
 			} else {
-				*direction = 3;
+				*direction = 3; //jump right
 			}
 			result = checkColPlayer(*x, *y, 2, level, offset);
 			if (result == 0) {

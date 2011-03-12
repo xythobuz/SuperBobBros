@@ -18,7 +18,7 @@
  *  6 = Coin at next Position
  *
  *  Next Position:
- *     x+01234567	This is next pos when checking (1|0) for Up
+ *     x+01234567	When checking (1|0) for Up
  *    y+|--------|--------|   |
  *     0|        |        |   |
  *     1|        |        |<--|
@@ -131,13 +131,13 @@ int checkColPlayer(int x, int y, char direction, int level, int Pixeloffset) {
 		y = translatepixelval(y, &offset);
 		x = translatepixelval(x, &offset);
 	}
-	if (offset > 0) { // Player is only 7px wide, block has 8px... We ignore this...
+	if (offset > 1) { // Player is only 7px wide, block has 8px... We ignore this...
 		// Check next position also
 		switch (direction) {
 			case 1:
 				// Left
 				atx = (x - 1);
-				aty = /*(y + 1);*/ y;
+				aty = (y + 1);
 				break;
 			case 2:
 				// Right

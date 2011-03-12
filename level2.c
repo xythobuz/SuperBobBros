@@ -18,17 +18,17 @@ char lvl2_Box_1[1] = { -1 };
 char lvl2_Box_2[1] = { -1 };
 char lvl2_Box_3[1] = { -1 };
 char lvl2_Box_4[1] = { -1 };
-char lvl2_Box_5[2] = { 4 , -1 };
+char lvl2_Box_5[1] = { -1 };
 char lvl2_Box_6[1] = { -1 };
 char lvl2_Box_7[1] = { -1 };
 
 char lvl2_Coin_0[1] = { -1 };
 char lvl2_Coin_1[1] = { -1 };
 char lvl2_Coin_2[1] = { -1 };
-char lvl2_Coin_3[2] = { 11 , -1 };
+char lvl2_Coin_3[1] = { -1 };
 char lvl2_Coin_4[1] = { -1 };
-char lvl2_Coin_5[4] = { 23, 24, 25 , -1 };
-char lvl2_Coin_6[4] = { 14, 29, 30 , -1 };
+char lvl2_Coin_5[1] = { -1 };
+char lvl2_Coin_6[1] = { -1 };
 char lvl2_Coin_7[1] = { -1 };
 
 

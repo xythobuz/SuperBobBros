@@ -89,8 +89,10 @@ int isThere(int level, int what, char x, char y) {
 	int i;
 	int size;
 	int flag = 0;
+
     
-	if ((x >= 0) && (y >= 0) && (x <= 15) && (y <= 7)) {
+
+	if ((x >= 0) && (y >= 0) && (x <= 100) && (y <= 7)) {
 		size = getSize(level, what, y);
 		for (i = 0; i < size; i++) {
 			if (levels[level][what][y][i] == x) {

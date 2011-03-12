@@ -1,8 +1,8 @@
 level
 0|x                          x                x
 1|x                          x                x
-2|x                          x    b           x
-3|x                ccc       x     xxxx       x
+2|x                          x                x
+3|x                          x     xxxx       x
 4|x               xxxxx      x    xxxxx       x
 5|x           x   x          x   xxxxxx       x
 6|x          xx   x             xxxxxxx       x
