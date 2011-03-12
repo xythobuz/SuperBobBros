@@ -10,7 +10,7 @@ if exist FXADDINror.bin  del FXADDINror.bin
 cd ..
 if not exist debug\FXADDINror.bin  goto error
 
-"C:\Program Files\fx-9860G SDK\Tools\MakeAddinHeader363.exe" "Z:\Users\Max\CASIO\fx-9860G SDK\xythobuz-SuperBobBros-33733d1"
+"C:\Program Files\fx-9860G SDK\Tools\MakeAddinHeader363.exe" "Z:\Users\Max\SuperBobBros"
 if not exist SUPERBOB.G1A  goto error
 echo Build has completed.
 goto end

@@ -30,7 +30,8 @@ int getSize(int level, int what, char y) {
 	*/
 
 	int i = 0;
-	if ((what < 0) || (what > 2) || (y < 0) || (y > 7)) { // Kann sein das ich mich verzählt hab, und das ende deshalb nicht funktioniert... und nun? schauen, obs in level2.txt richtig is...
+	if ((what < 0) || (what > 2) || (y < 0) || (y > 7)) { 
+
 		return -1;
 	}
 	if ((level < 0) || (level >= HOWMANYLEVELS)) {
@@ -88,7 +89,8 @@ int isThere(int level, int what, char x, char y) {
 	int i;
 	int size;
 	int flag = 0;
-	if ((x >= 0) && (y >= 0) && (x <= 15) && (y <= 7)) {
+    
+	//if ((x >= 0) && (y >= 0) && (x <= 15) && (y <= 7)) {
 		size = getSize(level, what, y);
 		for (i = 0; i < size; i++) {
 			if (levels[level][what][y][i] == x) {
@@ -96,9 +98,9 @@ int isThere(int level, int what, char x, char y) {
 			}
 		}
 		return flag;
-	} else {
-		return -1;
-	}
+	//} else {
+	//	return -1;
+	//}
 }
 
 int isBox(int level, char x, char y) {

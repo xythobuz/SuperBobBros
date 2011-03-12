@@ -2,6 +2,7 @@
  * collisions.h
  * By: Thomas Buck <taucher.bodensee@gmail.com>
  * Visit: www.xythobuz.org
+ * Check if there's any kind of crap in your way
  */
 
 /* Return Values:

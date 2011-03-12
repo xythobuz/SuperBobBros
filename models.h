@@ -2,6 +2,7 @@
  * models.h
  * By: Thomas Buck <taucher.bodensee@googlemail.com>
  * Visit: www.xythobuz.org
+ *Defines the look of Penis, boex and block, etc....
  */
 
 // player[pl.model][anim][y]

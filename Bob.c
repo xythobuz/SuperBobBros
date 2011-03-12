@@ -2,6 +2,7 @@
  * Bob.c
  * by xythobuz
  * visit: www.xythobuz.org
+ * Main Menu
  */
 #include "fxlib.h"
 #include "timer.h"
@@ -27,7 +28,7 @@ int AddIn_main(int isAppli, unsigned short OptionNum) {
 		Print((unsigned char*)"by xythobuz");
 		locate(1, 8);
 		Print((unsigned char*)"F1:New Game");
-		Bdisp_PutDisp_DD();
+		Bdisp_PutDisp_DD(); //Draw buffer to display.
 		GetKey(&key);
 		if (key == KEY_CTRL_F1) {
 			playLevel(1, 0);

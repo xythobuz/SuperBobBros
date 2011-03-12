@@ -22,13 +22,13 @@ void timer_1() {
 }
 
 int playLevel(int level, char playermodel) {
-	int offset = 0; // In Pixel...
-	int xPlayer = 16;
+	int offset = 0; // In pixels...
+	int xPlayer = 16; 
 	int yPlayer = 40;
-	char button = 0;
+	char button = 0; 
 	char temp = 0;
-	char direction = 0;
-	char jump = 0;
+	char direction = 0; //
+	char jump = 0; 
 
 	level--; // Arrays start at 0, Levelnumbers start at 1!
 
@@ -56,7 +56,7 @@ int playLevel(int level, char playermodel) {
 				offset++;
 				xPlayer--; // movePlayer() already moved it right, we move to its old pos...
 			}
-			if (xPlayer < 15) {
+			if (xPlayer < 0) {
 				xPlayer++;
 				if (offset > 0) {
 					offset--;
@@ -213,9 +213,9 @@ int movePlayer(char button, int *x, int *y, char *direction, int offset, int lev
 	switch (button) {
 		case 0:
 			if (*jump == 0) {
-				*direction = 0;
+				*direction = 0; // down/gravity
 			} else {
-				*direction = 5;
+				*direction = 5; //jump straight up
 			}
 			break;
 		case 1:

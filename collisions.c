@@ -123,7 +123,7 @@ int checkColPlayer(int x, int y, char direction, int level, int Pixeloffset) {
 		// All pixels in the given direction are white:
 		return 0;
 	}
-	
+
 	if (which == 0) {
 		x = translatepixelval(x, &offset);
 		y = translatepixelval(y, &offset);
@@ -202,5 +202,5 @@ int checkColPlayer(int x, int y, char direction, int level, int Pixeloffset) {
 	if (iscoinnext != 0) {
 		return 6;
 	}
-	return -1; // Logical Error: Some pixels are black but we have not found something...
+	return 3; // Logical Error: Some pixels are black but we have not found something...
 }
