@@ -1,6 +1,6 @@
 [DLSimProject]
 Name=SuperBob
-Version=1
+Version=1.00.0000
 Model=:fx-9860G.dlm
 SourcePath=SRC
 MemoryPath=INIT
@@ -15,13 +15,13 @@ LoadAddress=80000000:90100000
 SourceFile=:Bob.c
 SourceFile=:button.c
 SourceFile=:collisions.c
-SourceFile=:Draw.c
 SourceFile=:level1.c
 SourceFile=:levels.c
 SourceFile=:mechanics.c
 SourceFile=:models.c
 SourceFile=:level2.c
 SourceFile=:level3.c
+SourceFile=:Draw.c
 HeaderFile=:button.h
 HeaderFile=:collisions.h
 HeaderFile=:Draw.h

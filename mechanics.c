@@ -161,6 +161,7 @@ int numToString(int number) {
 
 int gravityPlayer(int *x, int *y, int offset, int level, char *jump) {
 	int result;
+	int rmCheck;
 	
 	if (*jump > 0) {
 		result = checkColPlayer(*x, *y, 3, level, offset);
@@ -171,26 +172,34 @@ int gravityPlayer(int *x, int *y, int offset, int level, char *jump) {
 				break;
 			case 2:
 				*jump = 0;
-				removeBox(level, (*x / 8), ((*y / 8) - 1));
+				rmCheck = removeBox(level, (*x / 8), ((*y / 8) - 1));
+				if(rmCheck != -1){
 				hp++;
+				}
 				break;
 			case 1: case 4:
 				*jump = 0;
 				break;
 			case 3:
-				removeCoin(level, (*x / 8), ((*y / 8) - 1));
+				rmCheck = removeCoin(level, (*x / 8), ((*y / 8) - 1));
+				if(rmCheck != -1){
 				points++;
+				}
 				*jump = 0;
 				break;
 			case 5:
 				*jump = 0;
-				removeBox(level, ((*x / 8) + 1), ((*y / 8) - 1));
+				rmCheck = removeBox(level, ((*x / 8) + 1), ((*y / 8) - 1));
+				if(rmCheck != -1){
 				hp++;
+				}
 				break;
 			case 6:
 				*jump = 0;
-				removeBox(level, ((*x / 8) + 1), ((*y / 8) - 1));
+				rmCheck = removeCoin(level, ((*x / 8) + 1), ((*y / 8) - 1));
+				if(rmCheck != -1){
 				points++;
+				}
 				break;
 		}
 	} else {
@@ -201,13 +210,17 @@ int gravityPlayer(int *x, int *y, int offset, int level, char *jump) {
 				break;
 			case 3:
 				*y = *y + 1;
-				removeCoin(level, (*x / 8), ((*y / 8) + 1));
+				rmCheck = removeCoin(level, (*x / 8), ((*y / 8) + 1));
+				if(rmCheck != -1){
 				points++;
+				};
 				break;
 			case 6:
 				*y = *y + 1;
-				removeCoin(level, ((*x / 8) + 1), ((*y / 8) + 1));
+				rmCheck = removeCoin(level, ((*x / 8) + 1), ((*y / 8) + 1));
+				if(rmCheck != -1){
 				points++;
+				}
 				break;
 		}
 	}
@@ -318,8 +331,8 @@ int drawLevel(int level, int offset, int xPlayer, int yPlayer, char direction, c
 			}
 		}
 		length = getsizeCoin(level, y);
-		for (i = 0; i < length; i++) {
-			tempx = levels[level][1][y][i];
+		for (i = 0; i <= length; i++) {
+			tempx = levels[level][2][y][i];
 			tempx *= 8;
 			tempx -= offset;
 			if ((tempx >= 0) && (tempx < 128)) {
