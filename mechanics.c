@@ -30,6 +30,10 @@ int playLevel(int level, char playermodel) {
 	char direction = 0;
 	char jump = 0;
 	char backToMenu = 0;
+	
+	if(hp < 3){
+		hp = 3;
+	}
 
 	level--; // Arrays start at 0, Levelnumbers start at 1!
 
