@@ -166,7 +166,7 @@ int drawPlayer(char player, char direction, char x, char y) {
 int drawBlock(char x, char y) {
 	int i;
 	int j;
-	if ((x < 0) || (y < 0) || (x > 127) || (y > 63)) {
+	if ((x < -7) || (y < 0) || (x > 127) || (y > 63)) {
 		return -1;
 	}
 	for (i = 0; i < 8; i++) {
@@ -182,7 +182,7 @@ int drawBlock(char x, char y) {
 int drawCoin(char x, char y) {
 	int i;
 	int j;
-	if ((x < 0) || (y < 0) || (x > 127) || (y > 63)) {
+	if ((x < -7) || (y < 0) || (x > 127) || (y > 63)) {
 		return -1;
 	}
 	for (i = 0; i < 8; i++) {
@@ -198,7 +198,7 @@ int drawCoin(char x, char y) {
 int drawBox(char x, char y) {
 	int i;
 	int j;
-	if ((x < 0) || (y < 0) || (x > 127) || (y > 63)) {
+	if ((x < -7) || (y < 0) || (x > 127) || (y > 63)) {
 		return -1;
 	}
 	for (i = 0; i < 7; i++) {

@@ -32,7 +32,7 @@ char lvl3_Coin_6[1] = { -1 };
 char lvl3_Coin_7[1] = { -1 };
 
 
-char lvl3_Exits[2] = { 45, 6 };
+char lvl3_Exits[2] = { 42, 6 };
 char *lvl3_Exit[1] = { lvl3_Exits };
 
 char *lvl3_Block[8] = { lvl3_Block_0, lvl3_Block_1, lvl3_Block_2, lvl3_Block_3, lvl3_Block_4, lvl3_Block_5, lvl3_Block_6, lvl3_Block_7 };

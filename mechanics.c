@@ -27,8 +27,9 @@ int playLevel(int level, char playermodel) {
 	int yPlayer = 40;
 	char button = 0; 
 	char temp = 0;
-	char direction = 0; //
-	char jump = 0; 
+	char direction = 0;
+	char jump = 0;
+	char backToMenu = 0;
 
 	level--; // Arrays start at 0, Levelnumbers start at 1!
 
@@ -54,7 +55,7 @@ int playLevel(int level, char playermodel) {
 			timer1 = 0;
 			temp = movePlayer(button, &xPlayer, &yPlayer, &direction, offset, level, &jump);
 			if (temp == 1) {
-				break;
+				backToMenu = 1;
 			}
 			button = 0;
 			
@@ -79,7 +80,7 @@ int playLevel(int level, char playermodel) {
 					yPlayer = 40;
 					jump = 0;
 				} else {
-					break;
+					backToMenu = 1;
 				}
 			}
 			if (levels[level][3][0][0] == ((xPlayer / 8) + (offset / 8))) {
@@ -94,11 +95,14 @@ int playLevel(int level, char playermodel) {
 							hp = 3;
 						}
 					} else {
-						break;
+						backToMenu = 1;
 					}
 				}
 			}
 			drawLevel(level, offset, xPlayer, yPlayer, direction, playermodel);
+			if (backToMenu != 0) {
+				break;
+			}
 		}
 	}
 
@@ -106,10 +110,13 @@ int playLevel(int level, char playermodel) {
 	return 0;
 }
 
-int drawGUI() {
+int drawGUI(int level) {
 	locate(0, 0);
 	numToString(hp);
 	Print((unsigned char*)"HP:");
+	Print((unsigned char*)&stri);
+	locate(9, 0);
+	numToString(level + 1);
 	Print((unsigned char*)&stri);
 	locate(13, 0);
 	Print((unsigned char*)"SCORE:");
@@ -172,7 +179,7 @@ int gravityPlayer(int *x, int *y, int offset, int level, char *jump) {
 				break;
 			case 2:
 				*jump = 0;
-				rmCheck = removeBox(level, (*x / 8), (*y / 8)-1);
+				rmCheck = removeBox(level, (*x / 8), (*y / 8));
 				if(rmCheck != -1){
 					hp++;
 				}
@@ -317,7 +324,7 @@ int drawLevel(int level, int offset, int xPlayer, int yPlayer, char direction, c
 			tempx = levels[level][0][y][i];
 			tempx *= 8;
 			tempx -= offset;
-			if ((tempx >= 0) && (tempx < 128)) {
+			if ((tempx >= -7) && (tempx < 128)) {
 				drawBlock(tempx, tempy);
 			}
 		}
@@ -326,7 +333,7 @@ int drawLevel(int level, int offset, int xPlayer, int yPlayer, char direction, c
 			tempx = levels[level][1][y][i];
 			tempx *= 8;
 			tempx -= offset;
-			if ((tempx >= 0) && (tempx < 128)) {
+			if ((tempx >= -7) && (tempx < 128)) {
 				drawBox(tempx, tempy);
 			}
 		}
@@ -335,12 +342,12 @@ int drawLevel(int level, int offset, int xPlayer, int yPlayer, char direction, c
 			tempx = levels[level][2][y][i];
 			tempx *= 8;
 			tempx -= offset;
-			if ((tempx >= 0) && (tempx < 128)) {
+			if ((tempx >= -7) && (tempx < 128)) {
 				drawCoin(tempx, tempy);
 			}
 		}
 	}
 	drawPlayer(model, direction, xPlayer, yPlayer);
-	drawGUI();
+	drawGUI(level);
 	draw();
 }

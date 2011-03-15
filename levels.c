@@ -115,5 +115,3 @@ int isBlock(int level, char x, char y) {
 int isCoin(int level, char x, char y) {
 	return isThere(level, COIN, x, y);
 }
-
-
