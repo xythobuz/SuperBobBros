@@ -1,19 +1,19 @@
 [DLSimRunSpace]
 
 [Breakpoint]
-File=Z:\Users\Max\Bob\mechanics.c
+File=Z:\Users\thomas\Projekte\fxSDK\Bob\mechanics.c
 Line=23
-Flags=00001010
+Flags=00001012
 Sublevel=1
 
 [Breakpoint]
-File=Z:\Users\Max\Bob\mechanics.c
+File=Z:\Users\thomas\Projekte\fxSDK\Bob\mechanics.c
 Line=23
-Flags=00001010
+Flags=00001012
 Sublevel=2
 
 [Breakpoint]
-File=Z:\Users\Max\Bob\mechanics.c
+File=Z:\Users\thomas\Projekte\fxSDK\Bob\mechanics.c
 Line=23
-Flags=00001010
+Flags=00001012
 Sublevel=3

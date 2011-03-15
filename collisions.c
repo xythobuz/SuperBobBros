@@ -115,7 +115,7 @@ int checkColPlayer(int x, int y, char direction, int level, int Pixeloffset) {
 		} else {
 			is = getPixel(check, i);
 		}
-		if (is == 1) {
+		if (is != 0) {
 			counter++;
 		}
 	}
@@ -132,6 +132,8 @@ int checkColPlayer(int x, int y, char direction, int level, int Pixeloffset) {
 		x = translatepixelval(x, &offset);
 	}
 	if (offset > 1) { // Player is only 7px wide, block has 8px... We ignore this... <--Not anymore....
+						// Well yea, i thought of that also and came to the conclusion that it's bad...
+						// I don't remember why ;-)
 		// Check next position also
 		switch (direction) {
 			case 1:
@@ -185,22 +187,22 @@ int checkColPlayer(int x, int y, char direction, int level, int Pixeloffset) {
 	if (isblock != 0) {
 		return 1;
 	}
-	if (isblocknext != 0) {
-		return 4;
-	}
-
 	if (isbox != 0) {
 		return 2;
+	}
+	if (iscoin != 0) {
+		return 3;
+	}
+
+	if (isblocknext != 0) {
+		return 4;
 	}
 	if (isboxnext != 0) {
 		return 5;
 	}
-
-	if (iscoin != 0) {
-		return 3;
-	}
 	if (iscoinnext != 0) {
 		return 6;
 	}
-	return 3; // Logical Error: Some pixels are black but we have not found something...
+	return -1; // Logical Error: Some pixels are black but we have not found something...
+			// This was changed to 3. Who did it? Why?
 }

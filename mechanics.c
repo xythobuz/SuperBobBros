@@ -17,7 +17,7 @@ int hp = 3;
 int points = 0;
 unsigned char stri[4];
 
-void timer_1() {
+void timer_1(void) {
 	timer1++;
 }
 
@@ -59,7 +59,7 @@ int playLevel(int level, char playermodel) {
 			button = 0;
 			
 			// Scroll
-			if (xPlayer > 111) {
+			if (xPlayer > 100) {
 				offset++;
 				xPlayer--; // movePlayer() already moved it right, we move to its old pos...
 			}
@@ -110,11 +110,11 @@ int drawGUI() {
 	locate(0, 0);
 	numToString(hp);
 	Print((unsigned char*)"HP:");
-	Print(&stri);
+	Print((unsigned char*)&stri);
 	locate(13, 0);
 	Print((unsigned char*)"SCORE:");
 	numToString(points);
-	Print(&stri);
+	Print((unsigned char*)&stri);
 	return 0;
 }
 
@@ -172,33 +172,33 @@ int gravityPlayer(int *x, int *y, int offset, int level, char *jump) {
 				break;
 			case 2:
 				*jump = 0;
-				rmCheck = removeBox(level, (*x / 8), ((*y / 8) - 1));
+				rmCheck = removeBox(level, (*x / 8), (*y / 8)-1);
 				if(rmCheck != -1){
-				hp++;
+					hp++;
 				}
 				break;
 			case 1: case 4:
 				*jump = 0;
 				break;
 			case 3:
-				rmCheck = removeCoin(level, (*x / 8), ((*y / 8) - 1));
+				rmCheck = removeCoin(level, (*x / 8), (*y / 8));
 				if(rmCheck != -1){
-				points++;
+					points++;
 				}
 				*jump = 0;
 				break;
 			case 5:
 				*jump = 0;
-				rmCheck = removeBox(level, ((*x / 8) + 1), ((*y / 8) - 1));
+				rmCheck = removeBox(level, ((*x / 8) + 1), (*y / 8));
 				if(rmCheck != -1){
-				hp++;
+					hp++;
 				}
 				break;
 			case 6:
 				*jump = 0;
-				rmCheck = removeCoin(level, ((*x / 8) + 1), ((*y / 8) - 1));
+				rmCheck = removeCoin(level, ((*x / 8) + 1), (*y / 8));
 				if(rmCheck != -1){
-				points++;
+					points++;
 				}
 				break;
 		}
@@ -212,14 +212,14 @@ int gravityPlayer(int *x, int *y, int offset, int level, char *jump) {
 				*y = *y + 1;
 				rmCheck = removeCoin(level, (*x / 8), ((*y / 8) + 1));
 				if(rmCheck != -1){
-				points++;
+					points++;
 				};
 				break;
 			case 6:
 				*y = *y + 1;
 				rmCheck = removeCoin(level, ((*x / 8) + 1), ((*y / 8) + 1));
 				if(rmCheck != -1){
-				points++;
+					points++;
 				}
 				break;
 		}
@@ -264,11 +264,11 @@ int movePlayer(char button, int *x, int *y, char *direction, int offset, int lev
 				xval += 1;
 			} else if (result == 3) {
 				xval += 1;
-				removeCoin(level, (((*x+1) / 8) + 0), (*y / 8));
+				removeCoin(level, ((*x / 8) + 0), (*y / 8));
 				points++;
 			} else if (result == 6) {
 				xval += 1;
-				removeCoin(level, (((*x+1) / 8) + 0), ((*y / 8) + 1));
+				removeCoin(level, ((*x / 8) + 0), ((*y / 8) + 1));
 				points++;
 			}
 			break;
@@ -283,11 +283,11 @@ int movePlayer(char button, int *x, int *y, char *direction, int offset, int lev
 				xval -= 1;
 			} else if (result == 3) {
 				xval -= 1;
-				removeCoin(level, (((*x-1) / 8) - 0), (*y / 8));
+				removeCoin(level, ((*x / 8) - 0), (*y / 8));
 				points++;
 			} else if (result == 6) {
 				xval -= 1;
-				removeCoin(level, (((*x-1) / 8) - 0), ((*y / 8) + 1));
+				removeCoin(level, ((*x / 8) - 0), ((*y / 8) + 1));
 				points++;
 			}
 			break;

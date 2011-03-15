@@ -45,7 +45,6 @@ void clear() {
 }
 
 void draw() {
-	Bdisp_AllClr_DD();
 	Bdisp_PutDisp_DD();
 }
 
