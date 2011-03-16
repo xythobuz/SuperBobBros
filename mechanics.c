@@ -30,8 +30,8 @@ int playLevel(int level, char playermodel) {
 	char direction = 0;
 	char jump = 0;
 	char backToMenu = 0;
-	
-	if(hp < 3){
+
+	if (hp < 3) {
 		hp = 3;
 	}
 
@@ -119,7 +119,8 @@ int drawGUI(int level) {
 	numToString(hp);
 	Print((unsigned char*)"HP:");
 	Print((unsigned char*)&stri);
-	locate(9, 0);
+	locate(7, 0);
+	Print((unsigned char*)"LVL:");
 	numToString(level + 1);
 	Print((unsigned char*)&stri);
 	locate(13, 0);

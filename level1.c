@@ -28,7 +28,7 @@ char lvl1_Coin_2[1] = { -1 };
 char lvl1_Coin_3[1] = { -1 };
 char lvl1_Coin_4[4] = { 6, 7, 8 , -1 };
 char lvl1_Coin_5[1] = { -1 };
-char lvl1_Coin_6[5] = { 4, 13, 14, 21 , -1 };
+char lvl1_Coin_6[3] = { 13, 14 , -1 };
 char lvl1_Coin_7[1] = { -1 };
 
 
