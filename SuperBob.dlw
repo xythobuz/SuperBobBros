@@ -2,23 +2,23 @@
 
 [_1]
 Type=5
-Order=1
-Top=-150
-Left=1890
+Order=2
+Top=465
+Left=-7740
 Height=12300
 Width=14985
-State=0
+State=16
 Flags=00000020
 Setting=20:1:mechanics.c
 OptionA=0
 
 [_2]
 Type=1
-Order=4
-Top=0
-Left=23040
-Height=5910
-Width=6960
+Order=6
+Top=30
+Left=6900
+Height=4680
+Width=5550
 State=0
 Flags=00000001
 OptionA=15
@@ -26,9 +26,9 @@ OptionB=15
 
 [_3]
 Type=6
-Order=2
-Top=4530
-Left=23130
+Order=0
+Top=4665
+Left=6930
 Height=6390
 Width=5535
 State=0
@@ -37,22 +37,22 @@ OptionA=0
 
 [_4]
 Type=7
-Order=7
-Top=45
-Left=18855
+Order=3
+Top=15
+Left=2100
 Height=2955
-Width=4200
+Width=4830
 State=0
 Flags=00000000
 OptionA=0
 
 [_5]
 Type=8
-Order=6
-Top=3465
-Left=17370
+Order=4
+Top=2985
+Left=2085
 Height=7185
-Width=5370
+Width=4920
 State=0
 Flags=00000000
 OptionA=0
@@ -92,12 +92,12 @@ OptionA=0
 
 [_9]
 Type=15
-Order=0
+Order=1
 Top=840
 Left=1290
 Height=8085
 Width=8880
-State=0
+State=16
 Flags=00000000
 OptionA=0
 
@@ -147,14 +147,14 @@ OptionA=0
 
 [_36]
 Type=16
-Order=3
-Top=945
-Left=2085
-Height=9375
-Width=16440
-State=0
+Order=7
+Top=1845
+Left=6750
+Height=9435
+Width=7980
+State=16
 Flags=00000020
-Setting=27:10:levels.c
+Setting=72:1:levels.c
 OptionA=0
 
 [_37]

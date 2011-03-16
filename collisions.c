@@ -204,5 +204,5 @@ int checkColPlayer(int x, int y, char direction, int level, int Pixeloffset) {
 		return 6;
 	}
 	return -1; // Logical Error: Some pixels are black but we have not found something...
-			// This was changed to 3. Who did it? Why?
+			// This was changed to 3. Who did it? Why? *cough* *whistles* err... well... my bad...
 }

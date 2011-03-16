@@ -75,9 +75,9 @@ int removeCoin(int level, char x, char y) {
 	if ((x >= 0) && (y >= 0) && (y <= 7)) {
 		size = getsizeCoin(level, y);
 		for (i = 0; i < size; i++) {
-			if (levels[level][COIN][y][i] == x) {
+			//if (levels[level][COIN][y][i] == x) { If you do that, coins are recognized everytime. Just the removing is still as buggy as before...
 				levels[level][COIN][y][i] = -1;
-			}
+			//}
 		}
 	} else {
 		return -1;
