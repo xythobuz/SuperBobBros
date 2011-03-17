@@ -9,6 +9,7 @@
 #include "levels.h"
 #include "timer.h"
 #include "button.h"
+#include "collisions.h"
 
 #define TIMEOUT 4
 
@@ -49,7 +50,7 @@ int playLevel(int level, char playermodel) {
 			/*
 			 * 1 = up
 			 * 2 = right
-			 * 3 =left
+			 * 3 = left
 			 * 4 = down
 			 */
 		}
@@ -114,6 +115,7 @@ int playLevel(int level, char playermodel) {
 	return 0;
 }
 
+// Draw the Text (Hp, lvl, score)
 int drawGUI(int level) {
 	locate(0, 0);
 	numToString(hp);
@@ -130,6 +132,7 @@ int drawGUI(int level) {
 	return 0;
 }
 
+// Give it a number. It stores it as a String in global var. 'stri'
 int numToString(int number) {
 	int counter = 0;
 	if (number < 10) {
@@ -171,20 +174,21 @@ int numToString(int number) {
 	}
 }
 
+// Pull player down & move it up while jumping
 int gravityPlayer(int *x, int *y, int offset, int level, char *jump) {
 	int result;
 	int rmCheck;
 	
 	if (*jump > 0) {
-		result = checkColPlayer(*x, *y, 3, level, offset);
+		result = checkColPlayerUp(*x, *y, level, offset);
 		switch (result) {
 			case 0:
 				*y = (*y - 1);
 				*jump = (*jump - 1);
 				break;
-			case 2:
+			case 2: case 5:
 				*jump = 0;
-				rmCheck = removeBox(level, (*x / 8), (*y / 8));
+				rmCheck = removeBox(level, colX, colY);
 				if(rmCheck != -1){
 					hp++;
 				}
@@ -192,44 +196,30 @@ int gravityPlayer(int *x, int *y, int offset, int level, char *jump) {
 			case 1: case 4:
 				*jump = 0;
 				break;
-			case 3:
-				rmCheck = removeCoin(level, (*x / 8), (*y / 8));
+			case 3: case 6:
+				rmCheck = removeCoin(level, colX, colY);
 				if(rmCheck != -1){
 					points++;
 				}
 				*jump = 0;
-				break;
-			case 5:
-				*jump = 0;
-				rmCheck = removeBox(level, ((*x / 8) + 1), (*y / 8));
-				if(rmCheck != -1){
-					hp++;
-				}
-				break;
-			case 6:
-				*jump = 0;
-				rmCheck = removeCoin(level, ((*x / 8) + 1), (*y / 8));
-				if(rmCheck != -1){
-					points++;
-				}
 				break;
 		}
 	} else {
-		result = checkColPlayer(*x, *y, 4, level, offset);
+		result = checkColPlayerDown(*x, *y, level, offset);
 		switch (result) {
 			case 0:
 				*y = *y + 1;
 				break;
 			case 3:
 				*y = *y + 1;
-				rmCheck = removeCoin(level, (*x / 8), ((*y / 8) + 1));
+				rmCheck = removeCoin(level, colX, colY);
 				if(rmCheck != -1){
 					points++;
 				};
 				break;
 			case 6:
 				*y = *y + 1;
-				rmCheck = removeCoin(level, ((*x / 8) + 1), ((*y / 8) + 1));
+				rmCheck = removeCoin(level, colX, colY);
 				if(rmCheck != -1){
 					points++;
 				}
@@ -260,7 +250,7 @@ int movePlayer(char button, int *x, int *y, char *direction, int offset, int lev
 			break;
 		case 1:
 			// Jump...
-			result = checkColPlayer(*x, *y, 4, level, offset);
+			result = checkColPlayerDown(*x, *y, level, offset);
 			if (  (result != 0) && (*jump == 0) ) {
 				*jump = 18;
 			}
@@ -271,16 +261,12 @@ int movePlayer(char button, int *x, int *y, char *direction, int offset, int lev
 			} else {
 				*direction = 3; //jump right
 			}
-			result = checkColPlayer(*x, *y, 2, level, offset);
+			result = checkColPlayerRight(*x, *y, level, offset);
 			if (result == 0) {
 				xval += 1;
-			} else if (result == 3) {
+			} else if ((result == 3) || (result == 6)) {
 				xval += 1;
-				removeCoin(level, ((*x / 8) + 0), (*y / 8));
-				points++;
-			} else if (result == 6) {
-				xval += 1;
-				removeCoin(level, ((*x / 8) + 0), ((*y / 8) + 1));
+				removeCoin(level, colX, colY);
 				points++;
 			}
 			break;
@@ -290,16 +276,12 @@ int movePlayer(char button, int *x, int *y, char *direction, int offset, int lev
 			} else {
 				*direction = 4;
 			}
-			result = checkColPlayer(*x, *y, 1, level, offset);
+			result = checkColPlayerLeft(*x, *y, level, offset);
 			if (result == 0) {
 				xval -= 1;
-			} else if (result == 3) {
+			} else if ((result == 3) || (result == 6)) {
 				xval -= 1;
-				removeCoin(level, ((*x / 8) - 0), (*y / 8));
-				points++;
-			} else if (result == 6) {
-				xval -= 1;
-				removeCoin(level, ((*x / 8) - 0), ((*y / 8) + 1));
+				removeCoin(level, colX, colY);
 				points++;
 			}
 			break;

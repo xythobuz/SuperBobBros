@@ -47,6 +47,9 @@
 // (0|0) <= (x|y) < (128|64)
 // Directions: 1 = Left; 2 = Right; 3 = Up; 4 = Down;
 
+char colX; // New Plan: Instead of calculating where we should remove something in mechanics, we use the same
+char colY; // values for x and y that found a something in the beginning. These coordinates get stored here.
+
 char getPixel(int x, int y) {
 	return (char)Bdisp_GetPoint_VRAM(x, y);
 }
@@ -61,148 +64,192 @@ int translatepixelval(int x, int *off) {
 	return (x / 8);
 }
 
-int checkColPlayer(int x, int y, char direction, int level, int Pixeloffset) {
-	// Player has 7x8px
-	int check = 0;
-	int i = 0;
-	int lt = 0; //less than
-	char which = 0;
-	char is = 0;
-	char counter = 0;
-	int offset = 0;
-	int atx = 0;
-	int aty = 0;
-	int isblocknext = -1;
-	int iscoinnext = -1;
-	int isboxnext = -1;
-	int isblock = 0;
-	int iscoin = 0;
-	int isbox = 0;
+int checkColPlayerUp(int x, int y, int level, int offset) {
+	int i;
+	int count = 0;
+	// First, we check the pixels directly above the player...
+	for (i = 0; i < 7; i++) {
+		if (getPixel((x + i), (y - 1))) {
+			count++;
+		}
+	}
+	if (count == 0) {
+		return 0; // All pixels above the player are white. There is nothing!
+	}
 
-	switch (direction) {
-		case 1:
-			// Left
-			check = x - 1;
-			i = y;
-			lt = y + 8;
-			which = 0;
-			break;
-		case 2:
-			// Right
-			check = x + 7;
-			i = y;
-			lt = y + 8;
-			which = 0;
-			break;
-		case 3:
-			// Up
-			check = y - 1;
-			i = x;
-			lt = x + 7;
-			which = 1;
-			break;
-		case 4:
-			// Down
-			check = y + 8;
-			i = x;
-			lt = x + 7;
-			which = 1;
-			break;
-	}
-	for (; i < lt; i++) {
-		if (which == 1) {
-			is = getPixel(i, check);
-		} else {
-			is = getPixel(check, i);
+	if (count > 0) {
+		y = translatepixelval(y, &count);
+		x = translatepixelval((x + offset), &count);
+		colY = y;
+		colX = x;
+		if (isBlock(level, x, y) != 0) {
+			return 1;
 		}
-		if (is != 0) {
-			counter++;
+		if (count > 1) { // Player is 7px wide...
+			// We are off...
+			if (isBlock(level, (x + 1), y) != 0) {
+				colX++;
+				return 4;
+			}
+		}
+		if (isBox(level, x, y) != 0) {
+			return 2;
+		}
+		if (count > 1) {
+			if (isBox(level, (x + 1), y) != 0) {
+				colX++;
+				return 5;
+			}
+		}
+		if (isCoin(level, x, y) != 0) {
+			return 3;
+		}
+		if (count > 1) {
+			if (isCoin(level, (x + 1), y) != 0) {
+				colX++;
+				return 6;
+			}
 		}
 	}
-	if (counter == 0) {
-		// All pixels in the given direction are white:
+}
+
+int checkColPlayerDown(int x, int y, int level, int offset) {
+	int i;
+	int count = 0;
+	// First, we check the pixels directly below the player...
+	for (i = 0; i < 7; i++) {
+		if (getPixel((x + i), (y + 8)) != 0) {
+			count++;
+		}
+	}
+	if (count == 0) {
+		return 0; // All pixels below the player are white. There is nothing!
+	}
+
+	if (count > 0) {
+		y = translatepixelval(y, &count) + 1; // Remember: Below!
+		x = translatepixelval((x + offset), &count);
+		colY = y;
+		colX = x;
+		if (isBlock(level, x, y) != 0) {
+			return 1;
+		}
+		if (count > 1) { // Player is 7px wide...
+			// We are off...
+			if (isBlock(level, (x + 1), y) != 0) {
+				colX++;
+				return 4;
+			}
+		}
+		if (isBox(level, x, y) != 0) {
+			return 2;
+		}
+		if (count > 1) {
+			if (isBox(level, (x + 1), y) != 0) {
+				colX++;
+				return 5;
+			}
+		}
+		if (isCoin(level, x, y) != 0) {
+			return 3;
+		}
+		if (count > 1) {
+			if (isCoin(level, (x + 1), y) != 0) {
+				colX++;
+				return 6;
+			}
+		}
+	}
+}
+
+int checkColPlayerRight(int x, int y, int level, int offset) {
+	int i;
+	int count = 0;
+	for (i = 0; i < 8; i++) {
+		if (getPixel((x + 7), (y + i)) != 0) {
+			count++;
+		}
+	}
+	if (count == 0) {
 		return 0;
 	}
-
-	if (which == 0) {
-		x = translatepixelval(x, &offset);
-		y = translatepixelval(y, &offset);
-	} else {
-		y = translatepixelval(y, &offset);
-		x = translatepixelval(x, &offset);
-	}
-	if (offset > 1) { // Player is only 7px wide, block has 8px... We ignore this... <--Not anymore....
-						// Well yea, i thought of that also and came to the conclusion that it's bad...
-						// I don't remember why ;-)
-		// Check next position also
-		switch (direction) {
-			case 1:
-				// Left
-				atx = (x - 1);
-				aty = (y + 1);
-				break;
-			case 2:
-				// Right
-				aty = (y + 1);
-				atx = (x + 1);
-				break;
-			case 3:
-				// Up
-				aty = (y - 1);
-				atx = (x + 1);
-				break;
-			case 4:
-				// Down
-				aty = (y + 1);
-				atx = (x + 1);
-				break;
+	if (count > 0) {
+		x = translatepixelval((x + offset), &count) + 1;
+		y = translatepixelval(y, &count);
+		colY = y;
+		colX = x;
+		if (isBlock(level, x, y) != 0) {
+			return 1;
 		}
-		isblocknext = isBlock(level, (atx + (Pixeloffset / 8)), aty);
-		isboxnext = isBox(level, (atx + (Pixeloffset / 8)), aty);
-		iscoinnext = isCoin(level, (atx + (Pixeloffset / 8)), aty);
+		if (count > 0) {
+			if (isBlock(level, x, (y + 1)) != 0) {
+				colY++;
+				return 4;
+			}
+		}
+		if (isBox(level, x, y) != 0) {
+			return 2;
+		}
+		if (count > 0) {
+			if (isBox(level, x, (y + 1)) != 0) {
+				colY++;
+				return 5;
+			}
+		}
+		if (isCoin(level, x, y) != 0) {
+			return 3;
+		}
+		if (count > 0) {
+			if (isBox(level, x, (y + 1)) != 0) {
+				colY++;
+				return 6;
+			}
+		}
 	}
-	switch (direction) {
-		case 1:
-			atx = (x - 1);
-			aty = y;
-			break;
-		case 2:
-			atx = (x + 1);
-			aty = y;
-			break;
-		case 3:
-			atx = x;
-			aty = (y - 1);
-			break;
-		case 4:
-			atx = x;
-			aty = (y + 1);
-			break;
-	}
-	isblock = isBlock(level, (atx + (Pixeloffset / 8)), aty);
-	isbox = isBox(level, (atx + (Pixeloffset / 8)), aty);
-	iscoin = isCoin(level, (atx + (Pixeloffset / 8)), aty);
+}
 
-	// Priority: Block > Box > Coin > Nothing
-	if (isblock != 0) {
-		return 1;
+int checkColPlayerLeft(int x, int y, int level, int offset) {
+	int i;
+	int count = 0;
+	for (i = 0; i < 8; i++) {
+		if (getPixel((x - 1), (y + i)) != 0) {
+			count++;
+		}
 	}
-	if (isbox != 0) {
-		return 2;
+	if (count == 0) {
+		return 0;
 	}
-	if (iscoin != 0) {
-		return 3;
+	if (count > 0) {
+		x = translatepixelval((x + offset), &count);
+		y = translatepixelval(y, &count);
+		colY = y;
+		colX = x;
+		if (isBlock(level, x, y) != 0) {
+			return 1;
+		}
+		if (count > 0) {
+			if (isBlock(level, x, (y + 1)) != 0) {
+				colY++;
+				return 4;
+			}
+		}
+		if (isBox(level, x, y) != 0) {
+			return 2;
+		}
+		if (count > 0) {
+			if (isBox(level, x, (y + 1)) != 0) {
+				colY++;
+				return 5;
+			}
+		}
+		if (isCoin(level, x, y) != 0) {
+			return 3;
+		}
+		if (count > 0) {
+			if (isBox(level, x, (y + 1)) != 0) {
+				colY++;
+				return 6;
+			}
+		}
 	}
-
-	if (isblocknext != 0) {
-		return 4;
-	}
-	if (isboxnext != 0) {
-		return 5;
-	}
-	if (iscoinnext != 0) {
-		return 6;
-	}
-	return -1; // Logical Error: Some pixels are black but we have not found something...
-			// This was changed to 3. Who did it? Why? *cough* *whistles* err... well... my bad...
 }

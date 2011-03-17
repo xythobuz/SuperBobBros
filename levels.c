@@ -61,7 +61,7 @@ int removeBox(int level, char x, char y) {
 		size = getsizeBox(level, y);
 		for (i = 0; i < size; i++) {
 			if (levels[level][BOX][y][i] == x) {
-				levels[level][BOX][y][i] = -1;
+				levels[level][BOX][y][i] = -2; // Setting deleted ones to -1 was bad, because -1 is the end marker...
 			}
 		}
 	} else {
@@ -75,9 +75,9 @@ int removeCoin(int level, char x, char y) {
 	if ((x >= 0) && (y >= 0) && (y <= 7)) {
 		size = getsizeCoin(level, y);
 		for (i = 0; i < size; i++) {
-			//if (levels[level][COIN][y][i] == x) { If you do that, coins are recognized everytime. Just the removing is still as buggy as before...
-				levels[level][COIN][y][i] = -1;
-			//}
+			if (levels[level][COIN][y][i] == x) { // Commenting this out was a stupid idea, because all coins then got removed. Also, this is only removing coins, not detecting them...
+				levels[level][COIN][y][i] = -2;
+			}
 		}
 	} else {
 		return -1;
@@ -88,8 +88,6 @@ int isThere(int level, int what, char x, char y) {
 	int i;
 	int size;
 	int flag = 0;
-
-    
 
 	if ((x >= 0) && (y >= 0) && (y <= 7)) {
 		size = getSize(level, what, y);
