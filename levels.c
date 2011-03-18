@@ -11,6 +11,10 @@
 #define BLOCK 0
 #define BOX 1
 #define COIN 2
+#define ENEMYA 3
+#define ENEMYB 4
+#define ENEMYC 5
+#define ENEMYD 6
 
 
 // levels[lvl.num.][type][y][index]
@@ -30,7 +34,7 @@ int getSize(int level, int what, char y) {
 	*/
 
 	int i = 0;
-	if ((what < 0) || (what > 2) || (y < 0) || (y > 7)) { 
+	if ((what < 0) || (what > 6) || (y < 0) || (y > 7)) { 
 		return -1;
 	}
 	if ((level < 0) || (level >= HOWMANYLEVELS)) {
@@ -52,6 +56,13 @@ int getsizeBox(int level, char y) {
 
 int getsizeCoin(int level, char y) {
 	return getSize(level, COIN, y);
+}
+
+int getsizeEnemy(int level, char y, int whichEnemy) {
+	if ((whichEnemy < 0) || (whichEnemy > 3)) {
+		return -1;
+	}
+	return getSize(level, (ENEMYA + whichEnemy), y);
 }
 
 int removeBox(int level, char x, char y) {
@@ -112,4 +123,11 @@ int isBlock(int level, char x, char y) {
 
 int isCoin(int level, char x, char y) {
 	return isThere(level, COIN, x, y);
+}
+
+int isEnemy(int level, char x, char y, int whichEnemy) {
+	if ((whichEnemy < 0) || (whichEnemy > 3)) {
+		return -1;
+	}
+	return isThere(level, (ENEMYA + whichEnemy), x, y);
 }

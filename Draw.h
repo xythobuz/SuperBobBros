@@ -9,6 +9,7 @@
 int drawBlock(char x, char y);
 int drawBox(char x, char y);
 int drawCoin(char x, char y);
+int drawEnemy(char x, char y, char enemy);
 
 // Dir is the players direction:
 // 0 = standing

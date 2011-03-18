@@ -1,0 +1,9 @@
+level
+0|x                      x
+1|x                      x
+2|x                      x
+3|x                    1 x
+4|x   cc              xxxx
+5|x           b       xxxx
+6|x      c  x         xxxx
+7|xxxxxxxxxxxxxxxxxxxxxxxx

@@ -1,9 +1,0 @@
-level
-0|x              x
-1|x              x
-2|x              x
-3|x              x
-4|x   cc         x
-5|x           b  x
-6|x      c  x    x
-7|xxxxxxxxxxxxxxxx

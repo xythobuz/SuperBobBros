@@ -92,8 +92,23 @@ int getBCPixel(char x, char y, char what) {
 
 int getBoxPixel(char x, char y) {
 	char value = 0;
-	if ((y < 7) && (y >= 0) && (x < 7) && (y >= 0)) {
+	if ((y < 7) && (y >= 0) && (x < 7) && (x >= 0)) {
 		value = box[y];
+		value <<= x;
+		if ((value & 128) != 0) {
+			return 1;
+		} else {
+			return 0;
+		}
+	} else {
+		return -1;
+	}
+}
+
+int getEnemyPixel(char x, char y, char enemy) {
+	char value = 0;
+	if ((y < 7) && (y >= 0) && (x < 7) && (x >= 0)) {
+		value = enemys[enemy][y];
 		value <<= x;
 		if ((value & 128) != 0) {
 			return 1;
@@ -209,4 +224,19 @@ int drawBox(char x, char y) {
 		}
 	}
 	return 0;
+}
+
+int drawEnemy(char x, char y, char enemy) {
+	int i;
+	int j;
+	if ((x < -7) || (y < 0) || (x > 127) || (y > 63)) {
+		return -1;
+	}
+	for (i = 0; i < 8; i++) {
+		for (j = 0; j < 8; j++) {
+			if (getEnemyPixel(i, j, enemy) == 1) {
+				set((x + i), (y + j));
+			}
+		}
+	}
 }

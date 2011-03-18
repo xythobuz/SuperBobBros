@@ -7,58 +7,83 @@
  */
 
 #include <stdio.h>
-#define MAXROWLENGTH 1000
-#define MAXRAWLENGTH 8100
-#define MAXBLOCKPROW 256
-#define MAXCOINBOXPR 50
+#define MAXRAWLENGTH 1100
+#define MAX 127
 
+// Uncomment for Debug Output:
 /*
 #define DEBUG
 */
 
-int rawLevelData[MAXRAWLENGTH];
-int block0[MAXBLOCKPROW];
-int block1[MAXBLOCKPROW];
-int block2[MAXBLOCKPROW];
-int block3[MAXBLOCKPROW];
-int block4[MAXBLOCKPROW];
-int block5[MAXBLOCKPROW];
-int block6[MAXBLOCKPROW];
-int block7[MAXBLOCKPROW];
-int box0[MAXCOINBOXPR];
-int box1[MAXCOINBOXPR];
-int box2[MAXCOINBOXPR];
-int box3[MAXCOINBOXPR];
-int box4[MAXCOINBOXPR];
-int box5[MAXCOINBOXPR];
-int box6[MAXCOINBOXPR];
-int box7[MAXCOINBOXPR];
-int coin0[MAXCOINBOXPR];
-int coin1[MAXCOINBOXPR];
-int coin2[MAXCOINBOXPR];
-int coin3[MAXCOINBOXPR];
-int coin4[MAXCOINBOXPR];
-int coin5[MAXCOINBOXPR];
-int coin6[MAXCOINBOXPR];
-int coin7[MAXCOINBOXPR];
+int rawLevelData[MAX];
+int block0[MAX];
+int block1[MAX];
+int block2[MAX];
+int block3[MAX];
+int block4[MAX];
+int block5[MAX];
+int block6[MAX];
+int block7[MAX];
+int box0[MAX];
+int box1[MAX];
+int box2[MAX];
+int box3[MAX];
+int box4[MAX];
+int box5[MAX];
+int box6[MAX];
+int box7[MAX];
+int coin0[MAX];
+int coin1[MAX];
+int coin2[MAX];
+int coin3[MAX];
+int coin4[MAX];
+int coin5[MAX];
+int coin6[MAX];
+int coin7[MAX];
+int enemyA0[MAX];
+int enemyA1[MAX];
+int enemyA2[MAX];
+int enemyA3[MAX];
+int enemyA4[MAX];
+int enemyA5[MAX];
+int enemyA6[MAX];
+int enemyA7[MAX];
+int enemyB0[MAX];
+int enemyB1[MAX];
+int enemyB2[MAX];
+int enemyB3[MAX];
+int enemyB4[MAX];
+int enemyB5[MAX];
+int enemyB6[MAX];
+int enemyB7[MAX];
+int enemyC0[MAX];
+int enemyC1[MAX];
+int enemyC2[MAX];
+int enemyC3[MAX];
+int enemyC4[MAX];
+int enemyC5[MAX];
+int enemyC6[MAX];
+int enemyC7[MAX];
+int enemyD0[MAX];
+int enemyD1[MAX];
+int enemyD2[MAX];
+int enemyD3[MAX];
+int enemyD4[MAX];
+int enemyD5[MAX];
+int enemyD6[MAX];
+int enemyD7[MAX];
 int *blocks[8] = {block0, block1, block2, block3, block4, block5, block6, block7};
 int *boxes[8] = {box0, box1, box2, box3, box4, box5, box6, box7};
 int *coins[8] = {coin0, coin1, coin2, coin3, coin4, coin5, coin6, coin7};
-int **all[3] = {blocks, boxes, coins};
+int *enemyA[8] = {enemyA0, enemyA1, enemyA2, enemyA3, enemyA4, enemyA5, enemyA6, enemyA7};
+int *enemyB[8] = {enemyB0, enemyB1, enemyB2, enemyB3, enemyB4, enemyB5, enemyB6, enemyB7};
+int *enemyC[8] = {enemyC0, enemyC1, enemyC2, enemyC3, enemyC4, enemyC5, enemyC6, enemyC7};
+int *enemyD[8] = {enemyD0, enemyD1, enemyD2, enemyD3, enemyD4, enemyD5, enemyD6, enemyD7};
+int **all[7] = {blocks, boxes, coins, enemyA, enemyB, enemyC, enemyD};
 
 char OutputHeader[] = "/*\n * generated with xythobuz' BobLevelCreator\n */\n";
 
-/*
- * Copy contents of level file into rawLevelData[].
- * @arg name String with level file path
- * @return length if all is okay, -1 if file could not be opened, -2 if file is too large.
- */
 int readLevelFile(char *name);
-
-/*
- * Check if the header in rawLevelData is okay.
- * @return 0 if ok, 1 if not.
- */
 int checkHeader();
 void clearMemory();
 void removeStuff(int length);
@@ -72,15 +97,9 @@ int writeH(int levelnum);
 
 void clearMemory() {
 	int i, j, k;
-	int size;
-	for (i = 0; i < 3; i++) {
-		if (i > 0) {
-			size = MAXCOINBOXPR;
-		} else {
-			size = MAXBLOCKPROW;
-		}
+	for (i = 0; i < 7; i++) {
 		for (j = 0; j < 8; j++) {
-			for (k = 0; k < MAXBLOCKPROW; k++) {
+			for (k = 0; k < MAX; k++) {
 				all[i][j][k] = -1;
 			}
 		}
@@ -131,15 +150,31 @@ int main(int argc, char **argv) {
 	}
 	
 	if (formatData('x') == -1) {
-		printf("Error while formating data!\n");
+		printf("Error while formating Block data!\n");
 		return 1;
 	}
 	if (formatData('b') == -1) {
-		printf("Error while formating data!\n");
+		printf("Error while formating Box data!\n");
 		return 1;
 	}
 	if (formatData('c') == -1) {
-		printf("Error while formating data!\n");
+		printf("Error while formating Coin data!\n");
+		return 1;
+	}
+	if (formatData('1') == -1) {
+		printf("Error while formating EnemyA data!\n");
+		return 1;
+	}
+	if (formatData('2') == -1) {
+		printf("Error while formating EnemyB data!\n");
+		return 1;
+	}
+	if (formatData('3') == -1) {
+		printf("Error while formating EnemyC data!\n");
+		return 1;
+	}
+	if (formatData('4') == -1) {
+		printf("Error while formating EnemyD data!\n");
 		return 1;
 	}
 
@@ -156,6 +191,7 @@ int main(int argc, char **argv) {
 }
 
 int readLevelFile(char *name) {
+	// Read levelfile, put contents into rawLevelData[]
 	int counter = 0;
 	int temp;
 	FILE *fp;
@@ -179,6 +215,7 @@ int readLevelFile(char *name) {
 }
 
 int checkHeader() {
+	// Check if levelfile starts with the String "level"...
 	char temp[] = "level";
 	int i;
 	int flag = 0;
@@ -194,6 +231,7 @@ int checkHeader() {
 }
 
 void removeStuff(int length) {
+	// Remove all \n and \r from rawLevelData[], also remove "Header"
 	int i;
 	for (i = 0; i < length; i++) {
 		if (rawLevelData[i] == '\n') {
@@ -209,6 +247,7 @@ void removeStuff(int length) {
 }
 
 int findRow(int row) {
+	// Returns start of a row in rawLevelData[]. Searches for rownumber and | after it...
 	int i;
 	for (i = 0; i < MAXRAWLENGTH - 2; i++) {
 		if ( (rawLevelData[i] == ((char)row + '0')) && (rawLevelData[i + 1] == '|') ) {
@@ -219,6 +258,7 @@ int findRow(int row) {
 }
 
 int findEnd(int row) {
+	// Returns position of last filled byte of a row...
 	int i;
 	int j = findRow(row);
 	if (j == -1) {
@@ -233,6 +273,7 @@ int findEnd(int row) {
 }
 
 int countCharRaw(int row, char character) {
+	// Looks how many 'character's are found in a 'row'
 	int a = findRow(row);
 	int b = findEnd(row);
 	int i;
@@ -249,6 +290,7 @@ int countCharRaw(int row, char character) {
 }
 
 int formatData(int character) {
+	// Puts Data from rawLevelData apart...
 	// blocks[row][coords]
 	int i;
 	int row;
@@ -268,7 +310,20 @@ int formatData(int character) {
 		case 'c':
 			which = 2;
 			break;
-			
+
+		case '1':
+			which = 3;
+			break;
+		case '2':
+			which = 4;
+			break;
+		case '3':
+			which = 5;
+			break;
+		case '4':
+			which = 6;
+			break;
+
 		default:
 			return -1;
 	}
@@ -301,20 +356,29 @@ int countChar(int row, char character) {
 	// Count number of elements in the formatted data, as opposed to countCharRaw()...
 	int first;
 	int i;
-	int size;
+	int size = MAX;
 	int count = 0;
 	switch (character) {
 		case 'x':
 			first = 0;
-			size = MAXBLOCKPROW;
 			break;
 		case 'b':
 			first = 1;
-			size = MAXCOINBOXPR;
 			break;
 		case 'c':
 			first = 2;
-			size = MAXCOINBOXPR;
+			break;
+		case '1':
+			first = 3;
+			break;
+		case '2':
+			first = 4;
+			break;
+		case '3':
+			first = 5;
+			break;
+		case '4':
+			first = 6;
 			break;
 
 		default:
@@ -367,7 +431,7 @@ int writeC(int levelnum, int xEnd, int yEnd) {
 
 	fprintf(fp, "/*\n * level %i\n * generated with xythobuz' BobLevelCreator\n */\n#include \"level%i.h\"\n\n", levelnum, levelnum);
 	
-	for (first = 0; first < 3; first++) {
+	for (first = 0; first < 7; first++) {
 		for (row = 0; row < 8; row++) {
 			fprintf(fp, "char lvl%i_", levelnum);
 			switch (first) {
@@ -383,6 +447,23 @@ int writeC(int levelnum, int xEnd, int yEnd) {
 					fprintf(fp, "Coin_");
 					size = countChar(row, 'c');
 					break;
+				case 3:
+					fprintf(fp, "EnemyA_");
+					size = countChar(row, '1');
+					break;
+				case 4:
+					fprintf(fp, "EnemyB_");
+					size = countChar(row, '2');
+					break;
+				case 5:
+					fprintf(fp, "EnemyC_");
+					size = countChar(row, '3');
+					break;
+				case 6:
+					fprintf(fp, "EnemyD_");
+					size = countChar(row, '4');
+					break;
+
 			}
 			if (size == -1) {
 				fclose(fp);
@@ -414,7 +495,7 @@ int writeC(int levelnum, int xEnd, int yEnd) {
 	fprintf(fp, "char lvl%i_Exits[2] = { %i, %i };\n", levelnum, xEnd, yEnd);
 	fprintf(fp, "char *lvl%i_Exit[1] = { lvl%i_Exits };\n\n", levelnum, levelnum); 
 
-	for (first = 0; first < 3; first++) {
+	for (first = 0; first < 7; first++) {
 		fprintf(fp, "char *lvl%i_", levelnum);
 		switch (first) {
 			case 0:
@@ -425,6 +506,18 @@ int writeC(int levelnum, int xEnd, int yEnd) {
 				break;
 			case 2:
 				fprintf(fp, "Coin");
+				break;
+			case 3:
+				fprintf(fp, "EnemyA");
+				break;
+			case 4:
+				fprintf(fp, "EnemyB");
+				break;
+			case 5:
+				fprintf(fp, "EnemyC");
+				break;
+			case 6:
+				fprintf(fp, "EnemyD");
 				break;
 		}
 		fprintf(fp, "[8] = { ");
@@ -440,6 +533,18 @@ int writeC(int levelnum, int xEnd, int yEnd) {
 				case 2:
 					fprintf(fp, "Coin");
 					break;
+				case 3:
+					fprintf(fp, "EnemyA");
+					break;
+				case 4:
+					fprintf(fp, "EnemyB");
+					break;
+				case 5:
+					fprintf(fp, "EnemyC");
+					break;
+				case 6:
+					fprintf(fp, "EnemyD");
+					break;
 			}
 			fprintf(fp, "_%i", row);
 			if (row < 7) {
@@ -451,7 +556,7 @@ int writeC(int levelnum, int xEnd, int yEnd) {
 	}
 	fprintf(fp, "\n");
 	
-	fprintf(fp, "char **level%i[4] = { lvl%i_Block, lvl%i_Box, lvl%i_Coin, lvl%i_Exit };\n", levelnum, levelnum, levelnum, levelnum, levelnum);
+	fprintf(fp, "char **level%i[8] = { lvl%i_Block, lvl%i_Box, lvl%i_Coin, lvl%i_Exit, lvl%i_EnemyA, lvl%i_EnemyB, lvl%i_EnemyC, lvl%i_EnemyD };\n", levelnum, levelnum, levelnum, levelnum, levelnum, levelnum, levelnum, levelnum, levelnum);
 
 	fclose(fp);
 	return 0;
@@ -487,7 +592,7 @@ int writeH(int levelnum) {
 	}
 
 	fprintf(fp, "/*\n * level %i\n * generated with xythobuz' BobLevelCreator\n */\n\n", levelnum);
-	fprintf(fp, "extern char **level%i[4];\n", levelnum);
+	fprintf(fp, "extern char **level%i[8];\n", levelnum);
 
 	fclose(fp);
 	return 0;
