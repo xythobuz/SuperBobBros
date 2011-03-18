@@ -117,7 +117,7 @@ int checkColPlayerDown(int x, int y, int level, int offset) {
 	int i;
 	int count = 0;
 	// First, we check the pixels directly below the player...
-	for (i = 0; i < 7; i++) {
+	for (i = 1; i < 7; i++) { //I don't know why, but if you start at 0, you can jump 1px into the wall.
 		if (getPixel((x + i), (y + 8)) != 0) {
 			count++;
 		}
