@@ -68,7 +68,7 @@ int checkColPlayerUp(int x, int y, int level, int offset) {
 	int i;
 	int count = 0;
 	// First, we check the pixels directly above the player...
-	for (i = 0; i < 7; i++) {
+	for (i = 1; i < 7; i++) {
 		if (getPixel((x + i), (y - 1))) {
 			count++;
 		}
@@ -117,7 +117,8 @@ int checkColPlayerDown(int x, int y, int level, int offset) {
 	int i;
 	int count = 0;
 	// First, we check the pixels directly below the player...
-	for (i = 1; i < 7; i++) { //I don't know why, but if you start at 0, you can jump 1px into the wall.
+	for (i = 1; i < 7; i++) { // I don't know why, but if you start at 0, you can jump 1px into the wall.
+								// Because Bob is only 7px wide...
 		if (getPixel((x + i), (y + 8)) != 0) {
 			count++;
 		}
