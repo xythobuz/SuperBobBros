@@ -10,6 +10,7 @@
 #include "timer.h"
 #include "button.h"
 #include "collisions.h"
+#include "ai.h"
 
 #define TIMEOUT 4
 
@@ -17,6 +18,7 @@ unsigned int timer1;
 int hp = 3;
 int points = 0;
 unsigned char stri[4];
+char backToMenu = 0;
 
 void timer_1(void) {
 	timer1++;
@@ -30,8 +32,8 @@ int playLevel(int level, char playermodel) {
 	char temp = 0;
 	char direction = 0;
 	char jump = 0;
-	char backToMenu = 0;
 
+	backToMenu = 0;
 	if (hp < 3) {
 		hp = 3;
 	}
@@ -58,7 +60,7 @@ int playLevel(int level, char playermodel) {
 		if (timer1 != 0) {
 			// All 100ms...
 			timer1 = 0;
-			temp = movePlayer(button, &xPlayer, &yPlayer, &direction, offset, level, &jump);
+			temp = movePlayer(button, &xPlayer, &yPlayer, &direction, &offset, level, &jump);
 			if (temp == 1) {
 				backToMenu = 1;
 			}
@@ -76,17 +78,9 @@ int playLevel(int level, char playermodel) {
 				}
 			}
 			
-			gravityPlayer(&xPlayer, &yPlayer, offset, level, &jump);
+			gravityPlayer(&xPlayer, &yPlayer, &offset, level, &jump);
 			if (yPlayer > 58) {
-				if (hp > 0) {
-					hp--;
-					offset = 0;
-					xPlayer = 16;
-					yPlayer = 40;
-					jump = 0;
-				} else {
-					backToMenu = 1;
-				}
+				die(&xPlayer, &yPlayer, &offset, &jump);
 			}
 			if (levels[level][3][0][0] == ((xPlayer / 8) + (offset / 8))) {
 				if (levels[level][3][0][1] == (yPlayer / 8)) {
@@ -113,6 +107,18 @@ int playLevel(int level, char playermodel) {
 
 	KillTimer(ID_USER_TIMER1);
 	return 0;
+}
+
+int die(int *xPlayer, int *yPlayer, int *offset, char *jump) {
+	if (hp > 0) {
+		*xPlayer = 16;
+		*yPlayer = 40;
+		*jump = 0;
+		*offset = 0;
+		hp--;
+	} else {
+		backToMenu = 1;
+	}
 }
 
 // Draw the Text (Hp, lvl, score)
@@ -175,12 +181,12 @@ int numToString(int number) {
 }
 
 // Pull player down & move it up while jumping
-int gravityPlayer(int *x, int *y, int offset, int level, char *jump) {
+int gravityPlayer(int *x, int *y, int *offset, int level, char *jump) {
 	int result;
 	int rmCheck;
 	
 	if (*jump > 0) {
-		result = checkColPlayerUp(*x, *y, level, offset);
+		result = checkColPlayerUp(*x, *y, level, *offset);
 		switch (result) {
 			case 0:
 				*y = (*y - 1);
@@ -203,33 +209,35 @@ int gravityPlayer(int *x, int *y, int offset, int level, char *jump) {
 				}
 				*jump = 0;
 				break;
+			case 7: case 8:
+				die(x, y, offset, jump);
+				break;
 		}
 	} else {
-		result = checkColPlayerDown(*x, *y, level, offset);
+		result = checkColPlayerDown(*x, *y, level, *offset);
 		switch (result) {
 			case 0:
 				*y = *y + 1;
 				break;
-			case 3:
+			case 3: case 6:
 				*y = *y + 1;
 				rmCheck = removeCoin(level, colX, colY);
 				if(rmCheck != -1){
 					points++;
 				};
 				break;
-			case 6:
-				*y = *y + 1;
-				rmCheck = removeCoin(level, colX, colY);
-				if(rmCheck != -1){
-					points++;
+			case 7: case 8:
+				for (rmCheck = 0; rmCheck < HOWMANYENEMYS; rmCheck++) {
+					if (isEnemy(level, colX, colY, rmCheck)) {
+						removeEnemy(level, colX, colY, rmCheck);
+					}
 				}
-				break;
 		}
 	}
 	return 0;
 }
 
-int movePlayer(char button, int *x, int *y, char *direction, int offset, int level, char *jump) {
+int movePlayer(char button, int *x, int *y, char *direction, int *offset, int level, char *jump) {
 	/*
 	 * 0 = stehen
      * 1 = gehen rechts
@@ -250,7 +258,7 @@ int movePlayer(char button, int *x, int *y, char *direction, int offset, int lev
 			break;
 		case 1:
 			// Jump...
-			result = checkColPlayerDown(*x, *y, level, offset);
+			result = checkColPlayerDown(*x, *y, level, *offset);
 			if (  (result != 0) && (*jump == 0) ) {
 				*jump = 18;
 			}
@@ -261,13 +269,15 @@ int movePlayer(char button, int *x, int *y, char *direction, int offset, int lev
 			} else {
 				*direction = 3; //jump right
 			}
-			result = checkColPlayerRight(*x, *y, level, offset);
+			result = checkColPlayerRight(*x, *y, level, *offset);
 			if (result == 0) {
 				xval += 1;
 			} else if ((result == 3) || (result == 6)) {
 				xval += 1;
 				removeCoin(level, colX, colY);
 				points++;
+			} else if ((result == 7) || (result == 8)) {
+				die(x, y, offset, jump);
 			}
 			break;
 		case 3: // Left
@@ -276,13 +286,15 @@ int movePlayer(char button, int *x, int *y, char *direction, int offset, int lev
 			} else {
 				*direction = 4;
 			}
-			result = checkColPlayerLeft(*x, *y, level, offset);
+			result = checkColPlayerLeft(*x, *y, level, *offset);
 			if (result == 0) {
 				xval -= 1;
 			} else if ((result == 3) || (result == 6)) {
 				xval -= 1;
 				removeCoin(level, colX, colY);
 				points++;
+			} else if ((result == 7) || (result == 8)) {
+				die(x, y, offset, jump);
 			}
 			break;
 		case 4:
@@ -335,6 +347,7 @@ int drawLevel(int level, int offset, int xPlayer, int yPlayer, char direction, c
 		}
 	}
 	drawPlayer(model, direction, xPlayer, yPlayer);
+	drawAI(level, offset);
 	drawGUI(level);
 	draw();
 }

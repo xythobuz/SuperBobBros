@@ -4,6 +4,8 @@
  * Visit: www.xythobuz.org
  */
 #include "levels.h"
+#include "ai.h"
+
 #include "level1.h"
 #include "level2.h"
 #include "level3.h"
@@ -73,6 +75,7 @@ int removeBox(int level, char x, char y) {
 		for (i = 0; i < size; i++) {
 			if (levels[level][BOX][y][i] == x) {
 				levels[level][BOX][y][i] = -2; // Setting deleted ones to -1 was bad, because -1 is the end marker...
+				return 0;
 			}
 		}
 	} else {
@@ -88,10 +91,23 @@ int removeCoin(int level, char x, char y) {
 		for (i = 0; i < size; i++) {
 			if (levels[level][COIN][y][i] == x) { // Commenting this out was a stupid idea, because all coins then got removed. Also, this is only removing coins, not detecting them...
 				levels[level][COIN][y][i] = -2;
+				return 0;
 			}
 		}
 	} else {
 		return -1;
+	}
+}
+
+int removeEnemyRaw(int level, char x, char y, int whichEnemy) {
+	int size;
+	int i;
+	size = getsizeEnemy(level, y, whichEnemy);
+	for (i = 0; i < size; i++) {
+		if (levels[level][ENEMYA + whichEnemy][y][i] == x) {
+			levels[level][ENEMYA + whichEnemy][y][i] = -2;
+			return 0;
+		}
 	}
 }
 
@@ -125,8 +141,8 @@ int isCoin(int level, char x, char y) {
 	return isThere(level, COIN, x, y);
 }
 
-int isEnemy(int level, char x, char y, int whichEnemy) {
-	if ((whichEnemy < 0) || (whichEnemy > 3)) {
+int isEnemyRaw(int level, char x, char y, int whichEnemy) {
+	if ((whichEnemy < 0) || (whichEnemy > (HOWMANYENEMYS - 1))) {
 		return -1;
 	}
 	return isThere(level, (ENEMYA + whichEnemy), x, y);

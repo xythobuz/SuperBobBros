@@ -2,12 +2,12 @@
 
 [_1]
 Type=5
-Order=3
+Order=0
 Top=-45
 Left=8625
 Height=12645
 Width=10155
-State=16
+State=0
 Flags=00000020
 Setting=21:1:mechanics.c
 OptionA=0
@@ -26,9 +26,9 @@ OptionB=15
 
 [_3]
 Type=6
-Order=2
+Order=1
 Top=4935
-Left=15360
+Left=15900
 Height=6390
 Width=5535
 State=0
@@ -81,7 +81,7 @@ OptionA=0
 
 [_8]
 Type=17
-Order=4
+Order=3
 Top=15
 Left=0
 Height=11115
@@ -92,12 +92,12 @@ OptionA=0
 
 [_9]
 Type=15
-Order=1
+Order=2
 Top=840
 Left=1290
 Height=8085
 Width=8880
-State=16
+State=0
 Flags=00000000
 OptionA=0
 
@@ -147,7 +147,7 @@ OptionA=0
 
 [_36]
 Type=16
-Order=0
+Order=4
 Top=1905
 Left=5175
 Height=9435

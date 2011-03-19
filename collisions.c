@@ -6,6 +6,7 @@
 #include "collisions.h"
 #include "fxlib.h"
 #include "levels.h"
+#include "ai.h"
 
 /* Return Values:
  * -1 = Error
@@ -16,6 +17,8 @@
  *  4 = Block at next Position
  *  5 = Box at next Position
  *  6 = Coin at next Position
+ *  7 = Enemy (Any Enemy)
+ *  8 = Enemy at next Position
  *
  *  Next Position:
  *     x+01234567	When checking (1|0) for Up
@@ -110,6 +113,15 @@ int checkColPlayerUp(int x, int y, int level, int offset) {
 				return 6;
 			}
 		}
+		for (i = 0; i < HOWMANYENEMYS; i++) {
+			if (isEnemy(level, x, y, i) != 0) {
+				return 7;
+			}
+			if (isEnemy(level, (x + 1), y, i) != 0) {
+				colX++;
+				return 8;
+			}
+		}
 	}
 }
 
@@ -162,6 +174,15 @@ int checkColPlayerDown(int x, int y, int level, int offset) {
 				return 6;
 			}
 		}
+		for (i = 0; i < HOWMANYENEMYS; i++) {
+			if (isEnemy(level, x, y, i) != 0) {
+				return 7;
+			}
+			if (isEnemy(level, (x + 1), y, i) != 0) {
+				colX++;
+				return 8;
+			}
+		}
 	}
 }
 
@@ -208,6 +229,15 @@ int checkColPlayerRight(int x, int y, int level, int offset) {
 				return 6;
 			}
 		}
+		for (i = 0; i < HOWMANYENEMYS; i++) {
+			if (isEnemy(level, x, y, i) != 0) {
+				return 7;
+			}
+			if (isEnemy(level, x, (y + 1), i) != 0) {
+				colY++;
+				return 8;
+			}
+		}
 	}
 }
 
@@ -252,6 +282,15 @@ int checkColPlayerLeft(int x, int y, int level, int offset) {
 			if (isBox(level, x, (y + 1)) != 0) {
 				colY++;
 				return 6;
+			}
+		}
+		for (i = 0; i < HOWMANYENEMYS; i++) {
+			if (isEnemy(level, x, y, i) != 0) {
+				return 7;
+			}
+			if (isEnemy(level, x, (y + 1), i) != 0) {
+				colY++;
+				return 8;
 			}
 		}
 	}
