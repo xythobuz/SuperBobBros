@@ -56,6 +56,8 @@ int drawAI(int level, int offset) {
 						Slots[slot][6] = 0;
 						diff = i - Blockoffset;
 						Slots[slot][1] = offset + (diff * 8);
+						removeEnemyRaw(level, Slots[slot][4], Slots[slot][5], Slots[slot][0]);
+						
 					}
 				}
 			}
@@ -68,7 +70,7 @@ int drawAI(int level, int offset) {
 			Slots[i][3] = 1;
 		}
 		if (Slots[i][3] == 1) {
-			removeEnemyRaw(level, Slots[i][4], Slots[i][5], Slots[i][0]);
+			
 			Slots[i][0] = -1;
 			continue;
 		}

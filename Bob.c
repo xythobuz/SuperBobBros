@@ -8,6 +8,7 @@
 #include "timer.h"
 #include "keybios.h"
 #include "mechanics.h"
+#include "Draw.h"
 
 char menu_data[1024] = { 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
 	255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -111,6 +112,7 @@ int AddIn_main(int isAppli, unsigned short OptionNum) {
 				}
 			}
 		}
+		drawEnemy(60, 48, 0);
 		Bdisp_PutDisp_DD();
 		GetKey(&key);
 		if (key == KEY_CTRL_F1) {

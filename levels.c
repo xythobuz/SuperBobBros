@@ -64,6 +64,8 @@ int getsizeEnemy(int level, char y, int whichEnemy) {
 	if ((whichEnemy < 0) || (whichEnemy > 3)) {
 		return -1;
 	}
+	
+	
 	return getSize(level, (ENEMYA + whichEnemy), y);
 }
 
@@ -102,14 +104,17 @@ int removeCoin(int level, char x, char y) {
 int removeEnemyRaw(int level, char x, char y, int whichEnemy) {
 	int size;
 	int i;
+	char temp2;
 	size = getsizeEnemy(level, y, whichEnemy);
+	temp2 = ENEMYA + whichEnemy;
 	for (i = 0; i < size; i++) {
-		if (levels[level][ENEMYA + whichEnemy][y][i] == x) {
-			levels[level][ENEMYA + whichEnemy][y][i] = -2;
+		if ((levels[level][temp2][y][i] == x) && (x > 8)) {
+			levels[level][temp2][y][i] = -2;
 			return 0;
 		}
 	}
 }
+
 
 int isThere(int level, int what, char x, char y) {
 	int i;

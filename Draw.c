@@ -107,7 +107,7 @@ int getBoxPixel(char x, char y) {
 
 int getEnemyPixel(char x, char y, char enemy) {
 	char value = 0;
-	if ((y < 7) && (y >= 0) && (x < 7) && (x >= 0)) {
+	if ((y < 8) && (y >= 0) && (x < 8) && (x >= 0)) {
 		value = enemys[enemy][y];
 		value <<= x;
 		if ((value & 128) != 0) {
