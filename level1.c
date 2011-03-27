@@ -37,7 +37,11 @@ char lvl1_EnemyA_2[1] = { -1 };
 char lvl1_EnemyA_3[1] = { -1 };
 char lvl1_EnemyA_4[1] = { -1 };
 char lvl1_EnemyA_5[1] = { -1 };
+/*
 char lvl1_EnemyA_6[2] = { 8 , -1 };
+*/
+char lvl1_EnemyA_6[1] = { -1 };
+
 char lvl1_EnemyA_7[1] = { -1 };
 
 char lvl1_EnemyB_0[1] = { -1 };

@@ -4,4 +4,4 @@
  * Visit: www.xythobuz.org
  * The actual game
  */
-int playLevel(int level, char playermodel);
+int playLevel(int level, char playermodel, char activateAI);

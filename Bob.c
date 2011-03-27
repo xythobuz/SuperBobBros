@@ -113,10 +113,14 @@ int AddIn_main(int isAppli, unsigned short OptionNum) {
 			}
 		}
 		drawEnemy(60, 48, 0);
+		locate(10, 5);
+		Print((unsigned char*)"F2:AI");
 		Bdisp_PutDisp_DD();
 		GetKey(&key);
 		if (key == KEY_CTRL_F1) {
-			playLevel(1, 0);
+			playLevel(1, 0, 0);
+		} else if (key == KEY_CTRL_F2) {
+			playLevel(1, 0, 1);
 		}
 	}
 	return 1;

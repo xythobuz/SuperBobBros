@@ -37,10 +37,10 @@ int getSize(int level, int what, char y) {
 
 	int i = 0;
 	if ((what < 0) || (what > 6) || (y < 0) || (y > 7)) { 
-		return -1;
+		return 0;
 	}
 	if ((level < 0) || (level >= HOWMANYLEVELS)) {
-		return -1;
+		return 0;
 	}
 	while (levels[level][what][y][i] != -1) {
 		i++;
@@ -62,7 +62,7 @@ int getsizeCoin(int level, char y) {
 
 int getsizeEnemy(int level, char y, int whichEnemy) {
 	if ((whichEnemy < 0) || (whichEnemy > 3)) {
-		return -1;
+		return 0;
 	}
 	
 	
@@ -81,7 +81,7 @@ int removeBox(int level, char x, char y) {
 			}
 		}
 	} else {
-		return -1;
+		return 0;
 	}
 }
 
@@ -97,19 +97,22 @@ int removeCoin(int level, char x, char y) {
 			}
 		}
 	} else {
-		return -1;
+		return 0;
 	}
 }
 
 int removeEnemyRaw(int level, char x, char y, int whichEnemy) {
 	int size;
 	int i;
-	char temp2;
+	// char temp2;
 	size = getsizeEnemy(level, y, whichEnemy);
-	temp2 = ENEMYA + whichEnemy;
+	// temp2 = ENEMYA + whichEnemy;
+	whichEnemy += ENEMYA;
 	for (i = 0; i < size; i++) {
-		if ((levels[level][temp2][y][i] == x) && (x > 8)) {
-			levels[level][temp2][y][i] = -2;
+		// WTF? I can't remember writing this... Max?
+		// if ((levels[level][temp2][y][i] == x) && (x > 8)) {	
+		if (levels[level][whichEnemy][y][i] == x) {
+			levels[level][whichEnemy][y][i] = -2;
 			return 0;
 		}
 	}
@@ -119,18 +122,17 @@ int removeEnemyRaw(int level, char x, char y, int whichEnemy) {
 int isThere(int level, int what, char x, char y) {
 	int i;
 	int size;
-	int flag = 0;
 
 	if ((x >= 0) && (y >= 0) && (y <= 7)) {
 		size = getSize(level, what, y);
 		for (i = 0; i < size; i++) {
 			if (levels[level][what][y][i] == x) {
-				flag++;
+				return 1;
 			}
 		}
-		return flag;
+		return 0;
 	} else {
-		return -1;
+		return 0;
 	}
 }
 
@@ -148,7 +150,7 @@ int isCoin(int level, char x, char y) {
 
 int isEnemyRaw(int level, char x, char y, int whichEnemy) {
 	if ((whichEnemy < 0) || (whichEnemy > (HOWMANYENEMYS - 1))) {
-		return -1;
+		return 0;
 	}
 	return isThere(level, (ENEMYA + whichEnemy), x, y);
 }

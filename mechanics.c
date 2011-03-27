@@ -24,7 +24,7 @@ void timer_1(void) {
 	timer1++;
 }
 
-int playLevel(int level, char playermodel) {
+int playLevel(int level, char playermodel, char activateAI) {
 	int offset = 0; // In pixels...
 	int xPlayer = 16; 
 	int yPlayer = 40;
@@ -98,7 +98,7 @@ int playLevel(int level, char playermodel) {
 					}
 				}
 			}
-			drawLevel(level, offset, xPlayer, yPlayer, direction, playermodel);
+			drawLevel(level, offset, xPlayer, yPlayer, direction, playermodel, activateAI);
 			if (backToMenu != 0) {
 				break;
 			}
@@ -308,7 +308,7 @@ int movePlayer(char button, int *x, int *y, char *direction, int *offset, int le
 	return 0;
 }
 
-int drawLevel(int level, int offset, int xPlayer, int yPlayer, char direction, char model) {
+int drawLevel(int level, int offset, int xPlayer, int yPlayer, char direction, char model, char AI) {
 	int length;
 	int y;
 	int i;
@@ -347,7 +347,9 @@ int drawLevel(int level, int offset, int xPlayer, int yPlayer, char direction, c
 		}
 	}
 	drawPlayer(model, direction, xPlayer, yPlayer);
-	drawAI(level, offset);
+	if (AI == 1) {
+		drawAI(level, offset);
+	}
 	drawGUI(level);
 	draw();
 }
