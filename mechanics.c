@@ -12,7 +12,7 @@
 #include "collisions.h"
 #include "ai.h"
 
-#define TIMEOUT 4
+#define TIMEOUT 5
 
 unsigned int timer1;
 int hp = 3;
