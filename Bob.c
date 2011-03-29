@@ -92,6 +92,21 @@ int menuPixel(int x, int y) {
 	return (menu_data[realval] & off);
 }
 
+int drawmenu() {
+	Bdisp_AllClr_DDVRAM();
+	for (y = 0; y < 64; y++) {
+		for (x = 0; x < 128; x++) {
+			if (menuPixel(x, y) != 0) {
+				Bdisp_SetPoint_VRAM(x, y, 1);
+			}
+		}
+	}
+	drawEnemy(60, 48, 0);
+	locate(10, 5);
+	Print((unsigned char*)"F2:AI");
+	Bdisp_PutDisp_DD();
+}
+
 /*
  * AddIn_main()
  * Parameters are ignored!
@@ -102,25 +117,16 @@ int AddIn_main(int isAppli, unsigned short OptionNum) {
 	unsigned int key;
 	int x;
 	int y;
-
+	
+	drawmenu();
 	while(1) {
-		Bdisp_AllClr_DDVRAM();
-		for (y = 0; y < 64; y++) {
-			for (x = 0; x < 128; x++) {
-				if (menuPixel(x, y) != 0) {
-					Bdisp_SetPoint_VRAM(x, y, 1);
-				}
-			}
-		}
-		drawEnemy(60, 48, 0);
-		locate(10, 5);
-		Print((unsigned char*)"F2:AI");
-		Bdisp_PutDisp_DD();
 		GetKey(&key);
 		if (key == KEY_CTRL_F1) {
 			playLevel(1, 0, 0);
+			drawmenu();
 		} else if (key == KEY_CTRL_F2) {
 			playLevel(1, 0, 1);
+			drawmenu();
 		}
 	}
 	return 1;
