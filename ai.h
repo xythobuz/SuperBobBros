@@ -8,4 +8,4 @@
 
 int isEnemy(int level, char x, char y, int whichEnemy);
 int removeEnemy(int level, char x, char y, int whichEnemy);
-int drawAI(int level, int offset);
+int drawAI();

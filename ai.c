@@ -6,8 +6,9 @@
 #include "ai.h"
 #include "Draw.h"
 #include "levels.h"
+#include "mechanics.h"
 
-#define NUMOFSLOTS 4
+#define NUMOFSLOTS 1
 
 // Four 'slots' for enemys, SlotX[4] = { type, x, y, toDelete, lastDir };
 // Meaning of type:
@@ -18,7 +19,8 @@ char Slot1[5] = { -1, 0, 0, 0, 0 };
 char Slot2[5] = { -1, 0, 0, 0, 0 };
 char Slot3[5] = { -1, 0, 0, 0, 0 };
 char Slot4[5] = { -1, 0, 0, 0, 0 };
-char *Slots[NUMOFSLOTS] = { Slot1, Slot2, Slot3, Slot4 };
+char *Slots[NUMOFSLOTS] = { Slot1 };
+int lastlevel = 0;
 
 char getPixel1(int x, int y) {
 	return (char)Bdisp_GetPoint_VRAM(x, y);
@@ -34,7 +36,7 @@ int getFreeSlot() {
 	return -1;
 }
 
-int drawAI(int level, int offset) {
+int drawAI() {
 	char i;
 	int type;
 	char row;
@@ -42,11 +44,18 @@ int drawAI(int level, int offset) {
 	int Blockoffset = offset / 8;
 	int diff;
 
+	if (level != lastlevel) {
+		lastlevel = level;
+		for (i = 0; i < NUMOFSLOTS; i++) {
+			Slots[i][0] = -1;
+		}
+	}
+
 	// Adding new Enemys to AI System
 	for (i = Blockoffset; i < (Blockoffset + 16); i++) {
 		for (type = 0; type < HOWMANYENEMYS; type++) {
 			for (row = 0; row < 8; row++) {
-				if (isEnemyRaw(level, i, row, type) > 0) {
+				if (isEnemyRaw(level, i, row, type) == 1) {
 					slot = getFreeSlot();
 					if (slot != -1) {
 						Slots[slot][0] = type;
@@ -75,16 +84,16 @@ int drawAI(int level, int offset) {
 			case -1:
 				break;
 			case 0:
-				AI_EnemyA(level, i);
+				AI_EnemyA(i);
 				break;
 		}
 	}
 
-	drawThem(offset);
+	drawThem();
 
 }
 
-int drawThem(int offset) {
+int drawThem() {
 	int i;
 	for (i = 0; i < NUMOFSLOTS; i++) {
 		if ((Slots[i][0] != -1) && (Slots[i][3] != 1)) {
@@ -93,15 +102,43 @@ int drawThem(int offset) {
 	}
 }
 
-int whatsAt(int level, char x, char y) {
+int whatsAt(char x, char y) {
 	if ((isBox(level, x, y)) || (isBlock(level, x, y))) {
 		return 1;
+	} else if (isPlayer(level, x, y) == 1) {
+		return 2;
 	} else {
 		return 0;
 	}
 }
 
-int colLeft(int level, char x, char y) {
+int isPlayer(char x, char y) {
+	int i;
+	char xP = xPlayer;
+	while ((xP % 8) != 0) {
+		xP--;
+		i++;
+	}
+	xP /= 8;
+	if ((xP == x) || (((xP + 1) == x) && (i > 0))) {
+		xP = yPlayer;
+		i = 0;
+		while ((xP % 8) != 0) {
+			xP--;
+			i++;
+		}
+		xP /= 8;
+		if ((xP == y) || (((xP + 1) == y) && (i > 0))) {
+			return 1;
+		} else {
+			return 0;
+		}
+	} else {
+		return 0;
+	}
+}
+
+int colLeft(char x, char y) {
 	int i;
 	int flag = 0;
 	for (i = y; i < (y + 8); i++) {
@@ -114,11 +151,11 @@ int colLeft(int level, char x, char y) {
 	} else {
 		y /= 8;
 		x /= 8;
-		return whatsAt(level, (x - 1), y);
+		return whatsAt((x - 1), y);
 	}
 }
 
-int colRight(int level, char x, char y) {
+int colRight(char x, char y) {
 	int i;
 	int flag = 0;
 	for (i = y; i < (y + 8); i++) {
@@ -131,8 +168,7 @@ int colRight(int level, char x, char y) {
 	} else {
 		y /= 8;
 		x /= 8;
-		return whatsAt(level, (x + 1), y);
-		return 0;
+		return whatsAt((x + 1), y);
 	}
 }
 
@@ -144,37 +180,50 @@ int colDown(char x, char y) {
 			flag++;
 		}
 	}
-	return flag;
+	return whatsAt(x, (y + 1));
 }
 
-int AI_EnemyA(int level, int slot) {
+int AI_EnemyA(int slot) {
+	int temp;
 	if (Slots[slot][4] == 1) {
 		// Walking Left
-		if (colLeft(level, Slots[slot][1], Slots[slot][2])) {
+		temp = colLeft(Slots[slot][1], Slots[slot][2]);
+		if (temp == 1) {
 			Slots[slot][4] = 0;
+		} else if (temp == 2) {
+			die();
 		} else {
 			Slots[slot][1] -= 1;
 		}
 	} else {
 		// Walking Right
-		if (colRight(level, Slots[slot][1], Slots[slot][2])) {
+		temp = colRight(Slots[slot][1], Slots[slot][2]);
+		if (temp == 1) {
 			Slots[slot][4] = 1;
+		} else if (temp == 2) {
+			die();
 		} else {
 			Slots[slot][1] += 1;
 		}
 	}
-	if (colDown(Slots[slot][1], Slots[slot][2])) {
+	temp = colDown(Slots[slot][1], Slots[slot][2]);
+	if (temp == 1) {
 		// Nothing, there is a floor under us
+	} else if (temp == 2) {
+		die();
 	} else {
 		Slots[slot][2] += 1;
 	}
 }
 
-int isEnemy(int level, char x, char y, int whichEnemy) {
+int isEnemy(int level2, char x, char y, int whichEnemy) {
 	int i;
 	int off = 0;
 	int tempx;
 	int tempy;
+	if (level2 != lastlevel) {
+		return 0;
+	}
 	for (i = 0; i < NUMOFSLOTS; i++) {
 		tempx = Slots[i][1];
 		while ((tempx % 8) != 0) {
@@ -196,11 +245,14 @@ int isEnemy(int level, char x, char y, int whichEnemy) {
 	return 0;
 }
 
-int removeEnemy(int level, char x, char y, int whichEnemy) {
+int removeEnemy(int level2, char x, char y, int whichEnemy) {
 	int i;
 	int off;
 	int tempx;
 	int tempy;
+	if (level2 != lastlevel) {
+		return 0;
+	}
 	for (i = 0; i < NUMOFSLOTS; i++) {
 		tempx = Slots[i][1];
 		while ((tempx % 8) != 0) {

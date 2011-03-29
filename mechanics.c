@@ -19,30 +19,37 @@ int hp = 3;
 int points = 0;
 unsigned char stri[4];
 char backToMenu = 0;
+int offset = 0;
+int xPlayer = 16;
+int yPlayer = 40;
+char direction = 0;
+char jump = 0;
+int level;
+char activateAI;
+char playermodel;
 
 void timer_1(void) {
 	timer1++;
 }
 
-int playLevel(int level, char playermodel, char activateAI) {
-	int offset = 0; // In pixels...
-	int xPlayer = 16; 
-	int yPlayer = 40;
+int playLevel(int levelLoc, char playermodelloc, char activateAIloc) {
 	char button = 0; 
 	char temp = 0;
-	char direction = 0;
-	char jump = 0;
 
 	backToMenu = 0;
-	if (hp < 3) {
+	if (hp == 0) {
 		hp = 3;
 	}
+
+	level = levelLoc;
+	activateAI = activateAIloc;
+	playermodel = playermodelloc;
 
 	level--; // Arrays start at 0, Levelnumbers start at 1!
 
 	SetTimer(ID_USER_TIMER1, TIMEOUT, *timer_1);
 
-	drawLevel(level, offset, xPlayer, yPlayer, direction, playermodel);
+	drawLevel();
 
 	while(1) {
 		temp = getButtons();
@@ -60,7 +67,7 @@ int playLevel(int level, char playermodel, char activateAI) {
 		if (timer1 != 0) {
 			// All 100ms...
 			timer1 = 0;
-			temp = movePlayer(button, &xPlayer, &yPlayer, &direction, &offset, level, &jump);
+			temp = movePlayer(button);
 			if (temp == 1) {
 				backToMenu = 1;
 			}
@@ -78,9 +85,9 @@ int playLevel(int level, char playermodel, char activateAI) {
 				}
 			}
 			
-			gravityPlayer(&xPlayer, &yPlayer, &offset, level, &jump);
+			gravityPlayer();
 			if (yPlayer > 58) {
-				die(&xPlayer, &yPlayer, &offset, &jump);
+				die();
 			}
 			if (levels[level][3][0][0] == ((xPlayer / 8) + (offset / 8))) {
 				if (levels[level][3][0][1] == (yPlayer / 8)) {
@@ -90,15 +97,13 @@ int playLevel(int level, char playermodel, char activateAI) {
 						xPlayer = 16;
 						yPlayer = 40;
 						jump = 0;
-						if (hp < 3) {
-							hp = 3;
-						}
+						hp++;
 					} else {
 						backToMenu = 1;
 					}
 				}
 			}
-			drawLevel(level, offset, xPlayer, yPlayer, direction, playermodel, activateAI);
+			drawLevel();
 			if (backToMenu != 0) {
 				break;
 			}
@@ -109,12 +114,12 @@ int playLevel(int level, char playermodel, char activateAI) {
 	return 0;
 }
 
-int die(int *xPlayer, int *yPlayer, int *offset, char *jump) {
+int die() {
 	if (hp > 0) {
-		*xPlayer = 16;
-		*yPlayer = 40;
-		*jump = 0;
-		*offset = 0;
+		xPlayer = 16;
+		yPlayer = 40;
+		jump = 0;
+		offset = 0;
 		hp--;
 	} else {
 		backToMenu = 1;
@@ -122,7 +127,7 @@ int die(int *xPlayer, int *yPlayer, int *offset, char *jump) {
 }
 
 // Draw the Text (Hp, lvl, score)
-int drawGUI(int level) {
+int drawGUI() {
 	locate(0, 0);
 	numToString(hp);
 	Print((unsigned char*)"HP:");
@@ -181,46 +186,46 @@ int numToString(int number) {
 }
 
 // Pull player down & move it up while jumping
-int gravityPlayer(int *x, int *y, int *offset, int level, char *jump) {
+int gravityPlayer() {
 	int result;
 	int rmCheck;
 	
-	if (*jump > 0) {
-		result = checkColPlayerUp(*x, *y, level, *offset);
+	if (jump > 0) {
+		result = checkColPlayerUp(xPlayer, yPlayer, level, offset);
 		switch (result) {
 			case 0:
-				*y = (*y - 1);
-				*jump = (*jump - 1);
+				yPlayer = (yPlayer - 1);
+				jump = (jump - 1);
 				break;
 			case 2: case 5:
-				*jump = 0;
+				jump = 0;
 				rmCheck = removeBox(level, colX, colY);
 				if(rmCheck != -1){
 					hp++;
 				}
 				break;
 			case 1: case 4:
-				*jump = 0;
+				jump = 0;
 				break;
 			case 3: case 6:
 				rmCheck = removeCoin(level, colX, colY);
 				if(rmCheck != -1){
 					points++;
 				}
-				*jump = 0;
+				jump = 0;
 				break;
 			case 7: case 8:
-				die(x, y, offset, jump);
+				die();
 				break;
 		}
 	} else {
-		result = checkColPlayerDown(*x, *y, level, *offset);
+		result = checkColPlayerDown(xPlayer, yPlayer, level, offset);
 		switch (result) {
 			case 0:
-				*y = *y + 1;
+				yPlayer = yPlayer + 1;
 				break;
 			case 3: case 6:
-				*y = *y + 1;
+				yPlayer = yPlayer + 1;
 				rmCheck = removeCoin(level, colX, colY);
 				if(rmCheck != -1){
 					points++;
@@ -237,7 +242,7 @@ int gravityPlayer(int *x, int *y, int *offset, int level, char *jump) {
 	return 0;
 }
 
-int movePlayer(char button, int *x, int *y, char *direction, int *offset, int level, char *jump) {
+int movePlayer(char button) {
 	/*
 	 * 0 = stehen
      * 1 = gehen rechts
@@ -247,29 +252,29 @@ int movePlayer(char button, int *x, int *y, char *direction, int *offset, int le
      * 5 = springen gerade
 	 */
 	int result;
-	int xval = *x; //block-values
+	int xval = xPlayer; //block-values
 	switch (button) {
 		case 0:
-			if (*jump == 0) {
-				*direction = 0; // down/gravity
+			if (jump == 0) {
+				direction = 0; // down/gravity
 			} else {
-				*direction = 5; //jump straight up
+				direction = 5; //jump straight up
 			}
 			break;
 		case 1:
 			// Jump...
-			result = checkColPlayerDown(*x, *y, level, *offset);
-			if (  (result != 0) && (*jump == 0) ) {
-				*jump = 18;
+			result = checkColPlayerDown(xPlayer, yPlayer, level, offset);
+			if (  (result != 0) && (jump == 0) ) {
+				jump = 18;
 			}
 			break;
 		case 2: // Right
-			if (*jump == 0) {
-				*direction = 1; //walk right
+			if (jump == 0) {
+				direction = 1; //walk right
 			} else {
-				*direction = 3; //jump right
+				direction = 3; //jump right
 			}
-			result = checkColPlayerRight(*x, *y, level, *offset);
+			result = checkColPlayerRight(xPlayer, yPlayer, level, offset);
 			if (result == 0) {
 				xval += 1;
 			} else if ((result == 3) || (result == 6)) {
@@ -277,16 +282,16 @@ int movePlayer(char button, int *x, int *y, char *direction, int *offset, int le
 				removeCoin(level, colX, colY);
 				points++;
 			} else if ((result == 7) || (result == 8)) {
-				die(x, y, offset, jump);
+				die();
 			}
 			break;
 		case 3: // Left
-			if (*jump == 0) {
-				*direction = 2;
+			if (jump == 0) {
+				direction = 2;
 			} else {
-				*direction = 4;
+				direction = 4;
 			}
-			result = checkColPlayerLeft(*x, *y, level, *offset);
+			result = checkColPlayerLeft(xPlayer, yPlayer, level, offset);
 			if (result == 0) {
 				xval -= 1;
 			} else if ((result == 3) || (result == 6)) {
@@ -294,7 +299,7 @@ int movePlayer(char button, int *x, int *y, char *direction, int *offset, int le
 				removeCoin(level, colX, colY);
 				points++;
 			} else if ((result == 7) || (result == 8)) {
-				die(x, y, offset, jump);
+				die();
 			}
 			break;
 		case 4:
@@ -304,11 +309,11 @@ int movePlayer(char button, int *x, int *y, char *direction, int *offset, int le
 			return 1;
 			break;
 	}
-	*x = xval;
+	xPlayer = xval;
 	return 0;
 }
 
-int drawLevel(int level, int offset, int xPlayer, int yPlayer, char direction, char model, char AI) {
+int drawLevel() {
 	int length;
 	int y;
 	int i;
@@ -346,8 +351,8 @@ int drawLevel(int level, int offset, int xPlayer, int yPlayer, char direction, c
 			}
 		}
 	}
-	drawPlayer(model, direction, xPlayer, yPlayer);
-	if (AI == 1) {
+	drawPlayer(playermodel, direction, xPlayer, yPlayer);
+	if (activateAI == 1) {
 		drawAI(level, offset);
 	}
 	drawGUI(level);
