@@ -2,19 +2,19 @@
 
 [_1]
 Type=5
-Order=0
-Top=150
-Left=17640
+Order=2
+Top=60
+Left=6330
 Height=12645
 Width=10155
-State=0
+State=16
 Flags=00000020
 Setting=31:1:mechanics.c
 OptionA=0
 
 [_2]
 Type=1
-Order=4
+Order=5
 Top=15
 Left=8160
 Height=4680
@@ -26,7 +26,7 @@ OptionB=15
 
 [_3]
 Type=6
-Order=1
+Order=0
 Top=4665
 Left=8160
 Height=6390
@@ -37,7 +37,7 @@ OptionA=0
 
 [_4]
 Type=7
-Order=2
+Order=4
 Top=15
 Left=2100
 Height=5700
@@ -48,7 +48,7 @@ OptionA=0
 
 [_5]
 Type=8
-Order=5
+Order=6
 Top=5685
 Left=2070
 Height=7185
@@ -81,7 +81,7 @@ OptionA=0
 
 [_8]
 Type=17
-Order=6
+Order=3
 Top=15
 Left=0
 Height=11115
@@ -92,7 +92,7 @@ OptionA=0
 
 [_9]
 Type=15
-Order=3
+Order=1
 Top=3900
 Left=3690
 Height=8085
@@ -143,31 +143,31 @@ Height=9375
 Width=15165
 State=16
 Flags=00000020
-Setting=1:1:level1.h
+Setting=163:1:Bob.c
 OptionA=0
 
 [_36]
 Type=16
 Order=8
-Top=-30
-Left=17010
-Height=9435
+Top=540
+Left=8055
+Height=9240
 Width=7980
 State=16
 Flags=00000020
-Setting=1:1:level1.c
+Setting=1:1:level4.c
 OptionA=0
 
 [_37]
 Type=16
 Order=7
-Top=345
-Left=13500
+Top=1065
+Left=4230
 Height=9375
 Width=14130
-State=0
+State=16
 Flags=00000020
-Setting=40:1:ai.c
+Setting=1:1:levels.c
 OptionA=0
 
 [_38]

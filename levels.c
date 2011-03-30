@@ -9,6 +9,7 @@
 #include "level1.h"
 #include "level2.h"
 #include "level3.h"
+#include "level4.h"
 
 #define BLOCK 0
 #define BOX 1
@@ -20,7 +21,7 @@
 
 
 // levels[lvl.num.][type][y][index]
-char ***levels[HOWMANYLEVELS] = { level1, level2, level3 };
+char ***levels[HOWMANYLEVELS] = { level1, level2, level3, level4 };
 
 int getSize(int level, int what, char y) {
 	// Unfortunately, we can not use sizeof(), because it works only in the same context the array was declared...

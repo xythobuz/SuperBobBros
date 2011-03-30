@@ -3,7 +3,7 @@
  * By: Thomas Buck <taucher.bodensee@googlemail.com>
  * Visit: www.xythobuz.org
  */
-#define HOWMANYLEVELS 3
+#define HOWMANYLEVELS 4
 
 // levels[lvl.num.][type][y][index]
 extern char ***levels[HOWMANYLEVELS];
