@@ -89,9 +89,9 @@ int playLevel(int levelLoc, char playermodelloc, char activateAIloc) {
 			if (yPlayer > 58) {
 				die();
 			}
-			if (levels[level][3][0][0] == ((xPlayer / 8) + (offset / 8))) {
-				if (levels[level][3][0][1] == (yPlayer / 8)) {
-					if ((level + 1) < HOWMANYLEVELS) {
+			if (curLevel[3][0][0] == ((xPlayer / 8) + (offset / 8))) {
+				if (curLevel[3][0][1] == (yPlayer / 8)) {
+					if (existLevel(level + 1)) {
 						level++;
 						offset = 0;
 						xPlayer = 16;
@@ -110,6 +110,7 @@ int playLevel(int levelLoc, char playermodelloc, char activateAIloc) {
 		}
 	}
 
+	freeMem();
 	KillTimer(ID_USER_TIMER1);
 	return 0;
 }
@@ -325,7 +326,7 @@ int drawLevel() {
 		length = getsizeBlocks(level, y);
 		tempy = y * 8;
 		for (i = 0; i < length; i++) {
-			tempx = levels[level][0][y][i];
+			tempx = curLevel[0][y][i];
 			tempx *= 8;
 			tempx -= offset;
 			if ((tempx >= -7) && (tempx < 128)) {
@@ -334,7 +335,7 @@ int drawLevel() {
 		}
 		length = getsizeBox(level, y);
 		for (i = 0; i < length; i++) {
-			tempx = levels[level][1][y][i];
+			tempx = curLevel[1][y][i];
 			tempx *= 8;
 			tempx -= offset;
 			if ((tempx >= -7) && (tempx < 128)) {
@@ -343,7 +344,7 @@ int drawLevel() {
 		}
 		length = getsizeCoin(level, y);
 		for (i = 0; i <= length; i++) {
-			tempx = levels[level][2][y][i];
+			tempx = curLevel[2][y][i];
 			tempx *= 8;
 			tempx -= offset;
 			if ((tempx >= -7) && (tempx < 128)) {

@@ -3,10 +3,11 @@
  * By: Thomas Buck <taucher.bodensee@googlemail.com>
  * Visit: www.xythobuz.org
  */
-#define HOWMANYLEVELS 4
 
-// levels[lvl.num.][type][y][index]
-extern char ***levels[HOWMANYLEVELS];
+int freeMem();
+int existLevel(int level);
+// curLevel[type][y][i]
+extern char **curLevel[8];
 
 int getsizeBlocks(int level, char y);
 int getsizeBox(int level, char y);
