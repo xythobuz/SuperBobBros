@@ -8,6 +8,7 @@ int freeMem();
 int existLevel(int level);
 // curLevel[type][y][i]
 extern char **curLevel[8];
+extern int loadedLevel;
 
 int getsizeBlocks(int level, char y);
 int getsizeBox(int level, char y);

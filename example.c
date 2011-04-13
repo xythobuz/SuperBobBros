@@ -4,7 +4,7 @@
  */
 #include "example.h"
 
-int exampleSize = 101;
+int exampleSize = 112;
 
 char lvl1_Block_0[4] = { 0, 15, 23 , -1 };
 char lvl1_Block_1[4] = { 0, 15, 23 , -1 };

@@ -36,6 +36,9 @@ int playLevel(int levelLoc, char playermodelloc, char activateAIloc) {
 	char button = 0; 
 	char temp = 0;
 
+	freeMem();
+	loadedLevel = -1;
+
 	backToMenu = 0;
 	if (hp == 0) {
 		hp = 3;

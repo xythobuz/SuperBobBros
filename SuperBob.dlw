@@ -2,21 +2,21 @@
 
 [_1]
 Type=5
-Order=6
-Top=60
-Left=6330
-Height=12645
+Order=0
+Top=540
+Left=17595
+Height=10050
 Width=10155
-State=16
+State=0
 Flags=00000020
-Setting=31:1:mechanics.c
+Setting=44:1:levels.c
 OptionA=0
 
 [_2]
 Type=1
-Order=4
+Order=5
 Top=15
-Left=8160
+Left=11460
 Height=4680
 Width=5550
 State=0
@@ -26,9 +26,9 @@ OptionB=15
 
 [_3]
 Type=6
-Order=2
-Top=4665
-Left=8160
+Order=1
+Top=4710
+Left=11445
 Height=6390
 Width=5535
 State=0
@@ -38,7 +38,7 @@ OptionA=0
 [_4]
 Type=7
 Order=3
-Top=15
+Top=90
 Left=2100
 Height=5700
 Width=6060
@@ -48,8 +48,8 @@ OptionA=0
 
 [_5]
 Type=8
-Order=5
-Top=5685
+Order=6
+Top=5760
 Left=2070
 Height=7185
 Width=6075
@@ -81,8 +81,8 @@ OptionA=0
 
 [_8]
 Type=17
-Order=1
-Top=15
+Order=4
+Top=90
 Left=0
 Height=11115
 Width=2085
@@ -92,9 +92,9 @@ OptionA=0
 
 [_9]
 Type=15
-Order=0
-Top=3900
-Left=3690
+Order=2
+Top=1155
+Left=2235
 Height=8085
 Width=8880
 State=0
@@ -161,13 +161,13 @@ OptionA=0
 [_37]
 Type=16
 Order=7
-Top=1065
-Left=4230
+Top=4500
+Left=6630
 Height=9375
 Width=14130
 State=16
 Flags=00000020
-Setting=1:1:levels.c
+Setting=44:1:levels.c
 OptionA=0
 
 [_38]

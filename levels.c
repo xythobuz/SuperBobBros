@@ -24,22 +24,22 @@
 #define ENEMYC 6
 #define ENEMYD 7
 
-const FONTCHARACTER levelFile[18] = { 0xE5, 0x9C, 0xE5, 0x9C, 'f', 'l', 's', '0',
-	0xE5, 0x9C, 'b', 'o', 'b', '.', 'l', 'v', 'l', '\0' }; // "bob.lvl" in Storage
+const FONTCHARACTER levelFile[18] = { '\\', '\\', 'f', 'l', 's', '0',
+	'\\', 'b', 'o', 'b', '.', 'l', 'v', 'l', '\0' }; // "bob.lvl" in Storage
 
-char *block[8];
-char *box[8];
-char *coin[8];
-char *exit[1];
-char *enemyA[8];
-char *enemyB[8];
-char *enemyC[8];
-char *enemyD[8];
+char *bloc[8];
+char *bo[8];
+char *coi[8];
+char *exi[1];
+char *enemA[8];
+char *enemB[8];
+char *enemC[8];
+char *enemD[8];
 
-int loadedLevel = 0;
+int loadedLevel = -1;
 
 // curLevel[type][y][index]
-char **curLevel[8] = { block, box, coin, exit, enemyA, enemyB, enemyC, enemyD };
+char **curLevel[8] = { bloc, bo, coi, exi, enemA, enemB, enemC, enemD };
 
 int loadLevel(int level) {
 	// Loads given level into curLevel[][][]...
@@ -49,21 +49,21 @@ int loadLevel(int level) {
 	ret = Bfile_OpenFile(levelFile, _OPENMODE_READ);
 	if (ret < 0) {
 		// Error! Try creating file
-		ret = Bfile_CreateFile(levelFile, exampleSize);
+		ret = Bfile_CreateFile(levelFile, (exampleSize + (8 * 8) + 8 + 1)); // Some bytes for x y z
 		if (ret < 0) {
 			// Error again. Aborting!
 			PopUpWin(1);
-			locate(8, 5);
-			Print((unsigned char*)"Error:");
-			PrintC((unsigned char*)(ret * -1) + '0');
+			locate(7, 4);
+			Print((unsigned char*)"Error: 42");
+			Bdisp_PutDisp_DD();
 			return -1;
 		}
 		ret = Bfile_OpenFile(levelFile, _OPENMODE_READWRITE_SHARE);
 		if (ret < 0) {
 			PopUpWin(1);
-			locate(8, 5);
-			Print((unsigned char*)"Error:");
-			PrintC((unsigned char*)(ret * -1) + '0');
+			locate(7, 4);
+			Print((unsigned char*)"Error: 0");
+			Bdisp_PutDisp_DD();
 			return -1;
 		}
 		// File created, fill it with example.
@@ -80,6 +80,9 @@ int loadLevel(int level) {
 						count++;
 						break;
 					}
+				}
+				if (type == 3) {
+					count = 2;
 				}
 				Bfile_WriteFile(ret, example[type][y], count);
 				buf = 'x';
@@ -116,19 +119,19 @@ int loadLevel(int level) {
 			}
 			count = 0;
 			for (i = 0; 1; i++) {
-				Bfile_ReadFile(ret, &buf, 1, -1);
-				if (buf != -1) {
-					count++;
-				} else {
-					count++;
+				if (type == 3) {
+					break;
+				}
+				count += Bfile_ReadFile(ret, &buf, 1, -1);
+				if (buf == -1) {
 					break;
 				}
 			}
-			Bfile_SeekFile(ret, (count * -1)); // Rewind
+			Bfile_SeekFile(ret, (count * -1) - 1); // Rewind
 			if (type == 3) {
 				count = 2; // Level End Coordinates
 			}
-			if (curLevel[type][y] == 0) {
+			if (curLevel[type][y] != 0) {
 				free(curLevel[type][y]);
 				curLevel[type][y] = 0;
 			}
@@ -185,7 +188,11 @@ int getSize(int level, int what, char y) {
 		return 2;
 	}
 	if (level != loadedLevel) {
-		loadLevel(level);
+		i = loadLevel(level);
+		if (i == -1) {
+			return 0;
+		}
+		i = 0;
 	}
 	while (curLevel[what][y][i] != -1) {
 		i++;
@@ -210,7 +217,6 @@ int getsizeEnemy(int level, char y, int whichEnemy) {
 		return 0;
 	}
 	
-	
 	return getSize(level, (ENEMYA + whichEnemy), y);
 }
 
@@ -218,7 +224,11 @@ int removeBox(int level, char x, char y) {
 	int size;
 	int i;
 	if (level != loadedLevel) {
-		loadLevel(level);
+		i = loadLevel(level);
+		if (i == -1) {
+			return 0;
+		}
+		i = 0;
 	}
 	if ((x >= 0) && (y >= 0) && (y <= 7)) {
 		size = getsizeBox(level, y);
@@ -237,7 +247,11 @@ int removeCoin(int level, char x, char y) {
 	int size;
 	int i;
 	if (level != loadedLevel) {
-		loadLevel(level);
+		i = loadLevel(level);
+		if (i == -1) {
+			return 0;
+		}
+		i = 0;
 	}
 	if ((x >= 0) && (y >= 0) && (y <= 7)) {
 		size = getsizeCoin(level, y);
@@ -256,7 +270,11 @@ int removeEnemyRaw(int level, char x, char y, int whichEnemy) {
 	int size;
 	int i;
 	if (level != loadedLevel) {
-		loadLevel(level);
+		i = loadLevel(level);
+		if (i == -1) {
+			return 0;
+		}
+		i = 0;
 	}
 	// char temp2;
 	size = getsizeEnemy(level, y, whichEnemy);
@@ -277,7 +295,11 @@ int isThere(int level, int what, char x, char y) {
 	int i;
 	int size;
 	if (level != loadedLevel) {
-		loadLevel(level);
+		i = loadLevel(level);
+		if (i == -1) {
+			return 0;
+		}
+		i = 0;
 	}
 	if ((x >= 0) && (y >= 0) && (y <= 7)) {
 		size = getSize(level, what, y);
