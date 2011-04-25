@@ -43,13 +43,14 @@ char **curLevel[8] = { bloc, bo, coi, exi, enemA, enemB, enemC, enemD };
 
 int loadLevel(int level) {
 	// Loads given level into curLevel[][][]...
-	int ret, type, y, i, count = 0;
+	int ret, type, y, i, tmp, count = 0;
 	char buf = 0;
+	char buffer[2];
 
 	ret = Bfile_OpenFile(levelFile, _OPENMODE_READ);
 	if (ret < 0) {
 		// Error! Try creating file
-		ret = Bfile_CreateFile(levelFile, (exampleSize + (8 * 8) + 8 + 1)); // Some bytes for x y z
+		ret = Bfile_CreateFile(levelFile, (exampleSize + 2)); // Some bytes for level end marker
 		if (ret < 0) {
 			// Error again. Aborting!
 			PopUpWin(1);
@@ -58,7 +59,7 @@ int loadLevel(int level) {
 			Bdisp_PutDisp_DD();
 			return -1;
 		}
-		ret = Bfile_OpenFile(levelFile, _OPENMODE_READWRITE_SHARE);
+		ret = Bfile_OpenFile(levelFile, _OPENMODE_WRITE);
 		if (ret < 0) {
 			PopUpWin(1);
 			locate(7, 4);
@@ -84,15 +85,16 @@ int loadLevel(int level) {
 				if (type == 3) {
 					count = 2;
 				}
+
+				// Casios WriteFile only works if you write even numbers...
+				// Thats why the example level has only even arrays...
+				// Space is filled with -2
 				Bfile_WriteFile(ret, example[type][y], count);
-				buf = 'x';
-				Bfile_WriteFile(ret, &buf, 1);
 			}
-			buf = 'y';
-			Bfile_WriteFile(ret, &buf, 1);
 		}
-		buf = 'z';
-		Bfile_WriteFile(ret, &buf, 1);
+		buffer[0] = -3;
+		buffer[1] = -4;
+		Bfile_WriteFile(ret, buffer, 2);
 		Bfile_CloseFile(ret);
 		ret = Bfile_OpenFile(levelFile, _OPENMODE_READ);
 		if (ret < 0) {
@@ -105,7 +107,7 @@ int loadLevel(int level) {
 	// Search correct level in file
 	while (level > 0) {
 		Bfile_ReadFile(ret, &buf, 1, -1);
-		if (buf == 'z') {
+		if (buf == -4) {
 			level--;
 		}
 	}
@@ -118,16 +120,20 @@ int loadLevel(int level) {
 				break;
 			}
 			count = 0;
+			buf = 0;
 			for (i = 0; 1; i++) {
 				if (type == 3) {
 					break;
 				}
-				count += Bfile_ReadFile(ret, &buf, 1, -1);
+				do {
+					tmp = Bfile_ReadFile(ret, &buf, 1, -1);
+				} while (tmp < 0);
+				count += tmp;
 				if (buf == -1) {
 					break;
 				}
 			}
-			Bfile_SeekFile(ret, (count * -1) - 1); // Rewind
+			Bfile_SeekFile(ret, (count * -1)); // Rewind
 			if (type == 3) {
 				count = 2; // Level End Coordinates
 			}
@@ -135,10 +141,17 @@ int loadLevel(int level) {
 				free(curLevel[type][y]);
 				curLevel[type][y] = 0;
 			}
+
 			curLevel[type][y] = (char*)malloc(count * sizeof(char));
-			for (i = 0; i < count; i++) {
-				Bfile_ReadFile(ret, curLevel[type][y], count, -1);
-			}
+
+			i = 0;
+			do {
+				tmp = Bfile_ReadFile(ret, curLevel[type][y], count, -1);
+				i++;
+				if (i > 20) {
+					tmp = 0;
+				}
+			} while (tmp < 0);
 		}
 	}
 	Bfile_CloseFile(ret);
