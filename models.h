@@ -1,8 +1,22 @@
 /*
  * models.h
- * By: Thomas Buck <taucher.bodensee@googlemail.com>
- * Visit: www.xythobuz.org
- *Defines the look of Penis, boex and block, etc....
+ *
+ * Copyright 2011 Thomas Buck, Max Nuding
+ *
+ * This file is part of SuperBobBros.
+ * SuperBobBros is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SuperBobBros is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with SuperBobBros. If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 // player[pl.model][anim][y]

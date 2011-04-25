@@ -1,0 +1,8 @@
+Readme for new devs (hopefully ;)
+===================================
+This is the master branch. The AI is nonworking. Levels are loaded from huge arrays, which are built with BLC,
+a tool written in C that converts level sources (found in dir levels) to *.c and *.h files. It is portable.
+
+Developement currently happens in another branch. See the README.developers there for more infos.
+
+If you change anything, make sure to include your name in the Copyright notice!
