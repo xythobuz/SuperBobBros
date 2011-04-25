@@ -1,9 +1,0 @@
-level
-0|xxxxxxxxxxxxxxxxxxxxxxxxxbcxxb  cbccccxx     x
-1|x                       xbx   xx  xcccx      x
-2|x   x       cx     xx   xb2     x xcccxxxxx  x
-3|xb  x   c  cxx    xx   xxbxxbxx x xxxxx     xx
-4|x  bx x   cxxc 1 xcxx   xb   cxcx   c       xx
-5|xb  x   x xxxxxxbccx   xcbxxxxxxx xxxx     x x
-6|x   x        cccccxxx     x c         x   x  x
-7|xxxxx     xxxxxxxxxx   xxxx  xxxx      xxx   x
