@@ -59,7 +59,7 @@ char **curLevel[8] = { bloc, bo, coi, exi, enemA, enemB, enemC, enemD };
 
 int loadLevel(int level) {
 	// Loads given level into curLevel[][][]...
-	int ret, type, y, i, tmp, count = 0;
+	int ret, type, y, i, tmp, count = 0, oldpos = 0, pos = 0, size;
 	char buf = 0;
 	char buffer[2];
 
@@ -119,10 +119,10 @@ int loadLevel(int level) {
 	}
 
 	loadedLevel = level;
-
+	size = Bfile_GetFileSize(ret);
 	// Search correct level in file
 	while (level > 0) {
-		Bfile_ReadFile(ret, &buf, 1, -1);
+		pos += Bfile_ReadFile(ret, &buf, 1, pos);
 		if (buf == -4) {
 			level--;
 		}
@@ -132,24 +132,30 @@ int loadLevel(int level) {
 	// Write level into buffer
 	for (type = 0; type < 8; type++) {
 		for (y = 0; y < 8; y++) {
+			if (pos >= size) {
+				pos = 0;
+			}
 			if ((type == 3) && (y > 0)) {
 				break;
 			}
 			count = 0;
 			buf = 0;
+			oldpos = pos;
 			for (i = 0; 1; i++) {
 				if (type == 3) {
 					break;
 				}
 				do {
-					tmp = Bfile_ReadFile(ret, &buf, 1, -1);
+					tmp = Bfile_ReadFile(ret, &buf, 1, pos);
 				} while (tmp < 0);
 				count += tmp;
+				pos += tmp;
 				if (buf == -1) {
 					break;
 				}
 			}
-			Bfile_SeekFile(ret, (count * -1)); // Rewind
+			Bfile_SeekFile(ret, oldpos); // Rewind
+			pos = oldpos;
 			if (type == 3) {
 				count = 2; // Level End Coordinates
 			}
@@ -160,14 +166,10 @@ int loadLevel(int level) {
 
 			curLevel[type][y] = (char*)malloc(count * sizeof(char));
 
-			i = 0;
 			do {
-				tmp = Bfile_ReadFile(ret, curLevel[type][y], count, -1);
-				i++;
-				if (i > 20) {
-					tmp = 0;
-				}
+				tmp = Bfile_ReadFile(ret, curLevel[type][y], count, pos);
 			} while (tmp < 0);
+			pos += tmp;
 		}
 	}
 	Bfile_CloseFile(ret);
@@ -183,7 +185,7 @@ int existLevel(int level) {
 	} else {
 		do {
 			left = Bfile_ReadFile(ret, &buf, 1, -1);
-			if (buf == 'z') {
+			if (buf == -4) {
 				count++;
 			}
 		} while (left > 0);

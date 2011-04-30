@@ -9,12 +9,12 @@ Height=10050
 Width=10155
 State=0
 Flags=00000020
-Setting=129:1:levels.c
+Setting=149:1:levels.c
 OptionA=0
 
 [_2]
 Type=1
-Order=4
+Order=6
 Top=15
 Left=11460
 Height=4680
@@ -37,7 +37,7 @@ OptionA=0
 
 [_4]
 Type=7
-Order=1
+Order=3
 Top=105
 Left=2100
 Height=5700
@@ -48,7 +48,7 @@ OptionA=0
 
 [_5]
 Type=8
-Order=5
+Order=4
 Top=5760
 Left=2070
 Height=7185
@@ -81,7 +81,7 @@ OptionA=0
 
 [_8]
 Type=17
-Order=3
+Order=5
 Top=90
 Left=0
 Height=11115
@@ -92,9 +92,9 @@ OptionA=0
 
 [_9]
 Type=15
-Order=6
-Top=1155
-Left=2235
+Order=1
+Top=870
+Left=3795
 Height=8085
 Width=8880
 State=16
