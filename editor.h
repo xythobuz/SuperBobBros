@@ -19,4 +19,4 @@
  *
  */
 
-void levelEditor();
+int levelEditor();

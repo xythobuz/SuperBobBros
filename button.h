@@ -20,3 +20,4 @@
  */
 
 char getButtons();
+int getNumber(); // 00 to 99, prints one line text!

@@ -123,6 +123,10 @@ int playLevel(int levelLoc, char playermodelloc, char activateAIloc) {
 			}
 			drawLevel();
 			if (backToMenu != 0) {
+				xPlayer = 16;
+				yPlayer = 40;
+				jump = 0;
+				offset = 0;
 				break;
 			}
 		}

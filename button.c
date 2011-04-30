@@ -21,6 +21,7 @@
 #include "fxlib.h"
 #include "button.h"
 #include "keybios.h"
+#include "fxlib.h"
 
 char getButtons() {
 	// Casio has broken shit... We do something about it...
@@ -42,4 +43,63 @@ char getButtons() {
 		return -1;
 	}
 	return 0;
+}
+
+int getNumber() {
+	int nums[2] = { 0, 0 };
+	int i = 0;
+	unsigned char buf[2];
+	buf[1] = '\0';
+
+	Print((unsigned char*)"Ent. Num (2 DIG.):");
+	Bdisp_PutDisp_DD();
+	
+	for (i = 0; i <= 1; i++) {
+		while(1) {
+			if (IsKeyDown(KEY_CHAR_0)) {
+				nums[i] = 0;
+				break;
+			}
+			if (IsKeyDown(KEY_CHAR_1)) {
+				nums[i] = 1;
+				break;
+			}
+			if (IsKeyDown(KEY_CHAR_2)) {
+				nums[i] = 2;
+				break;
+			}
+			if (IsKeyDown(KEY_CHAR_3)) {
+				nums[i] = 3;
+				break;
+			}
+			if (IsKeyDown(KEY_CHAR_4)) {
+				nums[i] = 4;
+				break;
+			}
+			if (IsKeyDown(KEY_CHAR_5)) {
+				nums[i] = 5;
+				break;
+			}
+			if (IsKeyDown(KEY_CHAR_6)) {
+				nums[i] = 6;
+				break;
+			}
+			if (IsKeyDown(KEY_CHAR_7)) {
+				nums[i] = 7;
+				break;
+			}
+			if (IsKeyDown(KEY_CHAR_8)) {
+				nums[i] = 8;
+				break;
+			}
+			if (IsKeyDown(KEY_CHAR_9)) {
+				nums[i] = 9;
+				break;
+			}
+		}
+		buf[0] = nums[i] + '0';
+		PrintC(buf);
+		Bdisp_PutDisp_DD();
+	}
+	return (nums[0] * 10) + nums[1];
 }

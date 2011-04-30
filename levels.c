@@ -73,6 +73,7 @@ int loadLevel(int level) {
 			locate(7, 4);
 			Print((unsigned char*)"Error: 42");
 			Bdisp_PutDisp_DD();
+			Sleep(2000);
 			return -1;
 		}
 		ret = Bfile_OpenFile(levelFile, _OPENMODE_WRITE);
@@ -81,6 +82,7 @@ int loadLevel(int level) {
 			locate(7, 4);
 			Print((unsigned char*)"Error: 0");
 			Bdisp_PutDisp_DD();
+			Sleep(2000);
 			return -1;
 		}
 		// File created, fill it with example.

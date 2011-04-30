@@ -27,3 +27,6 @@ extern int level;
 
 int playLevel(int level, char playermodel, char activateAI);
 int die();
+
+extern unsigned char stri[4];
+int numToString(int number);

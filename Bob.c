@@ -24,6 +24,7 @@
 #include "mechanics.h"
 #include "Draw.h"
 #include "editor.h"
+#include "levels.h"
 
 char menu_data[1024] = { 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
     255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -135,17 +136,23 @@ int AddIn_main(int isAppli, unsigned short OptionNum) {
 	drawMenu();
 
     while(1) {
-        
+        loadedLevel = -1;
         GetKey(&key);
         if (key == KEY_CTRL_F1) {
             playLevel(1, 0, 0);
+			Sleep(500); // So users are not put into the game while leaving the editor...
 			drawMenu();
+			continue;
         } else if (key == KEY_CTRL_F2) {
             playLevel(1, 0, 1);
+			Sleep(500);
 			drawMenu();
+			continue;
         } else if (key == KEY_CTRL_F6) {
 			levelEditor();
+			Sleep(500);
 			drawMenu();
+			continue;
 		}
     }
     return 1;

@@ -81,7 +81,7 @@ Sublevel=1
 [Breakpoint]
 File=Z:\Users\thomas\Projekte\fxSDK\SuperBobBros\levels.c
 Line=24
-Flags=00001010
+Flags=00001012
 Sublevel=1
 
 [Breakpoint]
@@ -194,7 +194,7 @@ Flags=00001012
 [Breakpoint]
 File=Z:\Users\thomas\Projekte\fxSDK\SuperBobBros\levels.c
 Line=156
-Flags=00001010
+Flags=00001012
 Sublevel=1
 
 [Breakpoint]
@@ -211,7 +211,7 @@ Sublevel=2
 [Breakpoint]
 File=Z:\Users\thomas\Projekte\fxSDK\SuperBobBros\levels.c
 Line=119
-Flags=00001010
+Flags=00001012
 Sublevel=1
 
 [Breakpoint]
@@ -245,5 +245,25 @@ Sublevel=2
 [Breakpoint]
 File=Z:\Users\thomas\Projekte\fxSDK\SuperBobBros\levels.c
 Line=156
-Flags=00001010
+Flags=00001012
 Sublevel=2
+
+[Breakpoint]
+File=Z:\Users\thomas\Projekte\fxSDK\SuperBobBros\button.c
+Line=47
+Flags=00001010
+
+[Breakpoint]
+File=Z:\Users\thomas\Projekte\fxSDK\SuperBobBros\button.c
+Line=60
+Flags=00001012
+
+[Breakpoint]
+File=Z:\Users\thomas\Projekte\fxSDK\SuperBobBros\button.c
+Line=61
+Flags=00001012
+
+[Breakpoint]
+File=Z:\Users\thomas\Projekte\fxSDK\SuperBobBros\button.c
+Line=98
+Flags=00001010
