@@ -1,7 +1,7 @@
 Readme for new devs (hopefully ;)
 ===================================
-This is the dev-editor branch. The AI is nonworking. Levels should be loaded from a file in the Calculators
-Memory. This is under construction right now. Later we want to add level-editor capabilities. This
-editor will be able to send levels to another calculator with the serial connection.
+This is the dev-editor branch. The AI is nonworking. Levels are loaded from a file in the Calcs
+Storage Memory. We are now working at the level editor. This editor will be able to send levels
+to another calculator with the serial connection.
 
 If you change anything, make sure to include your name in the Copyright notice!

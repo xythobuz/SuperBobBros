@@ -251,7 +251,7 @@ Sublevel=2
 [Breakpoint]
 File=Z:\Users\thomas\Projekte\fxSDK\SuperBobBros\button.c
 Line=47
-Flags=00001010
+Flags=00001012
 
 [Breakpoint]
 File=Z:\Users\thomas\Projekte\fxSDK\SuperBobBros\button.c
@@ -266,4 +266,4 @@ Flags=00001012
 [Breakpoint]
 File=Z:\Users\thomas\Projekte\fxSDK\SuperBobBros\button.c
 Line=98
-Flags=00001010
+Flags=00001012

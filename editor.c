@@ -30,6 +30,7 @@ const FONTCHARACTER Path[18] = { '\\', '\\', 'f', 'l', 's', '0',
 
 char* levelB;
 char* tmplevel;
+char** currentLev[8];
 int size;
 
 int levelEditor() {
@@ -50,9 +51,7 @@ int levelEditor() {
 	Bdisp_AllClr_DDVRAM();
 		
 	levelB = (char*)malloc(size * sizeof(char));
-	for (i = 0; i < size; i++) {
-		Bfile_ReadFile(fh, &levelB[i], 1, i);
-	}
+	Bfile_ReadFile(fh, levelB, size, 0);
 	Bfile_CloseFile(fh);
 	
 	drawMen();
@@ -75,7 +74,7 @@ int levelEditor() {
 		editLevel();
 	}
 	if (mode == 2) {
-
+		addLevel();
 	}
 
 	free(levelB);
@@ -84,11 +83,126 @@ int levelEditor() {
 
 int editLevel() {
 	int level;
+	int offset;
 
 	Print((unsigned char*)"Which Level to Edit?");
 	Bdisp_PutDisp_DD();
 	locate(1, 6);
 	level = getNumber();
+	Bdisp_AllClr_DDVRAM();
+	locate(1, 1);
+	Print((unsigned char*)"Press EXE to start!");
+	locate(1, 2);
+	Print((unsigned char*)"F1: Block");
+	locate(1, 3);
+	Print((unsigned char*)"F2: Box");
+	locate(1, 4);
+	Print((unsigned char*)"F3: Coin");
+	locate(1, 5);
+	Print((unsigned char*)"F4-F6: Enemy A-C");
+	locate(1, 6);
+	Print((unsigned char*)"tan: En. D; cos: Exit");
+	locate(1, 7);
+	Print((unsigned char*)"Cursor: Arrows");
+	locate(1, 8);
+	Print((unsigned char*)"DEL: Abort; AC: Save");
+	Bdisp_PutDisp_DD();
+	while(IsKeyUp(KEY_CTRL_EXE));
+	load(level);
+
+	drawEditScreen(0);
+	Sleep(5000);
+
+	unload();
+}
+
+int addLevel() {
+	
+}
+
+int load(int level) {
+	// Load level into currentLev
+	int pos = 0, i, j, size;
+	int* sizes[8];
+
+	for (i = 0; i < 8; i++) {
+		currentLev[i] = (char*)malloc(8 * sizeof(char*));
+		sizes[i] = (int*)malloc(8 * sizeof(int));
+	}
+
+	while(level > 0) {
+		while(levelB[pos++] != -4);
+		level--;
+	}
+
+	for (i = 0; i < 8; i++) {
+		for (j = 0; j < 8; j++) {
+			sizes[i][j] = 0;
+			while(levelB[pos + sizes[i][j]] != -1) {
+				sizes[i][j]++;
+			}
+			sizes[i][j]++;
+			currentLev[i][j] = (char*)malloc(sizes[i][j] * sizeof(char));
+			for (size = 0; size < sizes[i][j]; size++) {
+				currentLev[i][j][size] = levelB[pos + size];
+			}
+			pos += sizes[i][j];
+		}
+	}
+
+	for (i = 0; i < 8; i++) {
+		free(sizes[i]);
+	}
+	return 0;
+}
+
+int unload() {
+	int i, j;
+	for (i = 0; i < 8; i++) {
+		for (j = 0; j < 8; j++) {
+			free(currentLev[i][j]);
+		}
+		free(currentLev[i]);
+	}
+}
+
+int drawEditScreen(int offset) {
+	int y, type, i, xPos, yPos, size;
+	for (type = 0; type < 8; type++) {
+		for (y = 0; y < 8; y++) {
+			if (y == 3) {
+				continue;
+			}
+			size = 0;
+			while(currentLev[type][y][size] != -1) {
+				size++;
+			}
+			size++;
+			yPos = y * 8;
+			for (i = 0; i < size; i++) {
+				xPos = currentLev[type][y][size] * 8;
+				xPos = xPos - offset;
+				if ((xPos < -8) || (xPos > 128)) {
+					continue;
+				}
+				switch (type) {
+					case 0:
+						drawBlock(xPos, yPos);
+						break;
+					case 1:
+						drawBox(xPos, yPos);
+						break;
+					case 2:
+						drawCoin(xPos, yPos);
+						break;
+					case 4: case 5: case 6: case 7:
+						drawEnemy(xPos, yPos, (type - 4));
+						break;
+				}
+			}
+		}
+	}
+	
 }
 
 int drawMen() {
