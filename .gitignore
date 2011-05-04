@@ -22,3 +22,11 @@ Debug/mechanics.lst
 Debug/mechanics.obj
 Debug/models.lst
 Debug/models.obj
+Debug/ai.lst
+Debug/ai.obj
+Debug/editor.lst
+Debug/editor.obj
+Debug/example.lst
+Debug/example.obj
+INIT/CasioROM.mem
+INIT/CasioUserROM.mem
