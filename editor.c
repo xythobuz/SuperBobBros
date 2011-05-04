@@ -31,7 +31,7 @@ const FONTCHARACTER Path[18] = { '\\', '\\', 'f', 'l', 's', '0',
 char* levelB;
 char* tmplevel;
 char** currentLev[8];
-int size;
+int fsize;
 
 int levelEditor() {
 	int fh, i, mode;
@@ -47,11 +47,11 @@ int levelEditor() {
 		Sleep(2000);
 		return -1;
 	}
-	size = Bfile_GetFileSize(fh);
+	fsize = Bfile_GetFileSize(fh);
 	Bdisp_AllClr_DDVRAM();
 		
-	levelB = (char*)malloc(size * sizeof(char));
-	Bfile_ReadFile(fh, levelB, size, 0);
+	levelB = (char*)malloc(fsize * sizeof(char));
+	Bfile_ReadFile(fh, levelB, fsize, 0);
 	Bfile_CloseFile(fh);
 	
 	drawMen();
@@ -89,6 +89,9 @@ int editLevel() {
 	Bdisp_PutDisp_DD();
 	locate(1, 6);
 	level = getNumber();
+	if (level > 0) {
+		level--;
+	}
 	Bdisp_AllClr_DDVRAM();
 	locate(1, 1);
 	Print((unsigned char*)"Press EXE to start!");
@@ -126,7 +129,14 @@ int load(int level) {
 	int* sizes[8];
 
 	for (i = 0; i < 8; i++) {
-		currentLev[i] = (char*)malloc(8 * sizeof(char*));
+		if (currentLev[i] != NULL) {
+			free(currentLev[i]);
+		}
+		if (i != 3) {
+			currentLev[i] = (char**)malloc(8 * sizeof(char*));
+		} else {
+			currentLev[i] = (char**)malloc(2 * sizeof(char*));
+		}
 		sizes[i] = (int*)malloc(8 * sizeof(int));
 	}
 
@@ -137,11 +147,16 @@ int load(int level) {
 
 	for (i = 0; i < 8; i++) {
 		for (j = 0; j < 8; j++) {
-			sizes[i][j] = 0;
+			if ((i == 3) && (j > 1)) {
+				i = 4;
+				j = -1;
+				continue;
+			}
+
+			sizes[i][j] = 1;
 			while(levelB[pos + sizes[i][j]] != -1) {
 				sizes[i][j]++;
 			}
-			sizes[i][j]++;
 			currentLev[i][j] = (char*)malloc(sizes[i][j] * sizeof(char));
 			for (size = 0; size < sizes[i][j]; size++) {
 				currentLev[i][j][size] = levelB[pos + size];
@@ -229,8 +244,8 @@ int drawMen() {
 
 int copyLevel(int add) {
 	int i;
-	tmplevel = (char*)malloc((size + add) * sizeof(char));
-	for (i = 0; i < size; i++) {
+	tmplevel = (char*)malloc((fsize + add) * sizeof(char));
+	for (i = 0; i < fsize; i++) {
 		tmplevel[i] = levelB[i];
 	}
 	free(levelB);

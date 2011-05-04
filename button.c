@@ -100,6 +100,7 @@ int getNumber() {
 		buf[0] = nums[i] + '0';
 		PrintC(buf);
 		Bdisp_PutDisp_DD();
+		Sleep(500);
 	}
 	return (nums[0] * 10) + nums[1];
 }
