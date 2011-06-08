@@ -61,12 +61,11 @@ int loadLevel(int level) {
 	// Loads given level into curLevel[][][]...
 	int ret, type, y, i, tmp, count = 0, oldpos = 0, pos = 0, size;
 	char buf = 0;
-	char buffer[2];
 
 	ret = Bfile_OpenFile(levelFile, _OPENMODE_READ);
 	if (ret < 0) {
 		// Error! Try creating file
-		ret = Bfile_CreateFile(levelFile, (exampleSize + 2)); // Some bytes for level end marker
+		ret = Bfile_CreateFile(levelFile, (exampleSize + 1)); // Some bytes for level end marker
 		if (ret < 0) {
 			// Error again. Aborting!
 			PopUpWin(1);
@@ -86,33 +85,7 @@ int loadLevel(int level) {
 			return -1;
 		}
 		// File created, fill it with example.
-		for (type = 0; type < 8; type++) {
-			for (y = 0; y < 8; y++) {
-				if ((type == 3) && (y > 0)) {
-					break;
-				}
-				count = 0;
-				for (i = 0; 1; i++) {
-					if (example[type][y][i] != -1) {
-						count++;
-					} else {
-						count++;
-						break;
-					}
-				}
-				if (type == 3) {
-					count = 2;
-				}
-
-				// Casios WriteFile only works if you write even numbers...
-				// Thats why the example level has only even arrays...
-				// Space is filled with -2
-				Bfile_WriteFile(ret, example[type][y], count);
-			}
-		}
-		buffer[0] = -3;
-		buffer[1] = -4;
-		Bfile_WriteFile(ret, buffer, 2);
+		Bfile_WriteFile(ret, example, exampleSize);
 		Bfile_CloseFile(ret);
 		ret = Bfile_OpenFile(levelFile, _OPENMODE_READ);
 		if (ret < 0) {
@@ -125,7 +98,7 @@ int loadLevel(int level) {
 	// Search correct level in file
 	while (level > 0) {
 		pos += Bfile_ReadFile(ret, &buf, 1, pos);
-		if (buf == -4) {
+		if (buf == -3) {
 			level--;
 		}
 	}
@@ -305,7 +278,7 @@ int removeEnemyRaw(int level, char x, char y, int whichEnemy) {
 	if (level != loadedLevel) {
 		i = loadLevel(level);
 		if (i == -1) {
-			return 0;
+			return -1;
 		}
 		i = 0;
 	}
@@ -318,11 +291,25 @@ int removeEnemyRaw(int level, char x, char y, int whichEnemy) {
 		// if ((levels[level][temp2][y][i] == x) && (x > 8)) {	
 		if (curLevel[whichEnemy][y][i] == x) {
 			curLevel[whichEnemy][y][i] = -2;
-			return 0;
+			return i;
 		}
 	}
+	return -1;
 }
 
+int setEnemyRaw(int level, char x, char y, int whichEnemy, int pos) {
+	if (level != loadedLevel) {
+		if (loadLevel(level) == -1) {
+			return -1;
+		}
+	}
+	whichEnemy += ENEMYA;
+	if (pos >= getsizeEnemy(level, y, whichEnemy)) {
+		return -1;
+	}
+	curLevel[whichEnemy][y][pos] = x;
+	return 0;
+}
 
 int isThere(int level, int what, char x, char y) {
 	int i;

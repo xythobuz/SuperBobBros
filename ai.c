@@ -23,9 +23,14 @@
 #include "levels.h"
 #include "mechanics.h"
 
+
+// Rewrite: MAXSLOTS, dynamic memory allocation for slots, current slot amount
+// in a var...
+
+
 #define NUMOFSLOTS 1
 
-// Four 'slots' for enemys, SlotX[4] = { type, x, y, toDelete, lastDir };
+// Four 'slots' for enemys, SlotX[5] = { type, x, y, toDelete, lastDir };
 // Meaning of type:
 // -1 = inactive
 // 0 -> (HOWMANYENEMYS - 1) = Slot in use, thats the enemy type.
@@ -79,7 +84,7 @@ int drawAI() {
 						Slots[slot][4] = 0;
 						diff = i - Blockoffset;
 						Slots[slot][1] = offset + (diff * 8);
-						removeEnemyRaw(level, i, row, type);
+						removeEnemyRaw(level, i, row, type); // CHANGED API!!!
 					}
 				}
 			}
@@ -118,10 +123,11 @@ int drawThem() {
 }
 
 int whatsAt(char x, char y) {
-	if ((isBox(level, x, y)) || (isBlock(level, x, y))) {
-		return 1;
-	} else if (isPlayer(level, x, y) == 1) {
+	
+	if (isPlayer(level, x, y) == 1) {
 		return 2;
+	} else if ((isBox(level, x, y)) || (isBlock(level, x, y))) {
+		return 1;
 	} else {
 		return 0;
 	}

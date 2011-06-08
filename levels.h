@@ -35,6 +35,8 @@ int removeBox(int level, char x, char y);
 int removeCoin(int level, char x, char y);
 int removeEnemyRaw(int level, char x, char y, int whichEnemy);
 
+int setEnemyRaw(int level, char x, char y, int whichEnemy, int pos);
+
 int isBox(int level, char x, char y);
 int isBlock(int level, char x, char y);
 int isCoin(int level, char x, char y);

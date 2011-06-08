@@ -313,6 +313,7 @@ Sublevel=2
 File=Z:\Users\thomas\Projekte\fxSDK\SuperBobBros\editor.c
 Line=156
 Flags=00001012
+Sublevel=1
 
 [Breakpoint]
 File=Z:\Users\thomas\Projekte\fxSDK\SuperBobBros\editor.c
@@ -335,3 +336,9 @@ Sublevel=2
 File=Z:\Users\thomas\Projekte\fxSDK\SuperBobBros\editor.c
 Line=162
 Flags=00001012
+
+[Breakpoint]
+File=Z:\Users\thomas\Projekte\fxSDK\SuperBobBros\editor.c
+Line=156
+Flags=00001012
+Sublevel=2
