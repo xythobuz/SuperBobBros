@@ -103,11 +103,12 @@ int playLevel(int levelLoc, char playermodelloc, char activateAIloc) {
 				}
 			}
 			
-			gravityPlayer();
+			gravityPlayer(); // Schwerkraft
 			if (yPlayer > 58) {
-				die();
+				die(); // Unten rausgefallen
 			}
-			if (curLevel[3][0][0] == ((xPlayer / 8) + (offset / 8))) {
+
+			if (curLevel[3][0][0] == ((xPlayer / 8) + (offset / 8))) { // Levelende erreicht?
 				if (curLevel[3][0][1] == (yPlayer / 8)) {
 					if (existLevel(level + 1)) {
 						level++;
@@ -121,7 +122,9 @@ int playLevel(int levelLoc, char playermodelloc, char activateAIloc) {
 					}
 				}
 			}
-			drawLevel();
+
+			drawLevel(); // Zeichne Bildschirm
+
 			if (backToMenu != 0) {
 				xPlayer = 16;
 				yPlayer = 40;
